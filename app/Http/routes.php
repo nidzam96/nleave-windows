@@ -11,17 +11,13 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::auth();
+Route::auth();
 
-// Route::get('/home', 'HomeController@index');
-
-//Login Page
-Route::get('/', ['as' => 'get.login', 'uses' => 'PagesController@getLogin']);
-Route::post('/', ['as' => 'post.login', 'uses' => 'PagesController@postLogin']);
+Route::get('/home', 'HomeController@index');
 
 //Route for PagesController
 Route::get('admin/dashboard', 'AdminController@dashboard');
