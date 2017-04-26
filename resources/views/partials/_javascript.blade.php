@@ -1,15 +1,15 @@
 
   <!-- START JSCRIPT -->
 	<!-- jQuery -->
-  {{ Html::script('asset/js/jquery-2.1.1.min.js') }}
-  {{ Html::script('asset/js/plugins/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}
+  {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}
+  <!-- {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }} -->
 
   <!-- Bootstrap Core JavaScript -->
-  {{ Html::script('asset/js/bootstrap.min.js') }}
-  {{ Html::script('asset/js/metisMenu.js') }}
+  {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}
+  <!-- {{ Html::script('asset/js/metisMenu.js') }} -->
 
   <!-- Custom JavaScript -->
-  {{ Html::script('asset/js/jsfunc.js') }}  
+  <!-- {{ Html::script('asset/js/jsfunc.js') }}   -->
   <!-- Custom JavaScript -->
 
 @yield('scripts')

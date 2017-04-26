@@ -1,0 +1,23 @@
+body{
+	background-image: url('/sampleweb/images/ummah.jpg');
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	background-attachment: cover;
+	background-position: 50% 50%;
+
+}
+.container{
+	background-color: #777;
+	max-width: 400px;
+	height: 450px;
+	margin-top: 150px;
+	border-radius: 5px;
+
+}
+input{
+	width: 100%;
+}
+.btn-block{
+	margin-top: 20px;
+	height: 50px;
+}

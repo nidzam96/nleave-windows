@@ -1,0 +1,115 @@
+﻿.dashboard-content .section-head {
+    padding: 30px 25px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.dashboard-content label.form-label {
+    text-indent: 30px
+}
+
+.section-body .form-set input[type='checkbox'] {
+    opacity: 0;
+    float: left;
+    width: 18px;
+    z-index: 2;
+    cursor: default;
+}
+
+.section-body .form-set input[type='checkbox'] + label {
+    margin: 0;
+    clear: none;
+    background-image: url("../images/checkbox-default.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    display:inline-block;
+    z-index: 1;
+
+    /* Left padding makes room for image */
+    padding: 5px 0 4px 14px;
+}
+
+.section-body .form-set input[type='checkbox']:checked + label {
+    background-image: url("../images/checkbox-active.png");
+    display:inline-block;
+    color: #BFBFBF;
+}
+
+.form-set {
+    background-color: white;
+    color: #BFBFBF;
+    padding-right: 30px;
+}
+
+/* Only highlight the first action item*/
+.form-set.todo {
+    border-color: #46B1C9;
+    color: #808080;
+}
+.form-set.todo ~ .todo {
+    border-color: #ddd;
+}
+
+.form-set.todo a.btn:not(.btn-done) {
+    background-color: #46B1C9;
+    color: white;
+    border: 0px;
+}
+.form-set.todo ~ .form-set.todo a.btn {
+    background-color: #d4d1d1;
+    color: black;
+}
+
+.form-set a {
+    min-width: 152px;
+}
+
+.form-set div[class^="col-md"] {
+    padding-top: 5px;
+}
+
+.form-set p.step-title {
+    padding-left: 60px;
+}
+
+.form-set img {
+    margin-top: 8px;
+}
+
+.section-share {
+    text-align: center;
+
+    padding: 10px;
+}
+
+a.share-facebook {
+    background-image: url("../icons/Shape_21.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    text-align: center;
+
+    display: inline-block;
+
+    width: 35px;
+    height: 40px;
+    padding: 0px 6px;
+    margin: 0px 0px;
+}
+
+a.share-linkedin {
+    background-image: url("../icons/Shape_24.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    text-align: center;
+
+    display: inline-block;
+
+    width: 35px;
+    height: 40px;
+    padding: 0px 6px;
+    margin: 0px 0px;
+}

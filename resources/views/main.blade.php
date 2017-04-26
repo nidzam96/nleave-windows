@@ -5,9 +5,7 @@
 @include('partials._header')
 </head>
 
-<body id="top" class="backroundimg">
-	<!-- WRAPPER -->
-	<div class="wrapper">
+<body>
 
 @yield('content')
 
