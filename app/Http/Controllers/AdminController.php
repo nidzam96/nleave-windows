@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Leave;
 
 class AdminController extends Controller
 {
@@ -32,6 +33,11 @@ class AdminController extends Controller
     //Shows leave page
     public function leave(){
     	return view('admin.leave');
+    }
+
+    public function applyLeave(Request $request){
+        $varpost=New Leave;
+
     }
 
     //Shows benefits page

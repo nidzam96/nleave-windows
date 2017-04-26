@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('content')
+@section('pagetitle','Leave')
+
+@section('section')
     <div class="section-2">
         <div class="tabs" role="tabpanel">
             <ul class="nav-tabs" role="tablist">
@@ -28,7 +30,7 @@
                             </div>
 
                             <div class="top30">
-                                <div id="calendar"></div>
+                                <div id='calendar'></div>
                             </div>
                         </div>
 
@@ -38,7 +40,7 @@
                                     <div class="form-body">
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane active" id="leave">
-                                                <form id="applyleave" method="post">
+                                                <form id="applyleave" method="post" action="{{ route('admin.apply') }}">
                                                     <input type="hidden" name="crsfmiddlewaretoken">
                                                     <input type="hidden" name="action" value="apply_leave">
 

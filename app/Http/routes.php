@@ -26,6 +26,8 @@ Route::get('admin/users', 'AdminController@users');
 
 Route::get('admin/leave', 'AdminController@leave');
 
+Route::post('admin/applyLeave', ['as' => 'admin.apply', 'uses' => 'AdminController@applyLeave']);
+
 Route::get('admin/benefits', 'AdminController@benefits');
 
 Route::get('admin/profile', 'AdminController@showProfile');

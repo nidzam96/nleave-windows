@@ -1,18 +1,9 @@
-<title>Benefits | Nazrol HR</title>
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Benefits</div>
+@section('pagetitle','Benefits')
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+@section('section')
+    <div class="col-md-8 col-md-offset-2">
+        <div id="calendar"></div>
     </div>
-</div>
 @endsection
