@@ -50,8 +50,8 @@
                                                             <label class="form-label">Select Location</label>
                                                             <div class="form-controls">
                                                                 <select name="location" id="location" class="form-control">
-                                                                @foreach ($varbranch as $branch)
-                                                                    <option value="{{$branch->id}}" selected="selected">{{$branch->branch_name}}</option>
+                                                                @foreach ($branchview as $branch)
+                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
                                                                 @endforeach
                                                                 </select>
                                                             </div>
@@ -61,7 +61,7 @@
                                                             <label class="form-label">Select Employees</label>
                                                             <div class="form-controls">
                                                                 <select name="selectEmployee" id="selectEmployee" class="form-control">
-                                                                    <option value="Nidzam">Nidzam</option>
+                                                                    <option value="{{Auth::user()->id}}">{{Auth::user()->name}}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -70,12 +70,11 @@
                                                             <label class="form-label">Leave Type</label>
                                                             <div class="form-controls">
                                                                 <select name="leaveType" id="leaveType" class="form-control">
-                                                                    <option value="Annual" data-availdays="5.5">Annual</option>
-                                                                    <option value="Hospitaliztion" data-availdays="60.0">Hospitalization</option>
-                                                                    <option value="Replacement" data-availdays="0.0">Replacement</option>
-                                                                    <option value="Sick" data-availdays="14.0">Sick</option>
-                                                                </select>
                                                                 
+                                                                    <option value=""></option>
+                                                                
+                                                                </select>
+                                                                <h2><strong></strong></h2>
                                                             </div>
                                                         </div>
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Leave;
+use App\Branch;
+use App\Leavetype;
 
 class AdminController extends Controller
 {
@@ -32,7 +34,10 @@ class AdminController extends Controller
 
     //Shows leave page
     public function leave(){
-    	return view('admin.leave');
+
+        $varbranch = Branch::all();
+
+        return view('admin.leave')->with('branchview', $varbranch);
     }
 
     public function applyLeave(Request $request){

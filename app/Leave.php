@@ -7,4 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Leave extends Model
 {
     //
+    public function user(){
+    	$this->belongsTo('App\User');
+    }
+
+    public function branch(){
+    	$this->belongsTo('App\Branch');
+    }
+
+    public function ltype(){
+    	$this->belongsTo('App\Leavetype');
+    }
 }
