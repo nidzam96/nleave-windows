@@ -50,7 +50,9 @@
                                                             <label class="form-label">Select Location</label>
                                                             <div class="form-controls">
                                                                 <select name="location" id="location" class="form-control">
-                                                                    <option value="Kelantan" selected="selected">Kelantan</option>
+                                                                @foreach ($varbranch as $branch)
+                                                                    <option value="{{$branch->id}}" selected="selected">{{$branch->branch_name}}</option>
+                                                                @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
