@@ -18,4 +18,8 @@ class Leave extends Model
     public function ltype(){
     	$this->belongsTo('App\Leavetype');
     }
+
+    public function ltime(){
+        $this->belongsTo('App\Leavetime');
+    }
 }

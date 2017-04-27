@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.calendar-layout')
 
 @section('pagetitle','Benefits')
 
