@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 /*
@@ -53,4 +51,3 @@ Route::resource('staffs', 'StaffsController');
 Route::resource('leaves', 'LeavesController');
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
->>>>>>> ec825643444da9b5ef599f246757d986d79c9fe8
