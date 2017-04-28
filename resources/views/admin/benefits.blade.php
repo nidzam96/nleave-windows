@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 @extends('admin.calendar-layout')
 
 @section('pagetitle','Benefits')
@@ -9,4 +7,3 @@
         <div id="calendar"></div>
     </div>
 @endsection
->>>>>>> ec825643444da9b5ef599f246757d986d79c9fe8

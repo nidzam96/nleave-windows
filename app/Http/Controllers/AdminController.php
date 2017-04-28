@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 namespace App\Http\Controllers;
@@ -56,4 +54,3 @@ class AdminController extends Controller
     	return view('admin.profile');
     }
 }
->>>>>>> ec825643444da9b5ef599f246757d986d79c9fe8

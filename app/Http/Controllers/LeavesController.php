@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 namespace App\Http\Controllers;
@@ -118,4 +116,3 @@ class LeavesController extends Controller
         return redirect() ->route('admin.leaves')->withSuccess('Leave request sent');
     }
 }
->>>>>>> ec825643444da9b5ef599f246757d986d79c9fe8
