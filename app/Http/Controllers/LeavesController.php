@@ -36,10 +36,10 @@ class LeavesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -84,5 +84,35 @@ class LeavesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function applyLeave(Request $request){
+
+        // dd($request);
+
+        $this->validate($request, [
+
+                'branch' => 'required',
+                'selectEmployee' => 'required',
+                'leaveType' => 'required',
+                'ltime' => 'required',
+                'sdate' => 'required',
+                'edate' => 'required',
+                'reason' => 'required',
+            ]);
+
+        $leave = new Leave;
+        // dd($leave);
+        $leave->user_id = $request->input('selectEmployee');
+        $leave->branch_id = $request->input('branch');
+        $leave->ltype_id = $request->input('leaveType');
+        $leave->ltime_id = $request->input('ltime');
+        $leave->sdate = $request->input('sdate');
+        $leave->edate = $request->input('edate');
+        $leave->reason = $request->input('reason');
+
+        $leave->save();
+
+        return redirect() ->route('admin.leaves')->withSuccess('Leave request sent');
     }
 }

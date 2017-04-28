@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Leave;
 use App\Branch;
 use App\Leavetype;
+use App\Leavetime;
 
 class AdminController extends Controller
 {
@@ -36,14 +37,12 @@ class AdminController extends Controller
     public function leave(){
 
         $varbranch = Branch::all();
+        $varltype = Leavetype::all();
+        $varltime = Leavetime::all();
 
-        return view('admin.leave')->with('branchview', $varbranch);
+        return view('admin.leave')->with('branchview', $varbranch)->with('ltview', $varltype)->with('ltiview', $varltime);
     }
 
-    public function applyLeave(Request $request){
-        $varpost=New Leave;
-
-    }
 
     //Shows benefits page
     public function benefits(){
