@@ -113,6 +113,8 @@ class LeavesController extends Controller
 
         $leave->save();
 
-        return redirect() ->route('admin.leaves')->withSuccess('Leave request sent');
+        flash('Leave request sent')->overlay();
+
+        return redirect() ->route('admin.leaves');
     }
 }
