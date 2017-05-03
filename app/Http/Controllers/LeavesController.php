@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Leave;
+use App\User;
 
 class LeavesController extends Controller
 {
@@ -17,6 +18,7 @@ class LeavesController extends Controller
     public function index()
     {
         //
+        return view('admin.events');
 
     }
 
@@ -113,8 +115,16 @@ class LeavesController extends Controller
 
         $leave->save();
 
-        flash('Leave request sent')->overlay();
+        //send email
+        // $user = User::where(User->position = 'HR');
 
-        return redirect() ->route('admin.leaves');
+        // Mail::send('email.reminder', ['user' => $user], function ($m) use ($user) {
+        //     $m->from('hello@app.com', 'Your Application');
+
+        //     $m->to($user->email, $user->name)->subject('Your Reminder!');
+        // });
+        // flash('Leave request sent')->overlay();
+
+        return redirect() ->route('send');
     }
 }

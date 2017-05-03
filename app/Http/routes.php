@@ -19,7 +19,7 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-//Route for PagesController
+//Route for AdminController
 Route::get('admin/dashboard', 'AdminController@dashboard');
 
 Route::get('admin/users', 'AdminController@users');
@@ -48,6 +48,11 @@ Route::resource('positions', 'PositionsController');
 Route::resource('staffs', 'StaffsController');
 
 //Route for leave
-Route::resource('leaves', 'LeavesController');
+Route::get('admin/events', ['as' => 'admin.events', 'uses' => 'LeavesController@index']);
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
+
+Route::resource('leaves', 'LeavesController');
+
+//Route for EmailController
+Route::post('/send', ['as' => 'send', 'uses' => 'EmailController@send'] );
