@@ -40,7 +40,7 @@
                                     <div class="form-body">
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane active" id="leave">
-                                                <form id="applyleave" method="post" action="{{ route('send') }}">
+                                                <form id="applyleave" method="post" action="{{ route('leaves.apply') }}">
                                                     {{ csrf_field() }}
                                                     <!-- <input type="hidden" name="action" value="apply_leave"> -->
 

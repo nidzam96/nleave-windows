@@ -73,15 +73,26 @@
       var y = date.getFullYear();
 
       var calendar = $('#calendar').fullCalendar({
-       editable: true,
-       header: {
+        
+        editable: true,
+        header: {
         left: 'prev,next today',
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
-       },
+        },
        
-       // events: "{{ route('admin.events') }}",
-       events: "http://kakitangan.dev/resources/views/admin/events.php",
+        events: "{{ url('/admin/events') }}",
+        // events: "http://kakitangan.dev/resources/views/admin/events.php",
+      
+        // calendar.fullCalendar('renderEvent',
+        // {
+        //   title: title,
+        //   start: start,
+        //   end: end,
+        //   allDay: allDay
+        // },
+        //   true // make the event "stick"
+        // );
 
       });
 

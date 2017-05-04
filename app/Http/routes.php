@@ -48,7 +48,7 @@ Route::resource('positions', 'PositionsController');
 Route::resource('staffs', 'StaffsController');
 
 //Route for leave
-Route::get('admin/events', ['as' => 'admin.events', 'uses' => 'LeavesController@index']);
+Route::get('admin/events', 'LeavesController@index');
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
 
