@@ -110,9 +110,9 @@ class LeavesController extends Controller
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
         $leave->ltime_id = $request->input('ltime');
-        $leave->sdate = $request->input('sdate');
-        $leave->edate = $request->input('edate');
-        $leave->reason = $request->input('reason');
+        $leave->start = $request->input('sdate');
+        $leave->end = $request->input('edate');
+        $leave->title = $request->input('reason');
 
         $leave->save();
 
