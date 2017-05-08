@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Leave;
 use App\User;
 use Mail;
+use Alert;
 
 class LeavesController extends Controller
 {
@@ -96,7 +97,7 @@ class LeavesController extends Controller
         $this->validate($request, [
 
                 'branch' => 'required',
-                'selectEmployee' => 'required',
+                // 'selectEmployee' => 'required',
                 'leaveType' => 'required',
                 'ltime' => 'required',
                 'sdate' => 'required',
@@ -106,7 +107,7 @@ class LeavesController extends Controller
 
         $leave = new Leave;
         // dd($leave);
-        $leave->user_id = $request->input('selectEmployee');
+        $leave->user_id = Auth()->user()->id;
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
         $leave->ltime_id = $request->input('ltime');
@@ -132,6 +133,9 @@ class LeavesController extends Controller
 
         });
 
+        alert()->success('You applications have been sent. Please wait for your approval.', 'Thamk You!');
+
         return redirect() ->route('admin.leaves');
     }
+
 }

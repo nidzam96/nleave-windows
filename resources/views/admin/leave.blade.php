@@ -11,11 +11,16 @@
                         Apply for leave
                     </a>
                 </li>
+                <li role="presentation" style="margin-left: -2px;">
+                    <a href="#applications" role="tab" data-toggle="tab" aria-controls="applications" id="tabApplications">
+                        View Applications
+                    </a>
+                </li>
             </ul>
         </div>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="apply">
+            <div class="tab-pane active" id="apply" role="tabpanel">
                 <section class="section-secondary section-calendar">
                     
                     <div class="row">
@@ -57,14 +62,14 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-row">
+                                                        <!-- <div class="form-row">
                                                             <label class="form-label">Select Employees</label>
                                                             <div class="form-controls">
                                                                 <select name="selectEmployee" id="selectEmployee" class="form-control">
                                                                     <option value="{{Auth::user()->id}}" >{{Auth::user()->name}}</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
                                                         <div class="form-row">
                                                             <label class="form-label">Leave Type</label>
@@ -76,7 +81,7 @@
                                                                 @endforeach
                                                                 </select>
 
-                                                                <p><strong id="avails-day"></strong> Available days</p>
+                                                                <!-- <p><strong id="avails-day"></strong> Available days</p> -->
                                                             </div>
                                                                 
                                                         </div>
@@ -127,6 +132,115 @@
                     </div>
                 </section>
             </div>
+
+            <div role="tabpanel" class="tab-pane" id="applications">
+                <section class="section-secondary section-summary">
+
+                    <div class="section-head" >
+                        <div class="row">
+                         <div class="col-md-10" style="margin-left: 280px">
+                           <h2 class="title">Leave Summary</h2><!-- /.section-title -->
+
+                           <p>View and manage your leave applications.</p>
+                         </div><!-- /.col-md-10 -->
+
+                       </div><!-- /.row -->
+                     </div><!-- /.section-head -->
+
+                     <div class="section-body">
+                        
+                        <div class="form form-rules leave-table-fitlering">
+                            <div class="form-row">
+                                <div class="form-controls">
+                                    <select id="select_department" name="select_department" class="form-control" required>
+                                        <option value="">Select department</option>
+                                    </select>
+                                </div>
+                             
+                                <div class="form-controls">
+                                    <select id="select_location" name="select_location" class="form-control" required>
+                                        <option value="">Select location</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-controls">
+                                    <input id="daterange-summarytable" class = "field date-range-picker  form-control" placeholder="Select date range to filter" value="" >
+                                </div>
+                             
+                                <div class="pull-right" style="padding-top: 0">
+                                    <div class="form-controls">
+                                        <input class="form-control field" type="text" id="leave_summary_table_search" placeholder="search"/>
+                                    </div>
+                                    
+                                    <div class="form-controls">
+                                        <div class="section-actions form-control">
+                                            <a href="/leave/view_application?format=csv&q=leave_history" data-href="/leave/view_application?format=csv&q=leave_history" class="link-export">
+                                                
+                                                <i class="glyphicon glyphicon-export"></i>
+                                                Export
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                        
+                        <br>
+                        <br>
+                        <br>
+
+                        <div class="table-resonsive">
+                            <table class="table table-bordered" id="leaveTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        @if (Auth::user()->id == '6')
+                                            <th width="140">Employee</th>
+                                            <th width="100">Position</th>
+                                        @endif
+                                            <th width="120">Date</th>
+                                            <th width="120">From</th>
+                                            <th width="120">To</th>
+                                            <th width="63">Days</th>
+                                            <th width="110">Type</th>
+                                            <th width="">Reason</th>
+                                            <th width="60">Attachment</th>
+                                            <th width="170">Status</th>
+                                    </tr>
+                                </thead>
+
+                                @foreach($leaves as $leave)
+                                    <tbody>
+                                        <tr>    
+                                            @if (Auth::user()->id == '6')
+                                                <td>{{ $leave->user_id }}</td>
+                                                <td></td>
+                                            @endif
+                                                <td>{{ $leave->created_at->format('d M Y') }} </td>
+                                                <td>{{ $leave->start->format('d M Y') }}</td>
+                                                <td>{{ $leave->end->format('d M Y') }}</td>
+
+                                                @if ($leave->ltime_id == 1)
+                                                    <td>{{ $leave->end->format('d') - $leave->start->format('d') + 1 }}</td>
+                                                @else
+                                                    <td>{{ $leave->end->format('d') - $leave->start->format('d') - 0.5 }}</td>
+                                                @endif
+
+                                                <td>{{ $leave->ltype_id }}</td>
+                                                <td>{{ $leave->title }}</td>
+                                                <td></td>
+                                                <td></td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+                            </table>
+                        </div><!-- /.table -->
+                    
+                    </div><!-- /.section-body -->
+                </section><!-- /.section-secondary -->
+            </div>
         </div>
+
     </div>
+
+
 @endsection

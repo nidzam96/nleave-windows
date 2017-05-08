@@ -79,10 +79,6 @@
 			</nav>
 		</dir>
 
-	  	<div class="container-fluid">
-	    	@include('flash::message')
-	  	</div>
-		
 		@yield('section')
 
 @endsection

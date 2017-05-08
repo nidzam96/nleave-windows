@@ -36,11 +36,13 @@ class AdminController extends Controller
     //Shows leave page
     public function leave(){
 
-        $varbranch = Branch::all();
-        $varltype = Leavetype::all();
-        $varltime = Leavetime::all();
+        $branch = Branch::all();
+        $ltype = Leavetype::all();
+        $ltime = Leavetime::all();
 
-        return view('admin.leave')->with('branchview', $varbranch)->with('ltview', $varltype)->with('ltiview', $varltime);
+        $leave = Leave::all();
+
+        return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave);
     }
 
 

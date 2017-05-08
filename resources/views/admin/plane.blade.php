@@ -20,6 +20,7 @@
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
     {{ Html::style('asset/css/team.css') }}
+    {{ Html::style('asset/css/style1.css') }}
     <!-- {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }} -->
     
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}

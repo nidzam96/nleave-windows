@@ -19,11 +19,15 @@
     {{ Html::style('asset/css/fa/css/font-awesome.css') }}
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
+    <!-- {{ Html::style('asset/css/sweetalert.css') }} -->
     {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }}
 
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
     {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
     {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
+    
+    <!-- {{ Html::script('asset/js/sweetalert.min.js') }}   -->
+    <!-- @include('sweet::alert') -->
 
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}
     {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
@@ -40,31 +44,16 @@
     <!-- {{ Html::style('asset/css/metisMenu.css') }} -->
     <!-- {{ Html::style('asset/css/main.css') }} -->
 
-@yield('extrastyles')    
-
-</head>
-
-<body>
-
-  @yield('body')
-
-
-  <!-- START JSCRIPT -->
-	<!-- jQuery -->
-
-  <!-- Bootstrap Core JavaScript -->
-  <!-- {{ Html::script('asset/js/bootstrap.min.js') }} -->
-  <!-- {{ Html::script('asset/js/metisMenu.js') }} -->
-
-  <!-- Custom JavaScript -->
-  <!-- {{ Html::script('asset/js/jsfunc.js') }}   -->
-  <!-- Custom JavaScript -->
-
-  <!-- {{ Html::script('asset/js/cal.js') }}   -->
+@yield('extrastyles')   
 
   <script>
 
     $(document).ready(function() {
+
+      function ActiveTab(tab) {
+          $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+      }
+
       var date = new Date();
       var d = date.getDate();
       var m = date.getMonth();
@@ -130,47 +119,33 @@
         },
      
         editable: false,
-      
-        eventDrop: function(event, delta) {
-          
-          var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
-          var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
-          
-          $.ajax({
-            url: 'http://localhost/calendar/update_events.php',
-            data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-            type: "POST",
-            
-            success: function(json) {
-              alert("Updated Successfully");
-            }
-          
-          });
-        },
-     
-        eventResize: function(event) {
-     
-          var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
-          var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
-          
-          $.ajax({
-            url: 'http://localhost/calendar/update_events.php',
-            data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-            type: "POST",
-          
-            success: function(json) {
-              alert("Updated Successfully");
-            }
-          });
-        }
      
     });
     
    });
 
-  </script>
+  </script> 
 
-@include('flash::message')
+</head>
+
+<body>
+
+  @yield('body')
+
+
+  <!-- START JSCRIPT -->
+	<!-- jQuery -->
+
+  <!-- Bootstrap Core JavaScript -->
+  <!-- {{ Html::script('asset/js/bootstrap.min.js') }} -->
+  <!-- {{ Html::script('asset/js/metisMenu.js') }} -->
+
+  <!-- Custom JavaScript -->
+  <!-- {{ Html::script('asset/js/jsfunc.js') }}   -->
+  <!-- Custom JavaScript -->
+
+  <!-- {{ Html::script('asset/js/cal.js') }}   -->
+
 
 <!-- END JSCRIPT -->
 	@yield('extrascripts')
