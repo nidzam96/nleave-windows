@@ -228,7 +228,26 @@
                                                 <td>{{ $leave->ltype_id }}</td>
                                                 <td>{{ $leave->title }}</td>
                                                 <td></td>
-                                                <td></td>
+                                            @if (Auth::user()->id == '6')
+                                                <div class="form-group">
+                                                    
+                                                    <td>
+                                                        <h2 class="btn btn-info">{{ $leave->status }}</h2>
+
+                                                        <br>
+                                                        <br>
+                                                        
+                                                        @if ($leave->status != 'Approve' && $leave->status != 'Reject')
+                                                            <a href="{{ route('leave.approve', $leave->id) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
+                                                            <a href="{{ route('leave.reject', $leave->id) }}" type="button" id="btn-reject" class="btn btn-danger">Reject</a>
+                                                        @endif
+    
+                                                    </td>
+
+                                                </div>
+                                            @else
+                                                <td><h2 class="btn btn-info" style="margin-top: 0">{{ $leave->status }}</h2></td>
+                                            @endif
                                         </tr>
                                     </tbody>
                                 @endforeach

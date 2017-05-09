@@ -50,24 +50,20 @@
 
     $(document).ready(function() {
 
-      function ActiveTab(tab) {
-          $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-      }
 
-      var date = new Date();
-      var d = date.getDate();
-      var m = date.getMonth();
-      var y = date.getFullYear();
-
-      var calendar = $('#calendar').fullCalendar({
+      $('#calendar').fullCalendar({
         
+        theme: true,
         editable: true,
+        eventLimit: true,
         
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay,listWeek'
+          right: 'month,agendaWeek,agendaDay,listMonth'
         },
+
+        nextDayThreshold: '00:00:00',
      
         events: "{{ url('/admin/events') }}",
      
@@ -81,29 +77,20 @@
             event.allDay = false;
           }
 
+          element.find("button#btn-reject").click(function () {
+            $('#calendar').fullCalendar('removeEvents', event_id);
+          });
+
         },
      
         selectable: false,
         selectHelper: false,
      
         select: function(start, end, allDay) {
-        
-          // var title = prompt('Event Title:');
-          // var url = prompt('Type Event url, if exits:');
      
           if (title) {
             var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
-            var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");
-            
-            $.ajax({
-              url: 'http://localhost/calendar/add_events.php',
-              data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
-              type: "POST",
-             
-              success: function(json) {
-                alert('Added Successfully');
-              }
-            });
+            var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");            
 
             calendar.fullCalendar('renderEvent',
             {
@@ -112,7 +99,7 @@
               end: end,
               allDay: allDay
             },
-              true // make the event "stick",
+              // true // make the event "stick",
             );
           }
             calendar.fullCalendar('unselect');

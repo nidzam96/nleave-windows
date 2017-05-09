@@ -114,9 +114,11 @@ class LeavesController extends Controller
         $leave->start = $request->input('sdate');
         $leave->end = $request->input('edate');
         $leave->title = $request->input('reason');
+        $leave->status = "Pending";
 
         $leave->save();
 
+        $user_id = Auth()->user()->id;
         $branch_id = $request->input('branch');
         $ltype_id = $request->input('leaveType');
         $ltime_id = $request->input('ltime');
@@ -124,18 +126,54 @@ class LeavesController extends Controller
         $edate = $request->input('edate');
         $reason= $request->input('reason');
 
+        $receiver = User::where('id', $user_id)->get();
+        $r_email = $receiver->email->get();
+        $r_name = $receiver->name;
+
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
 
-            $message->from('me@gmail.com', 'Tester');
+            $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to('HR@nazrol.tech');
+            $message->to($r_email, $r_name);
 
         });
 
-        alert()->success('You applications have been sent. Please wait for your approval.', 'Thamk You!');
+        alert()->success('You applications have been sent. Please wait for your approval.', 'Thank You!');
 
         return redirect() ->route('admin.leaves');
     }
 
+    public function approve($id){
+
+        $leave = Leave::where('id', $id)->update(array ('status' => 'Approve'));
+
+        Mail::send('emails.approve', [] , function ($message)
+        {
+
+            $message->from(Auth()->user()->email, Auth()->user()->name);
+
+            $message->to('Tester@nazrol.tech', 'Tester');
+
+        });
+
+        return redirect()-> route('admin.leaves');
+
+    }
+
+    public function reject($id){
+
+        $leave = Leave::where('id', $id)->update(array ('status' => 'Reject'));
+
+        Mail::send('emails.reject', [], function ($message)
+        {
+
+            $message->from('HR@nazrol.tech', 'Admin');
+
+            $message->to('Tester@nazrol.tech');
+
+        });
+
+        return redirect()-> route('admin.leaves');
+    }
 }

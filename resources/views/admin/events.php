@@ -3,6 +3,7 @@
  $json = array();
 
  // Query that retrieves events
+
  $requete = "SELECT * FROM leaves ORDER BY id";
 
  // connection to the database
