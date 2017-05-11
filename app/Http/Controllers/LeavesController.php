@@ -126,16 +126,12 @@ class LeavesController extends Controller
         $edate = $request->input('edate');
         $reason= $request->input('reason');
 
-        $receiver = User::where('id', $user_id)->get();
-        $r_email = $receiver->email->get();
-        $r_name = $receiver->name;
-
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to($r_email, $r_name);
+            $message->to('HR@gmail.com', 'Admin');
 
         });
 

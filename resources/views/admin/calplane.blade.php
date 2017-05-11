@@ -62,47 +62,32 @@
           center: 'title',
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
-
-        nextDayThreshold: '00:00:00',
      
         events: "{{ url('/admin/events') }}",
      
         // Convert the allDay from string to boolean
         eventRender: function(event, element, view) {
-        
-          if (event.allDay === 'true') {
-            event.allDay = true;
-          }
-          else {
-            event.allDay = false;
-          }
-
-          element.find("button#btn-reject").click(function () {
-            $('#calendar').fullCalendar('removeEvents', event_id);
-          });
 
         },
      
         selectable: false,
         selectHelper: false,
      
-        select: function(start, end, allDay) {
+        function(start, end) {
      
           if (title) {
-            var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
-            var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");            
+            var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd[T]HH:mm:ss");
+            var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd[T]HH:mm:ss");            
 
             calendar.fullCalendar('renderEvent',
             {
               title: title,
               start: start,
               end: end,
-              allDay: allDay
             },
-              // true // make the event "stick",
+               true // make the event "stick",
             );
           }
-            calendar.fullCalendar('unselect');
         },
      
         editable: false,
