@@ -222,7 +222,13 @@
                                                 @if ($leave->ltime_id == 1)
                                                     <td>{{ $leave->end->format('d') - $leave->start->format('d') + 1 }}</td>
                                                 @else
-                                                    <td>{{ $leave->end->format('d') - $leave->start->format('d') - 0.5 }}</td>
+                                                    @if ($leave->start->format('d') == $leave->end->format('d') )
+
+                                                        <td> 0.5 </td>
+                                                    @else
+
+                                                        <td>{{ $leave->end->format('d') - $leave->start->format('d') - 0.5 }}</td>
+                                                    @endif
                                                 @endif
 
                                                 <td>{{ $leave->ltype_id }}</td>

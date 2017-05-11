@@ -4,13 +4,13 @@
 
  // Query that retrieves events
 
-if (Auth::user()->id == '6') {
+if (Auth::user()->position == 'HR') {
 	# code...
 	$requete = "SELECT * FROM leaves WHERE  (status = 'Approve') ORDER BY id";
 }
 else
 {
-	$requete = "SELECT * FROM leaves WHERE  (status = 'Approve' && user_id = 7) ORDER BY id"; 
+	$requete = "SELECT * FROM leaves WHERE  (status = 'Approve') ORDER BY id"; 
 }
 
  // connection to the database

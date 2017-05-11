@@ -9,6 +9,7 @@ use App\Leave;
 use App\User;
 use Mail;
 use Alert;
+use Carbon\Carbon;
 
 class LeavesController extends Controller
 {
@@ -111,8 +112,22 @@ class LeavesController extends Controller
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
         $leave->ltime_id = $request->input('ltime');
-        $leave->start = $request->input('sdate');
-        $leave->end = $request->input('edate');
+
+        if ($request->input('ltime') == '1') {
+            # code...
+            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 23:59:59');
+        }
+        elseif ($request->input('ltime') == '2') {
+            # code...
+            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 13:00:00');
+        }
+        else{
+            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 13:00:00');
+            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 23:59:59');
+        }
+
         $leave->title = $request->input('reason');
         $leave->status = "Pending";
 

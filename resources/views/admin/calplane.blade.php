@@ -56,13 +56,15 @@
         theme: true,
         editable: true,
         eventLimit: true,
-        
+
+        displayEventTime : false,
+
         header: {
           left: 'prev,next today',
           center: 'title',
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
-     
+
         events: "{{ url('/admin/events') }}",
      
         // Convert the allDay from string to boolean
@@ -70,29 +72,30 @@
 
         },
      
-        selectable: false,
-        selectHelper: false,
+        // selectable: false,
+        // selectHelper: false,
      
-        function(start, end) {
+        // function(start, end) {
      
-          if (title) {
-            var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd[T]HH:mm:ss");
-            var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd[T]HH:mm:ss");            
+        //   if (!title) {
+        //     var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
+        //     var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");            
 
-            calendar.fullCalendar('renderEvent',
-            {
-              title: title,
-              start: start,
-              end: end,
-            },
-               true // make the event "stick",
-            );
-          }
-        },
+        //     calendar.fullCalendar('renderEvent',
+        //     {
+        //       title: title,
+        //       start: start,
+        //       end: end,
+        //     },
+        //        true // make the event "stick",
+        //     );
+        //   }
+        // },
      
-        editable: false,
+        // editable: false,
      
     });
+
     
    });
 
