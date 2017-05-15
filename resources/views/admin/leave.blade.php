@@ -61,15 +61,17 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-
-                                                        <!-- <div class="form-row">
-                                                            <label class="form-label">Select Employees</label>
-                                                            <div class="form-controls">
-                                                                <select name="selectEmployee" id="selectEmployee" class="form-control">
-                                                                    <option value="{{Auth::user()->id}}" >{{Auth::user()->name}}</option>
-                                                                </select>
+    
+                                                        @if (Auth::user()->id == '6')
+                                                            <div class="form-row">
+                                                                <label class="form-label">Select Employees</label>
+                                                                <div class="form-controls">
+                                                                    <select name="selectEmployee" id="selectEmployee" class="form-control">
+                                                                        <option value="{{Auth::user()->id}}" >{{Auth::user()->name}}</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div> -->
+                                                        @endif
 
                                                         <div class="form-row">
                                                             <label class="form-label">Leave Type</label>
@@ -89,20 +91,22 @@
                                                         <div class="form-row">
                                                             <div class="col-md-6" style="margin-left: -15px; margin-right: 10px">
                                                                 <label class="form-label">Start Date</label>
-                                                                <input type="date" name="sdate" class="form-control">
+                                                                <input type="date" name="sdate" id="sdate" class="form-control" style="width: 150px">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="for-label">End Date</label>
-                                                                <input type="date" name="edate" class="form-control">
+                                                                <input type="date" name="edate" id="edate" class="form-control" style="width: 150px">
                                                             </div>
                                                         </div>
+                                                        
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <div class="form-row">
+
+                                                        <div class="form-row" id="ltime">
                                                             <label class="form-label">Time</label>
                                                             <div class="form-controls">
-                                                                <select name="ltime" class="form-control">
+                                                                <select name="ltime" class="form-control" required="required">
                                                                     @foreach ($ltiview as $ltime)
                                                                     <option value="{{ $ltime->id 
                                                                     }}" >{{ $ltime->times_name }}</option>
@@ -114,7 +118,7 @@
                                                         <div class="form-row">
                                                             <label class="form-label">Reason</label>
                                                             <div class="form-controls">
-                                                                <textarea name="reason" id="reason" class="form-control" style="height: 100px"></textarea>
+                                                                <textarea name="reason" id="reason" class="form-control" required="required" style="height: 100px"></textarea>
                                                             </div>
                                                         </div>
 

@@ -19,37 +19,22 @@
     {{ Html::style('asset/css/fa/css/font-awesome.css') }}
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
-    <!-- {{ Html::style('asset/css/sweetalert.css') }} -->
+    {{ Html::style('asset/css/bootstrap-datepicker.min.css') }}
     {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }}
 
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
     {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
     {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
-    
-    <!-- {{ Html::script('asset/js/sweetalert.min.js') }}   -->
-    <!-- @include('sweet::alert') -->
+    {{ Html::script('asset/js/bootstrap-datepicker.min.js') }}  
 
-    {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}
     {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
     {{ Html::script('asset/bower_components/fullcalendar/dist/fullcalendar.js') }}
-
-    <!-- <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">  -->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- {{ Html::style('asset/css/metisMenu.css') }} -->
-    <!-- {{ Html::style('asset/css/main.css') }} -->
 
 @yield('extrastyles')   
 
   <script>
 
     $(document).ready(function() {
-
 
       $('#calendar').fullCalendar({
         
@@ -72,32 +57,59 @@
 
         },
      
-        // selectable: false,
-        // selectHelper: false,
-     
-        // function(start, end) {
-     
-        //   if (!title) {
-        //     var start = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
-        //     var end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");            
+      });
 
-        //     calendar.fullCalendar('renderEvent',
-        //     {
-        //       title: title,
-        //       start: start,
-        //       end: end,
-        //     },
-        //        true // make the event "stick",
-        //     );
-        //   }
-        // },
-     
-        // editable: false,
-     
+      var today = moment().format('YYYY-MM-DD');
+      document.getElementById("sdate").value = today; 
+      document.getElementById("edate").value = today; 
+
+      $('#sdate').on('change', function (){
+
+        var current = $(this).val(); 
+
+        $('#sdate').val(current);
+        $('#edate').val(current);
+      })
+
+      $('#edate').on('change', function (){
+
+        var endDate = $(this).val();
+        var startDate = $('#sdate').val();
+
+        if (endDate != startDate) {
+
+          $('#ltime').hide();
+          // $('#ltime').css("visibility", "hidden");
+
+          var day = endDate;
+          console.log(day);
+
+        }
+      })
+
+      // $("#sdate").datepicker({ 
+      //     dateFormat: 'yy-mm-dd',
+      //     changeMonth: true,
+      //     minDate: new Date(),
+      //     maxDate: '+2y',
+      //     onSelect: function(date){
+
+      //         var selectedDate = new Date(date);
+      //         var msecsInADay = 86400000;
+      //         var endDate = new Date(selectedDate.getTime() + msecsInADay);
+
+      //         $("edate").datepicker( "option", "minDate", endDate );
+      //         $("edate").datepicker( "option", "maxDate", '+2y' );
+
+      //     }
+      // });
+
+      // $("edate").datepicker({ 
+      //     dateFormat: 'yy-mm-dd',
+      //     changeMonth: true
+      // });
+
     });
-
-    
-   });
 
   </script> 
 

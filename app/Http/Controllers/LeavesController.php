@@ -20,7 +20,7 @@ class LeavesController extends Controller
      */
     public function index()
     {
-        //
+        //get the application into fullcalendar
         return view('admin.events');
 
     }
@@ -97,17 +97,17 @@ class LeavesController extends Controller
 
         $this->validate($request, [
 
-                'branch' => 'required',
+                'branch' => 'required|alpha ',
                 // 'selectEmployee' => 'required',
-                'leaveType' => 'required',
+                'leaveType' => 'required|numeric',
                 'ltime' => 'required',
                 'sdate' => 'required',
                 'edate' => 'required',
                 'reason' => 'required',
             ]);
 
+        //store new application into database
         $leave = new Leave;
-        // dd($leave);
         $leave->user_id = Auth()->user()->id;
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
@@ -133,6 +133,7 @@ class LeavesController extends Controller
 
         $leave->save();
 
+        //get the user information for email 
         $user_id = Auth()->user()->id;
         $branch_id = $request->input('branch');
         $ltype_id = $request->input('leaveType');
@@ -141,6 +142,7 @@ class LeavesController extends Controller
         $edate = $request->input('edate');
         $reason= $request->input('reason');
 
+        //send reminder email to admin
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
 
@@ -157,8 +159,10 @@ class LeavesController extends Controller
 
     public function approve($id){
 
+        //find the approve application
         $leave = Leave::where('id', $id)->update(array ('status' => 'Approve'));
 
+        //send approve mail to user
         Mail::send('emails.approve', [] , function ($message)
         {
 
@@ -174,8 +178,10 @@ class LeavesController extends Controller
 
     public function reject($id){
 
+        //find the rejected application
         $leave = Leave::where('id', $id)->update(array ('status' => 'Reject'));
 
+        //send rejected email to user
         Mail::send('emails.reject', [], function ($message)
         {
 
