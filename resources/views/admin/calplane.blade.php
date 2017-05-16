@@ -73,6 +73,8 @@
 
       $('#edate').on('change', function (){
 
+        var Weekday = new Array("Sun","Mon","Tue","Wed","Thur","Fri","Sat");
+
         var endDate = $(this).val();
         var startDate = $('#sdate').val();
 
@@ -81,33 +83,45 @@
           $('#ltime').hide();
           // $('#ltime').css("visibility", "hidden");
 
-          var day = endDate;
-          console.log(day);
+          var checkEnd = moment(endDate, 'YYYY-MM-DD');
+          var checkStart = moment(startDate, 'YYYY-MM-DD');
 
+          while(startDate<=endDate){
+
+            var weekDay = checkStart.moment().day();
+            console.log(weekDay)
+            die()
+          }
+
+          // var monthEnd = checkEnd.format('M');
+          // var dayEnd = checkEnd.format('D');
+          // var yearEnd = checkEnd.format('YYYY');
+
+          // var monthStart = checkStart.format('M');
+          // var dayStart = checkStart.format('D');
+          // var yearStart = checkStart.format('YYYY');
+
+          var day = checkEnd.diff(checkStart, 'days') + 1;  
+          // var day = dayEnd - dayStart + 1;
+
+          $('#submitApply').text('Apply for ' +day+ ' days');
+          // console.log(day);
         }
       })
 
-      // $("#sdate").datepicker({ 
-      //     dateFormat: 'yy-mm-dd',
-      //     changeMonth: true,
-      //     minDate: new Date(),
-      //     maxDate: '+2y',
-      //     onSelect: function(date){
+      $('#halfDay').on('change', function (){
 
-      //         var selectedDate = new Date(date);
-      //         var msecsInADay = 86400000;
-      //         var endDate = new Date(selectedDate.getTime() + msecsInADay);
+        var half = $(this).val();
 
-      //         $("edate").datepicker( "option", "minDate", endDate );
-      //         $("edate").datepicker( "option", "maxDate", '+2y' );
+        if (half != '1') {
 
-      //     }
-      // });
+          $('#submitApply').text('Apply for 0.5 day');
+        }
+        else{
 
-      // $("edate").datepicker({ 
-      //     dateFormat: 'yy-mm-dd',
-      //     changeMonth: true
-      // });
+          $('#submitApply').text('Apply for 1 day');
+        }
+      })
 
     });
 

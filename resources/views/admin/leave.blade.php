@@ -106,7 +106,7 @@
                                                         <div class="form-row" id="ltime">
                                                             <label class="form-label">Time</label>
                                                             <div class="form-controls">
-                                                                <select name="ltime" class="form-control" required="required">
+                                                                <select name="ltime" id="halfDay" class="form-control">
                                                                     @foreach ($ltiview as $ltime)
                                                                     <option value="{{ $ltime->id 
                                                                     }}" >{{ $ltime->times_name }}</option>
@@ -123,7 +123,7 @@
                                                         </div>
 
                                                         <div class="form-actions" style="margin-left: -130px">
-                                                            <button type="submit" id="submitApply" class="btn btn-primary form-btn">Apply for days</button>
+                                                            <button type="submit" id="submitApply" class="btn btn-primary form-btn">Apply for 1 day</button>
                                                         </div>
                                                     </div>
                                                 </form>
