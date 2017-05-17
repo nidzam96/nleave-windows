@@ -9,7 +9,28 @@
 
 <p>If this application is approved, it will utilize 2.0 day(s) and there is 3.5 day(s) remaining  leave days.</p>
 
+<p>Click <a href="#" id="approve" ">here</a> to approve this application</p>
+	
+
+<p>Click <a href="#" id="reject" ">here</a> to reject this application</p>
+
+
 <p>The approval for this application belongs to you, so do keep this e-mail safe.</p>
 
 </body>
+
+<script>
+
+	$(document).ready(function (){
+
+		$('#approve-model').hide();
+		$('#reject-model').hide();
+
+		$('#approve').on('click', function (){
+
+			$('#approve-model').style.display = "block";
+		})
+	})
+
+</script>
 </html>

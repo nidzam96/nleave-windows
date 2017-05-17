@@ -40,9 +40,15 @@ class AdminController extends Controller
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
 
+        // $branch = Branch::pluck('branch_name', 'id');
+        // $ltype = Leavetype::pluck('leave_name', 'id');
+        // $ltime = Leavetime::pluck('times_name', 'id');
+
         $leave = Leave::all();
 
         return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave);
+
+        // return view('admin.leave', compact('leave', 'branch', 'ltype', 'ltime'));
     }
 
 

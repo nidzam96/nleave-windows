@@ -95,16 +95,16 @@ class LeavesController extends Controller
 
         // dd($request);
 
-        $this->validate($request, [
+        // $this->validate($request, [
 
-                'branch' => 'required|alpha ',
-                // 'selectEmployee' => 'required',
-                'leaveType' => 'required|numeric',
-                'ltime' => 'required',
-                'sdate' => 'required',
-                'edate' => 'required',
-                'reason' => 'required',
-            ]);
+        //         'branch' => 'required|alpha ',
+        //         // 'selectEmployee' => 'required',
+        //         'leaveType' => 'required|numeric',
+        //         // 'ltime' => 'required',
+        //         'sdate' => 'required',
+        //         'edate' => 'required',
+        //         'reason' => 'required',
+        //     ]);
 
         //store new application into database
         $leave = new Leave;
@@ -113,19 +113,27 @@ class LeavesController extends Controller
         $leave->ltype_id = $request->input('leaveType');
         $leave->ltime_id = $request->input('ltime');
 
-        if ($request->input('ltime') == '1') {
+        if (!empty($request->input('ltime'))) {
             # code...
-            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
-            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 23:59:59');
-        }
-        elseif ($request->input('ltime') == '2') {
-            # code...
-            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
-            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 13:00:00');
+            if ($request->input('ltime') == '1') {
+                # code...
+                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+                $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
+            }
+            elseif ($request->input('ltime') == '2') {
+                # code...
+                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+                $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 13:00:00');
+            }
+            else{
+                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 13:00:00');
+                $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
+            }
         }
         else{
-            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 13:00:00');
-            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 23:59:59');
+
+            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
         }
 
         $leave->title = $request->input('reason');
@@ -137,7 +145,13 @@ class LeavesController extends Controller
         $user_id = Auth()->user()->id;
         $branch_id = $request->input('branch');
         $ltype_id = $request->input('leaveType');
-        $ltime_id = $request->input('ltime');
+
+        if (!empty($request->input('ltime'))) {
+            # code...
+
+            $ltime_id = $request->input('ltime');
+        }
+        
         $sdate = $request->input('sdate');
         $edate = $request->input('edate');
         $reason= $request->input('reason');
@@ -145,10 +159,12 @@ class LeavesController extends Controller
         //send reminder email to admin
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
+            // $adminEmail = user->where('position', '=', 'HR')->get();
+            // dd($adminEmail);
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to('HR@gmail.com', 'Admin');
+            $message->to("Admin@gmail.com", 'Admin');
 
         });
 

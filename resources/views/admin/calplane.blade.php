@@ -53,9 +53,9 @@
         events: "{{ url('/admin/events') }}",
      
         // Convert the allDay from string to boolean
-        eventRender: function(event, element, view) {
+        // eventRender: function(event, element, view) {
 
-        },
+        // },
      
       });
 
@@ -69,6 +69,9 @@
 
         $('#sdate').val(current);
         $('#edate').val(current);
+
+        $('#ltime').show();
+        $('#submitApply').text('Apply for 1 day');
       })
 
       $('#edate').on('change', function (){
@@ -85,13 +88,6 @@
 
           var checkEnd = moment(endDate, 'YYYY-MM-DD');
           var checkStart = moment(startDate, 'YYYY-MM-DD');
-
-          while(startDate<=endDate){
-
-            var weekDay = checkStart.moment().day();
-            console.log(weekDay)
-            die()
-          }
 
           // var monthEnd = checkEnd.format('M');
           // var dayEnd = checkEnd.format('D');
