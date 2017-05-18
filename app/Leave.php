@@ -8,19 +8,19 @@ class Leave extends Model
 {
     //
     public function user(){
-    	$this->belongsTo('App\User');
+    	return $this->belongsTo('App\User');
     }
 
     public function branch(){
-    	$this->belongsTo('App\Branch');
+    	return $this->belongsTo('App\Branch');
     }
 
     public function ltype(){
-    	$this->belongsTo('App\Leavetype');
+    	return $this->belongsTo('App\Leavetype');
     }
 
     public function ltime(){
-        $this->belongsTo('App\Leavetime');
+        return $this->belongsTo('App\Leavetime');
     }
 
     protected $dates = ['start', 'end'];

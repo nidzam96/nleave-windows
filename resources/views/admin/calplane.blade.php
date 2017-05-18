@@ -47,7 +47,7 @@
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay,listMonth'
+          right: 'month,agendaWeek,agendaDay'
         },
 
         events: "{{ url('/admin/events') }}",
@@ -84,11 +84,11 @@
         if (endDate != startDate) {
 
           $('#ltime').hide();
-          // $('#ltime').css("visibility", "hidden");
 
           var checkEnd = moment(endDate, 'YYYY-MM-DD');
           var checkStart = moment(startDate, 'YYYY-MM-DD');
 
+          // console.log(checkEnd)
           // var monthEnd = checkEnd.format('M');
           // var dayEnd = checkEnd.format('D');
           // var yearEnd = checkEnd.format('YYYY');
@@ -97,13 +97,73 @@
           // var dayStart = checkStart.format('D');
           // var yearStart = checkStart.format('YYYY');
 
-          var day = checkEnd.diff(checkStart, 'days') + 1;  
-          // var day = dayEnd - dayStart + 1;
+          // var day = checkEnd.diff(checkStart, 'days') + 1;
 
-          $('#submitApply').text('Apply for ' +day+ ' days');
+          var startdate1 = checkStart;
+          var enddate1 = checkEnd;
+
+          console.log(startdate1,enddate1)
+
+          // var newstartdate=new moment();
+          // newstartdate.set({'year' : startdate1.format('YYYY'), 'month' : startdate1.format('M'), 'date' : startdate1.format('D')});
+
+          // var newenddate=new moment();
+          // newenddate.set({'year' : enddate1.format('YYYY'), 'month' : enddate1.format('M'), 'date' : enddate1.format('D')});
+
+          // console.log(newstartdate, newenddate)
+
+          var days = calcBusinessDays(startdate1,enddate1);
+          console.log(days)
+
           // console.log(day);
+          // var a=day;
+          // var week = [];
+
+          // for (var i=0; i<day; i++){
+
+          //   var days = day - a;
+          //   week.push(days);
+          //   a--;
+          // }
+
+          // console.log(dateDiff)
+
+          $('#submitApply').text('Apply for ' +days+ ' days');
         }
       })
+
+      function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
+        
+        var iWeeks, iDateDiff, iAdjust = 0;
+
+        if (dDate2 < dDate1) return -1; // error code if dates transposed
+        
+        var iWeekday1 = dDate1.day(); // day of week
+        var iWeekday2 = dDate2.day();
+
+        console.log(iWeekday1, iWeekday2);
+
+        // iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+        // iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+
+        if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+        iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+        iWeekday2 = (iWeekday2 < 1) ? 5 : iWeekday2;
+
+        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+        // iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+
+        if (iWeekday1 <= iWeekday2) {
+          iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
+        } else {
+          iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+        }
+
+        return iDateDiff;
+        // iDateDiff -= iAdjust // take into account both days on weekend
+
+        // return (iDateDiff + 1); // add 1 because dates are inclusive
+      }
 
       $('#halfDay').on('change', function (){
 

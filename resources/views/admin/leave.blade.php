@@ -153,41 +153,43 @@
 
                      <div class="section-body">
                         
-                        <div class="form form-rules leave-table-fitlering">
-                            <div class="form-row">
-                                <div class="form-controls">
-                                    <select id="select_department" name="select_department" class="form-control" required>
-                                        <option value="">Select department</option>
-                                    </select>
-                                </div>
-                             
-                                <div class="form-controls">
-                                    <select id="select_location" name="select_location" class="form-control" required>
-                                        <option value="">Select location</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-controls">
-                                    <input id="daterange-summarytable" class = "field date-range-picker  form-control" placeholder="Select date range to filter" value="" >
-                                </div>
-                             
-                                <div class="pull-right" style="padding-top: 0">
+                        @if (Auth()->user()->position == 'HR')
+                            <div class="form form-rules leave-table-fitlering">
+                                <div class="form-row">
                                     <div class="form-controls">
-                                        <input class="form-control field" type="text" id="leave_summary_table_search" placeholder="search"/>
+                                        <select id="select_department" name="select_department" class="form-control" required>
+                                            <option value="">Select department</option>
+                                        </select>
+                                    </div>
+                                 
+                                    <div class="form-controls">
+                                        <select id="select_location" name="select_location" class="form-control" required>
+                                            <option value="">Select location</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-controls">
-                                        <div class="section-actions form-control">
-                                            <a href="/leave/view_application?format=csv&q=leave_history" data-href="/leave/view_application?format=csv&q=leave_history" class="link-export">
-                                                
-                                                <i class="glyphicon glyphicon-export"></i>
-                                                Export
-                                            </a>
+                                        <input id="daterange-summarytable" class = "field date-range-picker  form-control" placeholder="Select date range to filter" value="" >
+                                    </div>
+                                 
+                                    <div class="pull-right" style="padding-top: 0">
+                                        <div class="form-controls">
+                                            <input class="form-control field" type="text" id="leave_summary_table_search" placeholder="search"/>
+                                        </div>
+                                        
+                                        <div class="form-controls">
+                                            <div class="section-actions form-control">
+                                                <a href="/leave/view_application?format=csv&q=leave_history" data-href="/leave/view_application?format=csv&q=leave_history" class="link-export">
+                                                    
+                                                    <i class="glyphicon glyphicon-export"></i>
+                                                    Export
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                           </div>
-                        </div>
+                               </div>
+                            </div>
+                        @endif
                         
                         <br>
                         <br>
@@ -201,7 +203,7 @@
                                             <th width="140">Employee</th>
                                             <th width="100">Position</th>
                                         @endif
-                                            <th width="120">Date</th>
+                                            <th width="120">Application Date</th>
                                             <th width="120">From</th>
                                             <th width="120">To</th>
                                             <th width="63">Days</th>
@@ -215,9 +217,9 @@
                                 @foreach($leaves as $leave)
                                     <tbody>
                                         <tr>    
-                                            @if (Auth::user()->id == '6')
-                                                <td>{{ $leave->user_id }}</td>
-                                                <td></td>
+                                            @if (Auth::user()->position == 'HR')
+                                                <td>{{ $leave->user->name }}</td>
+                                                <td>{{ $leave->user->position }}</td>
                                             @endif
                                                 <td>{{ $leave->created_at->format('d M Y') }} </td>
                                                 <td>{{ $leave->start->format('d M Y') }}</td>
@@ -229,13 +231,11 @@
                                                     @if ($leave->start->format('d') == $leave->end->format('d') )
 
                                                         <td> 0.5 </td>
-                                                    @else
-
-                                                        <td>{{ $leave->end->format('d') - $leave->start->format('d') - 0.5 }}</td>
+                                    
                                                     @endif
                                                 @endif
 
-                                                <td>{{ $leave->ltype_id }}</td>
+                                                <td>{{ $leave->ltype->leave_name }}</td>
                                                 <td>{{ $leave->title }}</td>
                                                 <td></td>
                                             @if (Auth::user()->id == '6')

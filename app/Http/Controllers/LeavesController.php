@@ -93,8 +93,6 @@ class LeavesController extends Controller
 
     public function applyLeave(Request $request){
 
-        // dd($request);
-
         // $this->validate($request, [
 
         //         'branch' => 'required|alpha ',
@@ -159,12 +157,12 @@ class LeavesController extends Controller
         //send reminder email to admin
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
-            // $adminEmail = user->where('position', '=', 'HR')->get();
-            // dd($adminEmail);
+            $adminEmail = User::where('position', '=', 'HR')->first();
+            // $userEmail = User::where('position', '=', 'others' && 'id', '=', $user_id)->get();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to("Admin@gmail.com", 'Admin');
+            $message->to($adminEmail->email, $adminEmail->name);
 
         });
 
@@ -181,10 +179,11 @@ class LeavesController extends Controller
         //send approve mail to user
         Mail::send('emails.approve', [] , function ($message)
         {
+            $userEmail = User::where('position', '=', 'Others')->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to('Tester@nazrol.tech', 'Tester');
+            $message->to($userEmail->email, $userEmail->name);
 
         });
 
@@ -200,10 +199,11 @@ class LeavesController extends Controller
         //send rejected email to user
         Mail::send('emails.reject', [], function ($message)
         {
+            $userEmail = User::where('position', '=', 'Others')->first();
 
-            $message->from('HR@nazrol.tech', 'Admin');
+            $message->from(Auth()->user()->email, Auth()->user()->name);
 
-            $message->to('Tester@nazrol.tech');
+            $message->to($userEmail->email, $userEmail->name);
 
         });
 
