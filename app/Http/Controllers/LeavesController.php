@@ -105,6 +105,7 @@ class LeavesController extends Controller
         //     ]);
 
         //store new application into database
+        // dd($request->input('diffDate'))
         $leave = new Leave;
         $leave->user_id = Auth()->user()->id;
         $leave->branch_id = $request->input('branch');

@@ -98,7 +98,11 @@
                                                                 <input type="date" name="edate" id="edate" class="form-control" style="width: 150px">
                                                             </div>
                                                         </div>
-                                                        
+
+                                                        <div style="visibility: hidden;">
+                                                            <input type="num" name="dateDiff" id="dateDiff">
+                                                        </div>
+
                                                         <br>
                                                         <br>
                                                         <br>

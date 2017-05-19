@@ -76,7 +76,7 @@
 
       $('#edate').on('change', function (){
 
-        var Weekday = new Array("Sun","Mon","Tue","Wed","Thur","Fri","Sat");
+        // var Weekday = new Array("Sun","Mon","Tue","Wed","Thur","Fri","Sat");
 
         var endDate = $(this).val();
         var startDate = $('#sdate').val();
@@ -85,8 +85,8 @@
 
           $('#ltime').hide();
 
-          var checkEnd = moment(endDate, 'YYYY-MM-DD');
-          var checkStart = moment(startDate, 'YYYY-MM-DD');
+          var checkEnd = moment(endDate, 'YYYY-MM-DD 23:59:59');
+          var checkStart = moment(startDate, 'YYYY-MM-DD 09:59:59');
 
           // console.log(checkEnd)
           // var monthEnd = checkEnd.format('M');
@@ -141,28 +141,45 @@
         var iWeekday1 = dDate1.day(); // day of week
         var iWeekday2 = dDate2.day();
 
-        console.log(iWeekday1, iWeekday2);
+        var checkWeek1 = dDate1.week();// week of year
+        var checkWeek2 = dDate2.week();
+        var diffWeek = checkWeek2 - checkWeek1;
 
-        // iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
-        // iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+        iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+        iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;  
 
         if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
         iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
-        iWeekday2 = (iWeekday2 < 1) ? 5 : iWeekday2;
+        iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+        console.log(iWeekday1, iWeekday2)
 
         // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
-        // iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+        iWeeks = Math.floor((dDate2.hour() - dDate1.hour()) / 604800000)
+        // console.log(dDate2.hour())
 
-        if (iWeekday1 <= iWeekday2) {
-          iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
-        } else {
-          iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+        if (iWeekday1 < iWeekday2) {
+
+          if (diffWeek > 0) {
+           iDateDiff = ((diffWeek) * 5) - (iWeekday1 - iWeekday2)
+          }else{
+            iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
+          }
+        } else if(iWeekday1 == iWeekday2){
+           
+            if (diffWeek > 0) {
+             iDateDiff = ((diffWeek) * 5) - (iWeekday1 - iWeekday2)
+            }else{
+             iDateDiff = ((iWeeks + 1) * 5) + (iWeekday1 - iWeekday2)
+            }
+
+        } else{
+           iDateDiff = ((diffWeek) * 5) - (iWeekday1 - iWeekday2)
         }
 
-        return iDateDiff;
-        // iDateDiff -= iAdjust // take into account both days on weekend
+      // return iDateDiff;
+      // iDateDiff -= iAdjust // take into account both days on weekend
 
-        // return (iDateDiff + 1); // add 1 because dates are inclusive
+      return (iDateDiff + 1); // add 1 because dates are inclusive
       }
 
       $('#halfDay').on('change', function (){
