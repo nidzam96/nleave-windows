@@ -58,10 +58,13 @@
         // },
      
       });
-
+      
+      //input type date configuration
       var today = moment().format('YYYY-MM-DD');
       document.getElementById("sdate").value = today; 
       document.getElementById("edate").value = today; 
+      document.getElementById("sdate").setAttribute('min', today);
+      document.getElementById("edate").setAttribute('min', today);
 
       $('#sdate').on('change', function (){
 
@@ -71,12 +74,9 @@
         $('#edate').val(current);
 
         $('#ltime').show();
-        $('#submitApply').text('Apply for 1 day');
       })
 
       $('#edate').on('change', function (){
-
-        // var Weekday = new Array("Sun","Mon","Tue","Wed","Thur","Fri","Sat");
 
         var endDate = $(this).val();
         var startDate = $('#sdate').val();
@@ -86,49 +86,29 @@
           $('#ltime').hide();
 
           var checkEnd = moment(endDate, 'YYYY-MM-DD 23:59:59');
-          var checkStart = moment(startDate, 'YYYY-MM-DD 09:59:59');
+          var checkStart = moment(startDate, 'YYYY-MM-DD 09:00:00');
 
-          // console.log(checkEnd)
-          // var monthEnd = checkEnd.format('M');
-          // var dayEnd = checkEnd.format('D');
-          // var yearEnd = checkEnd.format('YYYY');
-
-          // var monthStart = checkStart.format('M');
-          // var dayStart = checkStart.format('D');
-          // var yearStart = checkStart.format('YYYY');
-
-          // var day = checkEnd.diff(checkStart, 'days') + 1;
-
-          var startdate1 = checkStart;
-          var enddate1 = checkEnd;
-
-          console.log(startdate1,enddate1)
-
-          // var newstartdate=new moment();
-          // newstartdate.set({'year' : startdate1.format('YYYY'), 'month' : startdate1.format('M'), 'date' : startdate1.format('D')});
-
-          // var newenddate=new moment();
-          // newenddate.set({'year' : enddate1.format('YYYY'), 'month' : enddate1.format('M'), 'date' : enddate1.format('D')});
-
-          // console.log(newstartdate, newenddate)
-
-          var days = calcBusinessDays(startdate1,enddate1);
-          console.log(days)
-
-          // console.log(day);
-          // var a=day;
-          // var week = [];
-
-          // for (var i=0; i<day; i++){
-
-          //   var days = day - a;
-          //   week.push(days);
-          //   a--;
-          // }
-
-          // console.log(dateDiff)
+          var days = calcBusinessDays(checkStart,checkEnd);
 
           $('#submitApply').text('Apply for ' +days+ ' days');
+
+          document.getElementById("dateDiff").value = days;
+        }
+      })
+
+      //change text if half day
+      $('#halfDay').on('change', function (){
+
+        var half = $(this).val();
+        console.log(half)
+
+        if (half != '1') {
+
+          $('#submitApply').text('Apply for 0.5 day');
+        }
+        else{
+
+          $('#submitApply').text('Apply for 1 day');
         }
       })
 
@@ -145,17 +125,12 @@
         var checkWeek2 = dDate2.week();
         var diffWeek = checkWeek2 - checkWeek1;
 
-        iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
-        iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;  
-
         if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
         iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
         iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
-        console.log(iWeekday1, iWeekday2)
 
         // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
         iWeeks = Math.floor((dDate2.hour() - dDate1.hour()) / 604800000)
-        // console.log(dDate2.hour())
 
         if (iWeekday1 < iWeekday2) {
 
@@ -176,25 +151,8 @@
            iDateDiff = ((diffWeek) * 5) - (iWeekday1 - iWeekday2)
         }
 
-      // return iDateDiff;
-      // iDateDiff -= iAdjust // take into account both days on weekend
-
       return (iDateDiff + 1); // add 1 because dates are inclusive
       }
-
-      $('#halfDay').on('change', function (){
-
-        var half = $(this).val();
-
-        if (half != '1') {
-
-          $('#submitApply').text('Apply for 0.5 day');
-        }
-        else{
-
-          $('#submitApply').text('Apply for 1 day');
-        }
-      })
 
     });
 

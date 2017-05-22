@@ -105,34 +105,40 @@ class LeavesController extends Controller
         //     ]);
 
         //store new application into database
-        // dd($request->input('diffDate'))
         $leave = new Leave;
         $leave->user_id = Auth()->user()->id;
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
-        $leave->ltime_id = $request->input('ltime');
 
-        if (!empty($request->input('ltime'))) {
+        if (empty($request->input('ltime'))) {
             # code...
+            $leave->ltime_id = 4;
+            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
+            $leave->days = $request->input('dateDiff');
+        }
+        else{
             if ($request->input('ltime') == '1') {
                 # code...
+                $leave->ltime_id = $request->input('ltime');
                 $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
                 $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
+                $leave->days = 1;
             }
             elseif ($request->input('ltime') == '2') {
                 # code...
+                $leave->ltime_id = $request->input('ltime');     
                 $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
                 $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 13:00:00');
+                $leave->days = 0.5;
             }
             else{
+                $leave->ltime_id = $request->input('ltime');    
                 $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 13:00:00');
                 $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
+                $leave->days = 0.5;
             }
-        }
-        else{
 
-            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
-            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
         }
 
         $leave->title = $request->input('reason');
@@ -145,18 +151,18 @@ class LeavesController extends Controller
         $branch_id = $request->input('branch');
         $ltype_id = $request->input('leaveType');
 
-        if (!empty($request->input('ltime'))) {
-            # code...
+        // if (!empty($request->input('ltime'))) {
+        //     # code...
 
-            $ltime_id = $request->input('ltime');
-        }
+        //     $ltime_id = $request->input('ltime');
+        // }
         
         $sdate = $request->input('sdate');
         $edate = $request->input('edate');
         $reason= $request->input('reason');
 
         //send reminder email to admin
-        Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'ltime' => $ltime_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
+        Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
             $adminEmail = User::where('position', '=', 'HR')->first();
             // $userEmail = User::where('position', '=', 'others' && 'id', '=', $user_id)->get();

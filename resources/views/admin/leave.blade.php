@@ -98,10 +98,8 @@
                                                                 <input type="date" name="edate" id="edate" class="form-control" style="width: 150px">
                                                             </div>
                                                         </div>
-
-                                                        <div style="visibility: hidden;">
-                                                            <input type="num" name="dateDiff" id="dateDiff">
-                                                        </div>
+                                                        
+                                                        <input type="hidden" name="dateDiff" id="dateDiff">
 
                                                         <br>
                                                         <br>
@@ -111,6 +109,7 @@
                                                             <label class="form-label">Time</label>
                                                             <div class="form-controls">
                                                                 <select name="ltime" id="halfDay" class="form-control">
+                                                                    <option value="" selected="selected">Please select</option>
                                                                     @foreach ($ltiview as $ltime)
                                                                     <option value="{{ $ltime->id 
                                                                     }}" >{{ $ltime->times_name }}</option>
@@ -228,21 +227,22 @@
                                                 <td>{{ $leave->created_at->format('d M Y') }} </td>
                                                 <td>{{ $leave->start->format('d M Y') }}</td>
                                                 <td>{{ $leave->end->format('d M Y') }}</td>
+                                                <td>{{ $leave->days }}</td>
 
-                                                @if ($leave->ltime_id == 1)
-                                                    <td>{{ $leave->end->format('d') - $leave->start->format('d') + 1 }}</td>
+                                                <!-- @if ($leave->ltime_id == 1)
+                                                    <td>{{ $leave->days }}</td>
                                                 @else
                                                     @if ($leave->start->format('d') == $leave->end->format('d') )
 
                                                         <td> 0.5 </td>
                                     
                                                     @endif
-                                                @endif
+                                                @endif -->
 
                                                 <td>{{ $leave->ltype->leave_name }}</td>
                                                 <td>{{ $leave->title }}</td>
                                                 <td></td>
-                                            @if (Auth::user()->id == '6')
+                                            @if (Auth::user()->position == 'HR')
                                                 <div class="form-group">
                                                     
                                                     <td>
