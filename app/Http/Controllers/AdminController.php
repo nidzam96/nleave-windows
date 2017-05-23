@@ -44,7 +44,13 @@ class AdminController extends Controller
         // $ltype = Leavetype::pluck('leave_name', 'id');
         // $ltime = Leavetime::pluck('times_name', 'id');
 
-        $leave = Leave::all();
+        if (Auth()->user()->position == 'HR') {
+            # code...
+            $leave = Leave::all();
+        }
+        else{
+            $leave = Leave::where('user_id', '=', Auth()->user()->id)->get();
+        }
 
         return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave);
 

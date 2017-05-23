@@ -109,7 +109,6 @@
                                                             <label class="form-label">Time</label>
                                                             <div class="form-controls">
                                                                 <select name="ltime" id="halfDay" class="form-control">
-                                                                    <option value="" selected="selected">Please select</option>
                                                                     @foreach ($ltiview as $ltime)
                                                                     <option value="{{ $ltime->id 
                                                                     }}" >{{ $ltime->times_name }}</option>
@@ -198,11 +197,11 @@
                         <br>
                         <br>
 
-                        <div class="table-resonsive">
+                        <div class="table-responsive">
                             <table class="table table-bordered" id="leaveTable" width="100%">
                                 <thead>
                                     <tr>
-                                        @if (Auth::user()->id == '6')
+                                        @if (Auth::user()->position == 'HR')
                                             <th width="140">Employee</th>
                                             <th width="100">Position</th>
                                         @endif
@@ -228,20 +227,10 @@
                                                 <td>{{ $leave->start->format('d M Y') }}</td>
                                                 <td>{{ $leave->end->format('d M Y') }}</td>
                                                 <td>{{ $leave->days }}</td>
-
-                                                <!-- @if ($leave->ltime_id == 1)
-                                                    <td>{{ $leave->days }}</td>
-                                                @else
-                                                    @if ($leave->start->format('d') == $leave->end->format('d') )
-
-                                                        <td> 0.5 </td>
-                                    
-                                                    @endif
-                                                @endif -->
-
                                                 <td>{{ $leave->ltype->leave_name }}</td>
                                                 <td>{{ $leave->title }}</td>
                                                 <td></td>
+
                                             @if (Auth::user()->position == 'HR')
                                                 <div class="form-group">
                                                     
@@ -251,7 +240,7 @@
                                                         <br>
                                                         <br>
                                                         
-                                                        @if ($leave->status != 'Approve' && $leave->status != 'Reject')
+                                                        @if ($leave->status == 'Pending')
                                                             <a href="{{ route('leave.approve', $leave->id) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
                                                             <a href="{{ route('leave.reject', $leave->id) }}" type="button" id="btn-reject" class="btn btn-danger">Reject</a>
                                                         @endif

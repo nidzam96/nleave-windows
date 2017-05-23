@@ -106,24 +106,25 @@ class LeavesController extends Controller
 
         //store new application into database
         $leave = new Leave;
-        $leave->user_id = Auth()->user()->id;
+        $leave->title = Auth()->user()->id;
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
 
-        if (empty($request->input('ltime'))) {
+        if (!empty($request->input('ltime'))) {
             # code...
-            $leave->ltime_id = 4;
-            $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
-            $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
-            $leave->days = $request->input('dateDiff');
-        }
-        else{
             if ($request->input('ltime') == '1') {
                 # code...
                 $leave->ltime_id = $request->input('ltime');
                 $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
                 $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
-                $leave->days = 1;
+
+                if ($leave->end != $leave->start) {
+                    # code...
+                    $leave->days = $request->input('dateDiff');
+                }
+                else{
+                    $leave->days = 1;
+                }
             }
             elseif ($request->input('ltime') == '2') {
                 # code...
@@ -140,6 +141,7 @@ class LeavesController extends Controller
             }
 
         }
+
 
         $leave->title = $request->input('reason');
         $leave->status = "Pending";
@@ -172,8 +174,6 @@ class LeavesController extends Controller
             $message->to($adminEmail->email, $adminEmail->name);
 
         });
-
-        alert()->success('You applications have been sent. Please wait for your approval.', 'Thank You!');
 
         return redirect() ->route('admin.leaves');
     }
