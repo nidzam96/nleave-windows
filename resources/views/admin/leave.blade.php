@@ -155,7 +155,7 @@
 
                      <div class="section-body">
                         
-                        @if (Auth()->user()->position == 'HR')
+                        <!-- @if (Auth()->user()->position == 'HR')
                             <div class="form form-rules leave-table-fitlering">
                                 <div class="form-row">
                                     <div class="form-controls">
@@ -191,7 +191,7 @@
                                     </div>
                                </div>
                             </div>
-                        @endif
+                        @endif -->
                         
                         <br>
                         <br>
@@ -228,7 +228,7 @@
                                                 <td>{{ $leave->end->format('d M Y') }}</td>
                                                 <td>{{ $leave->days }}</td>
                                                 <td>{{ $leave->ltype->leave_name }}</td>
-                                                <td>{{ $leave->title }}</td>
+                                                <td>{{ $leave->reason }}</td>
                                                 <td></td>
 
                                             @if (Auth::user()->position == 'HR')
@@ -242,9 +242,24 @@
                                                         
                                                         @if ($leave->status == 'Pending')
                                                             <a href="{{ route('leave.approve', $leave->id) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
-                                                            <a href="{{ route('leave.reject', $leave->id) }}" type="button" id="btn-reject" class="btn btn-danger">Reject</a>
+                                                            <button type="button" id="btn-reject" class="btn btn-danger">Reject</button>
+                                                          
+                                                            <div id="myModal" class="modal">
+
+                                                              <!-- Modal content -->
+                                                              <div class="modal-content">
+                                                                <span class="close">&times;</span>
+
+                                                                <input type="text" name="remark" class="form-control" placeholder="Enter your reason here">
+                                                                
+                                                                <br>
+
+                                                                <a href="{{ route('leave.reject', $leave->id) }}" type="button" class="btn btn-danger">Submit</a>
+                                                              </div>
+
+                                                            </div>
                                                         @endif
-    
+
                                                     </td>
 
                                                 </div>

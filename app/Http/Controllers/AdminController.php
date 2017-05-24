@@ -30,7 +30,12 @@ class AdminController extends Controller
 
     //Shows users page
     public function users(){
-    	return view('admin.users');
+
+    	$branch = Branch::all();
+        $ltype = Leavetype::all();
+        $ltime = Leavetime::all();
+
+        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime);
     }
 
     //Shows leave page
@@ -66,5 +71,14 @@ class AdminController extends Controller
     //Shows profile page
     public function showProfile(){
     	return view('admin.profile');
+    }
+
+    public function add_user(){
+        
+        $branch = Branch::all();
+        $ltype = Leavetype::all();
+        $ltime = Leavetime::all();
+
+        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime);
     }
 }

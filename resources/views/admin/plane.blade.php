@@ -20,64 +20,35 @@
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
     {{ Html::style('asset/css/team.css') }}
-    {{ Html::style('asset/css/style1.css') }}
-    <!-- {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }} -->
+    <!-- {{ Html::style('asset/css/style-1.css') }} -->
     
-    {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}
-    <!-- {{ Html::style('asset/bower_components/moment/min/moment.min.js') }} -->
-    <!-- {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.js') }} -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">  -->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- {{ Html::style('asset/css/metisMenu.css') }} -->
-    <!-- {{ Html::style('asset/css/main.css') }} -->
-
 @yield('extrastyles')    
 
 </head>
 
 <body>
 	@yield('body')
-  <!-- START JSCRIPT -->
-	<!-- jQuery -->
-  <!-- {{ Html::script('asset/css/jquery/dist/jquery.min.js') }} -->
-  <!-- {{ Html::script('asset/js/plugins/jquery-ui-1.12.1.custom/jquery-ui.min.js') }} -->
-
-  <!-- Bootstrap Core JavaScript -->
-  <!-- {{ Html::script('asset/js/bootstrap.min.js') }} -->
-  <!-- {{ Html::script('asset/js/metisMenu.js') }} -->
-
-  <!-- Custom JavaScript -->
-  <!-- {{ Html::script('asset/js/jsfunc.js') }}   -->
-  <!-- Custom JavaScript -->
-
-  <!-- {{ Html::script('asset/js/cal.js') }}   -->
   
   {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
   {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
 
-  {{ Html::script('asset/css/admin/bootstrap-select.min.js') }}  
+  <!-- {{ Html::script('asset/css/admin/bootstrap-select.min.js') }}  
   {{ Html::script('asset/css/admin/isotope.pkgd.min.js') }}  
   {{ Html::script('asset/css/admin/bootstrap-datepicker.min.js') }}  
   {{ Html::script('asset/css/admin/functions.js') }}  
   {{ Html::script('asset/css/admin/bootstrap-dialog.min.js') }}  
 
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
-  {{ Html::script('asset/css/bootstrapValidator.min.js') }}  
-  {{ Html::script('asset/css/typeahead.bundle.min.js') }}  
-  {{ Html::script('asset/css/bootstrap-tokenfield.min.js') }}  
-  {{ Html::script('asset/css/jquery.dataTables.js') }}  
-  {{ Html::script('asset/css/dataTables.bootstrap.js') }}  
-  {{ Html::script('asset/css/dataTables.tableTools.js') }}  
-  {{ Html::script('asset/css/jquery.truncate.min.js') }}  
+  {{ Html::script('asset/css/admin/bootstrapValidator.min.js') }}  
+  {{ Html::script('asset/css/admin/typeahead.bundle.min.js') }}  
+  {{ Html::script('asset/css/admin/bootstrap-tokenfield.min.js') }}  
+  {{ Html::script('asset/css/admin/jquery.dataTables.js') }}  
+  {{ Html::script('asset/css/admin/dataTables.bootstrap.js') }}  
+  {{ Html::script('asset/css/admin/dataTables.tableTools.js') }}  
+  {{ Html::script('asset/css/admin/jquery.truncate.min.js') }}   -->
 
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     $( function() {
       var qsRegex;
 
@@ -619,7 +590,7 @@
        "paging": false,
        "searching": true,
      });
-</script>
+</script> -->
 <!-- END JSCRIPT -->
 	@yield('extrascripts')
 </body>

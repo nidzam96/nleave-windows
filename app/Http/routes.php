@@ -32,20 +32,7 @@ Route::get('admin/benefits', 'AdminController@benefits');
 
 Route::get('admin/profile', 'AdminController@showProfile');
 
-//Route for branch
-Route::resource('branches', 'BranchesController');
-
-//Route for leavetype
-Route::resource('leavetypes', 'LeavetypesController');
-
-//Route for leavetime
-Route::resource('leavetimes', 'LeavetimesController');
-
-//Route for position
-Route::resource('positions', 'PositionsController');
-
-//Route for staff
-Route::resource('staffs', 'StaffsController');
+Route::get('admin/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminController@add_user']);
 
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');

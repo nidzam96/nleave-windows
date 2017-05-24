@@ -106,7 +106,10 @@ class LeavesController extends Controller
 
         //store new application into database
         $leave = new Leave;
-        $leave->title = Auth()->user()->id;
+        $leave->user_id = Auth()->user()->id;
+        $user_name = User::where('id', '=', $leave->user_id)->get();
+        $leave->title = $user_name;
+
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
 
@@ -143,7 +146,7 @@ class LeavesController extends Controller
         }
 
 
-        $leave->title = $request->input('reason');
+        $leave->reason = $request->input('reason');
         $leave->status = "Pending";
 
         $leave->save();

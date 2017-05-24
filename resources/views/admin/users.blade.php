@@ -59,7 +59,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#">Add a single employee</a>
+                                            <a href="{{ route('admin.add_user') }}">Add a single employee</a>
                                             <a href="#">Batch add employee</a>
                                         </li>
                                     </ul>
@@ -82,9 +82,9 @@
                         </div>
                         <div class="col-md-2 col-sm-2 top30">
                             <select  name="field-location" id="field-location" class="form-control">
-                                <option value="">Branch</option>
-                                <option value="HQ">Kota Bharu</option>
-                                <option value="Damansara">Damansara</option>
+                                @foreach ($branchview as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
