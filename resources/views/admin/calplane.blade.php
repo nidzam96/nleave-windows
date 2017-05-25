@@ -130,6 +130,7 @@
           var checkStart = moment(startDate, 'YYYY-MM-DD 09:00:00');
 
           var days = calcBusinessDays(checkStart,checkEnd);
+          console.log(days)
 
           $('#submitApply').text('Apply for ' +days+ ' days');
 
@@ -163,21 +164,24 @@
       var span = document.getElementsByClassName("close")[0];
 
       // When the user clicks the button, open the modal 
-      btn.onclick = function() {
+      $(btn).on('click', function() {
+        
           modal.style.display = "block";
-      }
+      })
 
       // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-          modal.style.display = "none";
-      }
+      $(span).on('click', function() {
+          
+        modal.style.display = "none";
+      })
 
       // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal) {
+      $(window).on('click', function() {
+          
+        if (event.target == modal) {
               modal.style.display = "none";
           }
-      }
+      })
 
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
         

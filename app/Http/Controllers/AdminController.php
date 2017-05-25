@@ -9,6 +9,7 @@ use App\Leave;
 use App\Branch;
 use App\Leavetype;
 use App\Leavetime;
+use App\Position;
 
 class AdminController extends Controller
 {
@@ -49,7 +50,7 @@ class AdminController extends Controller
         // $ltype = Leavetype::pluck('leave_name', 'id');
         // $ltime = Leavetime::pluck('times_name', 'id');
 
-        if (Auth()->user()->position == 'HR') {
+        if (Auth()->user()->position == '7') {
             # code...
             $leave = Leave::all();
         }
@@ -78,7 +79,8 @@ class AdminController extends Controller
         $branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
+        $position = Position::all();
 
-        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime);
+        return view('admin.add_user')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('position', $position);
     }
 }

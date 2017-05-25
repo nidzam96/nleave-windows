@@ -32,7 +32,7 @@ Route::get('admin/benefits', 'AdminController@benefits');
 
 Route::get('admin/profile', 'AdminController@showProfile');
 
-Route::get('admin/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminController@add_user']);
+Route::get('admin/user/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminController@add_user']);
 
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
@@ -47,3 +47,6 @@ Route::resource('leaves', 'LeavesController');
 
 //Route for EmailController
 Route::post('/send', ['as' => 'send', 'uses' => 'EmailController@send'] );
+
+//Route for StaffsController
+Route::post('/admin/user/add', ['as' => 'admin.user.add', 'uses' => 'StaffsController@store']);

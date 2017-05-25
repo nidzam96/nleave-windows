@@ -108,7 +108,6 @@ class LeavesController extends Controller
         $leave = new Leave;
         $leave->user_id = Auth()->user()->id;
         $user_name = User::where('id', '=', $leave->user_id)->get();
-        $leave->title = $user_name;
 
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
@@ -118,14 +117,16 @@ class LeavesController extends Controller
             if ($request->input('ltime') == '1') {
                 # code...
                 $leave->ltime_id = $request->input('ltime');
-                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
-                $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
 
                 if ($leave->end != $leave->start) {
                     # code...
+                    $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+                    $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
                     $leave->days = $request->input('dateDiff');
                 }
                 else{
+                    $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
+                    $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
                     $leave->days = 1;
                 }
             }
@@ -169,7 +170,7 @@ class LeavesController extends Controller
         //send reminder email to admin
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
-            $adminEmail = User::where('position', '=', 'HR')->first();
+            $adminEmail = User::where('position', '=', '7')->first();
             // $userEmail = User::where('position', '=', 'others' && 'id', '=', $user_id)->get();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
@@ -189,7 +190,7 @@ class LeavesController extends Controller
         //send approve mail to user
         Mail::send('emails.approve', [] , function ($message)
         {
-            $userEmail = User::where('position', '=', 'Others')->first();
+            $userEmail = User::where('position', '!=', '7')->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 

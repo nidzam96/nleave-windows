@@ -201,7 +201,7 @@
                             <table class="table table-bordered" id="leaveTable" width="100%">
                                 <thead>
                                     <tr>
-                                        @if (Auth::user()->position == 'HR')
+                                        @if (Auth::user()->position == '7')
                                             <th width="140">Employee</th>
                                             <th width="100">Position</th>
                                         @endif
@@ -219,7 +219,7 @@
                                 @foreach($leaves as $leave)
                                     <tbody>
                                         <tr>    
-                                            @if (Auth::user()->position == 'HR')
+                                            @if (Auth::user()->position == '7')
                                                 <td>{{ $leave->user->name }}</td>
                                                 <td>{{ $leave->user->position }}</td>
                                             @endif
@@ -231,7 +231,7 @@
                                                 <td>{{ $leave->reason }}</td>
                                                 <td></td>
 
-                                            @if (Auth::user()->position == 'HR')
+                                            @if (Auth::user()->position == '7')
                                                 <div class="form-group">
                                                     
                                                     <td>

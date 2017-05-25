@@ -4,13 +4,13 @@
 
 @section('section')
     <div class="section-2">
-        <div class="tabs" role="tabpanel">
+        <!-- <div class="tabs" role="tabpanel">
             <ul class="nav-tabs" role="tablist">
                 <li class="active" role="presentation">
                     <a href="#team" role="tab" data-toggle="tab">Team</a>
                 </li>
             </ul>
-        </div>      
+        </div> -->      
 
         <div class="tab-content">
             <div class="tab-pane active" id="team">
@@ -83,7 +83,7 @@
                         <div class="col-md-2 col-sm-2 top30">
                             <select  name="field-location" id="field-location" class="form-control">
                                 @foreach ($branchview as $branch)
-                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                    <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                                 @endforeach
                             </select>
                         </div>
