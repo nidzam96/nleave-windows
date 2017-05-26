@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Staff;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -28,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/admin/leave';
 
     /**
      * Create a new authentication controller instance.
@@ -69,6 +70,13 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'position' => $data['position'],
+        ]);
+
+        return Staff::create([
+            'preffered_name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
             'position' => $data['position'],
         ]);
     }

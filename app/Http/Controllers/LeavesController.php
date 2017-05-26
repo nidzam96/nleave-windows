@@ -107,8 +107,7 @@ class LeavesController extends Controller
         //store new application into database
         $leave = new Leave;
         $leave->user_id = Auth()->user()->id;
-        $user_name = User::where('id', '=', $leave->user_id)->get();
-
+        $leave->title = Auth()->user()->name;
         $leave->branch_id = $request->input('branch');
         $leave->ltype_id = $request->input('leaveType');
 
@@ -146,7 +145,6 @@ class LeavesController extends Controller
 
         }
 
-
         $leave->reason = $request->input('reason');
         $leave->status = "Pending";
 
@@ -182,15 +180,17 @@ class LeavesController extends Controller
         return redirect() ->route('admin.leaves');
     }
 
-    public function approve($id){
+    public function approve($id, $user_id){
 
         //find the approve application
         $leave = Leave::where('id', $id)->update(array ('status' => 'Approve'));
+        $userId = $user_id;
 
         //send approve mail to user
-        Mail::send('emails.approve', [] , function ($message)
+        Mail::send('emails.approve', [$userId] , function ($message) use($userId)
         {
-            $userEmail = User::where('position', '!=', '7')->first();
+
+            $userEmail = User::where('id', '=', $userId)->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
@@ -202,15 +202,16 @@ class LeavesController extends Controller
 
     }
 
-    public function reject($id){
+    public function reject($id, $user_id){
 
         //find the rejected application
         $leave = Leave::where('id', $id)->update(array ('status' => 'Reject'));
+        $userId = $user_id;
 
         //send rejected email to user
-        Mail::send('emails.reject', [], function ($message)
+        Mail::send('emails.reject', [$userId], function ($message) use($userId)
         {
-            $userEmail = User::where('position', '=', 'Others')->first();
+            $userEmail = User::where('id', '=', $userId)->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 

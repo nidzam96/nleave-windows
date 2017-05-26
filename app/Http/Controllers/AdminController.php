@@ -10,6 +10,7 @@ use App\Branch;
 use App\Leavetype;
 use App\Leavetime;
 use App\Position;
+use App\Staff;
 
 class AdminController extends Controller
 {
@@ -35,8 +36,9 @@ class AdminController extends Controller
     	$branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
+        $staff = Staff::all();
 
-        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime);
+        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff);
     }
 
     //Shows leave page

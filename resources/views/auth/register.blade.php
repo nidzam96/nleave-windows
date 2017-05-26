@@ -72,8 +72,8 @@
                             <div class="col-md-6">
                                 <!-- <input id="password" type="password" class="form-control" name="password"> -->
                                 <select name="position" class="form-control">
-                                    <option value="Others">Others</option>
-                                    <option value="HR">HR</option>
+                                    <option value="6">Developer</option>
+                                    <option value="7">HR</option>
                                 </select>
 
                                 @if ($errors->has('position'))
