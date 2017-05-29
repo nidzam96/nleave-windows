@@ -49,8 +49,21 @@ class StaffsController extends Controller
         $staff->position_id = $request->input('position');
         $staff->branch_id = $request->input('branch');
         $staff->password = $request->input('password');
-        $staff->leave_taken = $request->input('leave_takens');
+        $staff->sick_leave = $request->input('sick_leave');
+        $staff->annual_leave = $request->input('annual_leave');
+        $staff->marriage_leave = $request->input('marriage_leave');
+        $staff->maternity_leave = $request->input('maternity_leave');
+        $staff->paternity_leave = $request->input('paternity_leave');
+        $staff->time_off = $request->input('time_leave');
 
+            if (empty($request->input('leave_takens'))) {
+                # code...
+                $staff->leave_taken = 0;
+            }
+            else{
+                $staff->leave_taken = $request->input('leave_takens');
+            }
+            
         $staff->save();
 
         $user = New User;

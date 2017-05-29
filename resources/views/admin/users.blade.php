@@ -21,7 +21,8 @@
                             <h2 class="title">Manage Team</h2>
                         </div>
 
-                        <div class="col-md-4 section-group-edit">
+                        <!-- add new group -->
+                        <!-- <div class="col-md-4 section-group-edit">
                             <p class="field-group-name"  id="group-name">Everyone</p>
                             
                             <div class="field-edit-group-button hidden">
@@ -32,7 +33,7 @@
                                 <form id="form-edit-group" method="post">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control form-field-group-name" name="new_group_name" value="Everyone"/>
+                                            <input type="text" class="form-control form-field-group-name" name="new_group_name"/>
                                         </div>
                                         <div class="col-md-8">
                                             <button type="submit" class="field btn btn-primary">Save</button>
@@ -42,10 +43,10 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-5">
-                            <div class="section-actions pull-right">
+                            <div class="section-actions pull-right" style="margin-right: -400px">
                                 <a href="#" class="btn btn-default bnt-export-team-data">
                                     <i class="glyphicon glyphicon-export"></i>
                                     Export team data
@@ -71,13 +72,16 @@
                     <div class="row">
                         
                         <div class="col-md-3 col-sm-2 left">
-                            <button class="btn btn-default btn-block" id="btnCreateGroup">Drop or click here to create group</button>
+                            <button class="btn btn-default btn-block" id="btnCreateGroup">Click here to create group</button>
                         </div>
 
                         <div class="col-md-2 col-sm-2 top30">
                             <select name="field-job-position" id="field-job-position" class="form-control">
                                 <option value="">Job Position</option>
-                                <option value="Developer">Developer</option>
+                                
+                                @foreach ($position as $pos)
+                                    <option value="{{ $pos->id }}">{{ $pos->position_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-2 top30">
@@ -90,7 +94,6 @@
 
                         <div class="col-md-2 col-sm-2 top30">
                             <select name="field-others" id="field-others" class="form-control">
-                                <option value="">Others</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -108,7 +111,7 @@
 
                     <div class="section-body" style="margin-top: 10px">
                         <div class="row">
-                            <div class="col-md-3 col-sm-3">
+                            <!-- <div class="col-md-3 col-sm-3">
                                 <div class="section-group-list">
                                     <p class="top20">Groups</p>
                                     <div class="panel-group" id="sidebar">
@@ -163,12 +166,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-9">
-                                <p class="top20 tcenter">Assign employees to a group by selecting everyone, then dragging the person into the group at left hand side.</p>
+                            <br>
 
-                                <div class="row">
+                            <div class="col-md-12">
+                                <!-- <p class="top20 tcenter">Assign employees to a group by selecting everyone, then dragging the person into the group at left hand side.</p> -->
+                                
+
+                                <!-- <div class="row">
                                     <p>
                                         <a href="#" class="btn disabled" id="grid_view">
                                             <i class="glyphicon glyphicon-th"></i>
@@ -179,10 +185,10 @@
                                             List
                                         </a>
                                     </p>
-                                </div>
+                                </div> -->
 
-                                <ul class="users grid" style="position: relative; height: 126px">
-                                    <li class="user visible ui-draggable ui-draggable-handle" style="position: absolute; left: 0; top: 0">
+                                <!-- <ul class="users grid" style="position: relative; height: 126px">
+                                    <li class="user visible" style="position: absolute; left: 0; top: 0">
                                         <button class="close btnDeleteUserFromGroup">
                                             <span>X</span>
                                         </button>
@@ -197,7 +203,40 @@
                                             
                                         </div>
                                     </li>
-                                </ul>
+                                </ul> -->
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="employeeTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th >Full Name</th>
+                                                <th >Preferred Name</th>
+                                                <th >Gender</th>
+                                                <th >Email</th>
+                                                <th >Password</th>
+                                                <th >Branch</th>
+                                                <th >Position</th>
+                                                <th >Leave Taken</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        @foreach($staff as $sta)
+                                            <tbody>
+                                                <tr>    
+                                                    <td>{{ $sta->full_name }}</td>
+                                                    <td>{{ $sta->preffered_name }}</td>
+                                                    <td>{{ $sta->gender }} </td>
+                                                    <td>{{ $sta->email }}</td>
+                                                    <td>{{ $sta->password }}</td>
+                                                    <td>{{ $sta->branch->branch_name }}</td>
+                                                    <td>{{ $sta->position->position_name }}</td>
+                                                    <td>{{ $sta->leave_taken }}</td>
+                                                </tr>
+                                            </tbody>
+                                        @endforeach
+                                    </table>
+                                </div><!-- /.table -->
+
                             </div>
                         </div>
                     </div>

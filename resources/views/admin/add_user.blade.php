@@ -18,7 +18,7 @@
                     
                     <div class="row section-team-title">
                         <div class="col-md-3">
-                            <a href="{{ url('admin/user') }}"><u>Return to users page</u></a>
+                            <a href="{{ url('admin/users') }}"><u>Return to users page</u></a>
                         </div>
                     </div>
 
@@ -71,15 +71,47 @@
                                 </div>
                             </div>
 
+                            <div class="row top20">                        
+                                <div class="col-md-2">
+                                    <label>Sick Leave</label>
+                                    <input type="int" name="sick_leave" class="form-control">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label>Annual Leave</label>
+                                    <input type="int" name="annual_leave" class="form-control">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label>Marriage Leave</label>
+                                    <input type="int" name="marriage_leave" class="form-control">
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <label>Maternity Leave</label>
+                                    <input type="int" name="maternity_leave" class="form-control">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label>Paternity Leave</label>
+                                    <input type="int" name="paternity_leave" class="form-control">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label>Time Off Leave</label>
+                                    <input type="int" name="time_leave" class="form-control">
+                                </div>
+                            </div>
+
                             <div class="row top20">
                                 <div class="col-md-4">
-                                    <label>Password</label>
-                                    <input type="password" name="password" class="form-control">
+                                    <label>Leave Taken Before (ex: 0)</label>
+                                    <input type="int" name="leave_taken" min="0" class="form-control">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label>Leave Taken Before (ex: 0)</label>
-                                    <input type="text" name="leave_taken" min="0" class="form-control">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control">
                                 </div>
                             </div>
 

@@ -62,7 +62,7 @@
                                                             </div>
                                                         </div>
     
-                                                        @if (Auth::user()->id == '6')
+                                                        <!-- @if (Auth::user()->id == '6')
                                                             <div class="form-row">
                                                                 <label class="form-label">Select Employees</label>
                                                                 <div class="form-controls">
@@ -71,16 +71,15 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                        @endif
+                                                        @endif -->
 
                                                         <div class="form-row">
                                                             <label class="form-label">Leave Type</label>
                                                             <div class="form-controls">
                                                                 <select name="leaveType" id="leaveType" class="form-control">
-                                                                @foreach ($ltview as $ltype)
-                                                                    <option value="{{ $ltype->id }}"  data-day="{{ $ltype->leave_days}}">{{ $ltype->leave_name }}</option>
-                                                                    
-                                                                @endforeach
+                                                                    @foreach ($ltview as $ltype)
+                                                                        <option value="{{ $ltype->id }}">{{ $ltype->leave_name }}</option>
+                                                                    @endforeach
                                                                 </select>
 
                                                                 <!-- <p><strong id="avails-day"></strong> Available days</p> -->

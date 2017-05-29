@@ -37,8 +37,9 @@ class AdminController extends Controller
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
         $staff = Staff::all();
+        $position = Position::all();
 
-        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff);
+        return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
     }
 
     //Shows leave page
