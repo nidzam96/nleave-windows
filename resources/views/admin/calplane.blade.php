@@ -183,6 +183,14 @@
           }
       })
 
+      $('#leaveType').on('change', function (){
+
+        if ($(this).val() == '1') {
+          $('#avails-day').text('Available days');
+        } 
+
+      })
+
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
         
         var iWeeks, iDateDiff, iAdjust = 0;

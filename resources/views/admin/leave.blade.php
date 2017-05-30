@@ -56,7 +56,7 @@
                                                             <div class="form-controls">
                                                                 <select name="branch" id="branch" class="form-control">
                                                                 @foreach ($branchview as $branch)
-                                                                    <option value="{{$branch->id}}" >{{$branch->branch_name}}</option>
+                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
                                                                 @endforeach
                                                                 </select>
                                                             </div>
@@ -82,7 +82,7 @@
                                                                     @endforeach
                                                                 </select>
 
-                                                                <!-- <p><strong id="avails-day"></strong> Available days</p> -->
+                                                                <p><strong id="avails-day"></strong></p>
                                                             </div>
                                                                 
                                                         </div>

@@ -48,6 +48,7 @@ class AdminController extends Controller
         $branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
+        $staff = Staff::all();
 
         // $branch = Branch::pluck('branch_name', 'id');
         // $ltype = Leavetype::pluck('leave_name', 'id');
@@ -61,7 +62,7 @@ class AdminController extends Controller
             $leave = Leave::where('user_id', '=', Auth()->user()->id)->get();
         }
 
-        return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave);
+        return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave)->with('staff', $staff);
 
         // return view('admin.leave', compact('leave', 'branch', 'ltype', 'ltime'));
     }
