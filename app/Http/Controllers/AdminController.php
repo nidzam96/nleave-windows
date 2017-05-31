@@ -75,7 +75,14 @@ class AdminController extends Controller
 
     //Shows profile page
     public function showProfile(){
-    	return view('admin.profile');
+    	
+        $branch = Branch::all();
+        $ltype = Leavetype::all();
+        $ltime = Leavetime::all();
+        $staff = Staff::all();
+        $position = Position::all();
+
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
     }
 
     public function add_user(){
