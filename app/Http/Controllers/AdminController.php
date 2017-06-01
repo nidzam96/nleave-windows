@@ -79,7 +79,7 @@ class AdminController extends Controller
         $branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
-        $staff = Staff::all();
+        $staff = Staff::where('user_id', '=', Auth()->user()->id)->get();
         $position = Position::all();
 
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
