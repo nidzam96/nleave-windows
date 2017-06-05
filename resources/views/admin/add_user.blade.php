@@ -25,7 +25,9 @@
                     <div class="row">
                         <form action="{{ route('admin.user.add') }}" method="post">
                             {{ csrf_field() }}
-
+                            
+                            <h2>Staff Information</h2>
+                            
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Full Name</label>
@@ -54,11 +56,7 @@
 
                                 <div class="col-md-4">
                                     <label>Position</label>    
-                                    <select name="position" class="form-control">
-                                        @foreach ($position as $pos)
-                                            <option value="{{ $pos->id }}">{{ $pos->position_name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="position" class="form-control" required="required">
                                 </div>
                                 
                                 <div class="col-md-4">

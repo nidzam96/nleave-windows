@@ -47,10 +47,10 @@
 
                         <div class="col-md-5">
                             <div class="section-actions pull-right" style="margin-right: -400px">
-                                <a href="#" class="btn btn-default bnt-export-team-data">
+                                <!-- <a href="#" class="btn btn-default bnt-export-team-data">
                                     <i class="glyphicon glyphicon-export"></i>
                                     Export team data
-                                </a>
+                                </a> -->
 
                                 <div class="btn-group">
                                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
@@ -210,10 +210,9 @@
                                         <thead>
                                             <tr>
                                                 <th >Full Name</th>
-                                                <th >Preferred Name</th>
+                                                <!-- <th >Preferred Name</th> -->
                                                 <th >Gender</th>
                                                 <th >Email</th>
-                                                <th >Password</th>
                                                 <th >Branch</th>
                                                 <th >Position</th>
                                                 <th >Leave Taken</th>
@@ -223,11 +222,10 @@
                                         @foreach($staff as $sta)
                                             <tbody>
                                                 <tr>    
-                                                    <td>{{ $sta->full_name }}</td>
-                                                    <td>{{ $sta->preffered_name }}</td>
+                                                    <td><a href="">{{ $sta->full_name }}</a></td>
+                                                    <!-- <td>{{ $sta->preffered_name }}</td> -->
                                                     <td>{{ $sta->gender }} </td>
                                                     <td>{{ $sta->email }}</td>
-                                                    <td>{{ $sta->password }}</td>
                                                     <td>{{ $sta->branch->branch_name }}</td>
                                                     <td>{{ $sta->position->position_name }}</td>
                                                     <td>{{ $sta->leave_taken }}</td>

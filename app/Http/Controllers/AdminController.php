@@ -11,6 +11,9 @@ use App\Leavetype;
 use App\Leavetime;
 use App\Position;
 use App\Staff;
+use App\Employment;
+use App\Department;
+use App\Compensation;
 
 class AdminController extends Controller
 {
@@ -79,10 +82,12 @@ class AdminController extends Controller
         $branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
-        $staff = Staff::where('user_id', '=', Auth()->user()->id)->get();
         $position = Position::all();
+        $staff = Staff::where('user_id', '=', Auth()->user()->id)->get();
+        $employment = Employment::where('user_id', '=', Auth()->user()->id)->get();
+        $compensation = Compensation::where('user_id', '=', Auth()->user()->id)->get();
 
-        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }
 
     public function add_user(){

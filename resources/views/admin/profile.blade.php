@@ -121,25 +121,57 @@
 							<a href="">Edit</a>
 						</div>
         			</div>
-
-        			<div class="row top20">
-        				<div class="col-md-3"><label for="">Reports To : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Branch : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Department : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Position : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Start Date : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Employee Number : </label></div>
-        			</div>
+					
+					@foreach ($employment as $info)
+	        			<div class="row top20">
+	        				<div class="col-md-3">
+	        					<label for="">Reports To : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					
+	        				</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3">
+	        					<label for="">Branch : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					{{ $info->branch->branch_name }}
+	        				</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3">
+	        					<label for="">Department : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					{{ $info->department->department_name }}
+	        				</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3">
+	        					<label for="">Position : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					{{ $info->position->position_name }}
+	        				</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3">
+	        					<label for="">Start Date : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					{{ $info->start }}
+	        				</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3">
+	        					<label for="">Employee Number : </label>
+	        				</div>
+	        				<div class="col-md-3">
+	        					{{ $info->employee_number }}
+	        				</div>
+	        			</div>
+	        		@endforeach
         		</div>
         	</div>
 
@@ -155,18 +187,24 @@
         				</div>
         			</div>
 
-        			<div class="row top20">
-        				<div class="col-md-3"><label for="">Employment type : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Salary : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Pay method : </label></div>
-        			</div>
-        			<div class="row">
-        				<div class="col-md-3"><label for="">Bank name : </label></div>
-        			</div>
+					@foreach ($compensation as $comp)
+	        			<div class="row top20">
+	        				<div class="col-md-3"><label for="">Employment type : </label></div>
+	        				<div class="col-md-3">{{ $comp->type }}</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3"><label for="">Salary : </label></div>
+	        				<div class="col-md-3">{{ $comp->salary }}</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3"><label for="">Pay method : </label></div>
+	        				<div class="col-md-3">{{ $comp->pay_method }}</div>
+	        			</div>
+	        			<div class="row">
+	        				<div class="col-md-3"><label for="">Bank name : </label></div>
+	        				<div class="col-md-3">{{ $comp->bank }}</div>
+	        			</div>
+	        		@endforeach
         		</div>
         	</div>
         </div>

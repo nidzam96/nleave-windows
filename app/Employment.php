@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model
+class Employment extends Model
 {
     //
+    public function staff(){
+    	return $this->belongsTo('App\Staff');
+    }
+
     public function branch(){
     	return $this->belongsTo('App\Branch');
     }
@@ -15,4 +19,7 @@ class Staff extends Model
     	return $this->belongsTo('App\Position');
     }
 
+    public function department(){
+    	return $this->belongsTo('App\Department');
+    }
 }
