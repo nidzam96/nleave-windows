@@ -22,6 +22,10 @@ class Leave extends Model
     public function ltime(){
         return $this->belongsTo('App\Leavetime');
     }
+    
+    public function position(){
+        return $this->belongsTo('App/Position');
+    }
 
     protected $dates = ['start', 'end'];
 }
