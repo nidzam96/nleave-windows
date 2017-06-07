@@ -48,6 +48,11 @@ class StaffsController extends Controller
         $staff->email = $request->input('email');
         $staff->position_id = $request->input('position');
         $staff->branch_id = $request->input('branch');
+        $staff->address = $request->input('address');
+        $staff->number = $request->input('number');
+        $staff->dob = $request->input('dob');
+        $staff->nationality = $request->input('nationality');
+        $staff->status = $request->input('status');
         $staff->password = $request->input('password');
 
             if (empty($request->input('leave_takens'))) {

@@ -70,6 +70,44 @@
                             </div>
 
                             <div class="row top20">
+                                <div class="col-md-4">
+                                    <label>Address</label>
+                                    <textarea name="address" class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Phone Number</label>
+                                    <input type="text" name="number" class="form-control">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Date Of Birth</label>
+                                    <input type="date" name="dob" class="form-control"></div>
+                            </div>
+
+                            <div class="row top20">
+                                <div class="col-md-3">
+                                    <label>Nationality</label>
+                                    <input type="text" name="nationality" class="form-control">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Marital Status</label>
+                                    <input type="text" name="status" class="form-control">
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label>Leave Taken</label>
+                                    <input type="text" name="leave_taken" class="form-control">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Password</label>
+                                    <input type="password" name="passsword" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row top20">
                                 <div class="col-md-3 btn-group">
                                     <button type="submit" name="submit" class="btn">Add new employee</button>
                                 </div>
