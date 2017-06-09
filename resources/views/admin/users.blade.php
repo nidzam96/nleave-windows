@@ -75,6 +75,23 @@
                             <button class="btn btn-default btn-block" id="btnCreateGroup">Click here to create group</button>
                         </div>
 
+                        <div id="myModal" class="modal">
+
+                          <!-- Modal content -->
+                          <div class="modal-content">
+                            <span class="close">&times;</span>
+
+                            <input type="text" name="group_name" class="form-control" placeholder="Group Name">
+                            
+                            <br>
+
+                            <p>Assign your employees</p>
+
+                            <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
+                          </div>
+
+                        </div>
+
                         <div class="col-md-2 col-sm-2 top30">
                             <select name="field-job-position" id="field-job-position" class="form-control">
                                 <option value="">Job Position</option>
@@ -215,7 +232,7 @@
                                                 <th >Email</th>
                                                 <th >Branch</th>
                                                 <th >Position</th>
-                                                <th >Leave Taken</th>
+                                                <!-- <th >Leave Taken</th> -->
                                             </tr>
                                         </thead>
                                         
@@ -228,7 +245,7 @@
                                                     <td>{{ $sta->email }}</td>
                                                     <td>{{ $sta->branch->branch_name }}</td>
                                                     <td>{{ $sta->position->position_name }}</td>
-                                                    <td>{{ $sta->leave_taken }}</td>
+                                                    <!-- <td>{{ $sta->leave_taken }}</td> -->
                                                 </tr>
                                             </tbody>
                                         @endforeach

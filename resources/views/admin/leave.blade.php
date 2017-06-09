@@ -253,7 +253,7 @@
                                                                 
                                                                 <br>
 
-                                                                <a href="{{ route('leave.reject', [$leave->id, $leave->user_id]) }}" type="button" class="btn btn-danger">Submit</a>
+                                                                <a href="{{ route('leave.reject', $leave->id) }}" type="button" class="btn btn-danger">Submit</a>
                                                               </div>
 
                                                             </div>
