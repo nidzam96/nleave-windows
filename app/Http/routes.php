@@ -39,7 +39,7 @@ Route::get('admin/events', 'LeavesController@index');
 
 Route::get('leave/approve/{id}{user_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
 
-Route::get('leave/reject/{id}{user_id}', ['as' => 'leave.reject', 'uses' => 'LeavesController@reject']);
+Route::get('leave/reject/{id}', ['as' => 'leave.reject', 'uses' => 'LeavesController@reject']);
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
 
