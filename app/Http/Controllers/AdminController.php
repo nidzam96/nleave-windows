@@ -14,6 +14,7 @@ use App\Staff;
 use App\Employment;
 use App\Department;
 use App\Compensation;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -98,5 +99,23 @@ class AdminController extends Controller
         $position = Position::all();
 
         return view('admin.add_user')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('position', $position);
+    }
+
+    public function first_login(){
+
+        return view('first_registeration');
+    }
+
+    public function setpassword(Request $request){
+
+        $email    = $request->input('email');
+        $password = bcrypt($request->input('password'));
+        $user = User::where('email', '=', $email)->update(array ('password' => $password ));
+
+        $user_id = User::where('email', '=', $email)->first();
+        $get_id  = $user_id->id;
+        $staff   = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
+
+        return redirect('/');
     }
 }

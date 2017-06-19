@@ -9,6 +9,11 @@ use App\Branch;
 use App\Position;
 use App\Staff;
 use App\User;
+use App\Leavetype;
+use App\Leavetime;
+use App\Employment;
+use App\Compensation;
+use Mail;
 
 class StaffsController extends Controller
 {
@@ -53,7 +58,7 @@ class StaffsController extends Controller
         $staff->dob = $request->input('dob');
         $staff->nationality = $request->input('nationality');
         $staff->status = $request->input('status');
-        $staff->password = $request->input('password');
+        // $staff->password = $request->input('password');
 
             if (empty($request->input('leave_takens'))) {
                 # code...
@@ -64,12 +69,26 @@ class StaffsController extends Controller
             }
             
         $staff->save();
+     
+        $staffName  = $request->input('fullname');
+        $staffEmail = $request->input('email');
+        $branch     = $request->input('branch');
+        $position   = $request->input('position');
+
+        //send invite links
+        Mail::send('emails.invitation', ['staffName' => $staffName, 'branch' => $branch, 'position' => $position], function ($message) use($staffName, $staffEmail)
+        {
+            
+            $message->from(Auth()->user()->email, Auth()->user()->name);
+
+            $message->to($staffEmail, $staffName);
+
+        });
 
         $user = New User;
         $user->name = $request->input('prefername');
         $user->email = $request->input('email');
         $user->position = $request->input('position');
-        $user->password = bcrypt($request->input('password'));
 
         $user->save();
 
@@ -119,5 +138,19 @@ class StaffsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function userprofile($id)
+    {
+
+        $branch = Branch::all();
+        $ltype = Leavetype::all();
+        $ltime = Leavetime::all();
+        $position = Position::all();
+        $staff = Staff::where('user_id', '=', $id)->get();
+        $employment = Employment::where('user_id', '=', $id)->get();
+        $compensation = Compensation::where('user_id', '=', $id)->get();
+
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }
 }

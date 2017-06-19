@@ -3,14 +3,7 @@
 @section('pagetitle','Users')
 
 @section('section')   
-    <div class="section-2">
-        <!-- <div class="tabs" role="tabpanel">
-            <ul class="nav-tabs" role="tablist">
-                <li class="active" role="presentation">
-                    <a href="#team" role="tab" data-toggle="tab">Team</a>
-                </li>
-            </ul>
-        </div> -->      
+    <div class="section-2"> 
 
         <div class="tab-content">
             <div class="tab-pane active" id="team">
@@ -56,7 +49,12 @@
 
                                 <div class="col-md-4">
                                     <label>Position</label>    
-                                    <input type="text" name="position" class="form-control" required="required">
+                                    <!-- <input type="text" name="position" class="form-control" required="required"> -->
+                                    <select name="position" class="form-control">
+                                        @foreach ($position as $pos)
+                                            <option value="{{ $pos->id }}">{{ $pos->position_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -86,30 +84,30 @@
                             </div>
 
                             <div class="row top20">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Nationality</label>
                                     <input type="text" name="nationality" class="form-control">
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Marital Status</label>
                                     <input type="text" name="status" class="form-control">
                                 </div>
                                 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Leave Taken</label>
                                     <input type="text" name="leave_taken" class="form-control">
                                 </div>
 
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <label>Password</label>
                                     <input type="password" name="passsword" class="form-control">
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row top20">
                                 <div class="col-md-3 btn-group">
-                                    <button type="submit" name="submit" class="btn">Add new employee</button>
+                                    <button type="submit" name="submit" class="btn">Send invitation</button>
                                 </div>
                             </div>
                         </form>

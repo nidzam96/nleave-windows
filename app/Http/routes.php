@@ -34,6 +34,10 @@ Route::get('admin/profile', 'AdminController@showProfile');
 
 Route::get('admin/user/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminController@add_user']);
 
+Route::get('/first_login', 'AdminController@first_login');
+
+Route::post('/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminController@setpassword']);
+
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 
@@ -50,3 +54,5 @@ Route::post('/send', ['as' => 'send', 'uses' => 'EmailController@send'] );
 
 //Route for StaffsController
 Route::post('/admin/user/add', ['as' => 'admin.user.add', 'uses' => 'StaffsController@store']);
+
+Route::get('/admin/user/profile/{id}', ['as' => 'admin.user.profile', 'uses' => 'StaffsController@userprofile']);

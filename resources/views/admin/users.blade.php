@@ -3,14 +3,7 @@
 @section('pagetitle','Users')
 
 @section('section')
-    <div class="section-2">
-        <!-- <div class="tabs" role="tabpanel">
-            <ul class="nav-tabs" role="tablist">
-                <li class="active" role="presentation">
-                    <a href="#team" role="tab" data-toggle="tab">Team</a>
-                </li>
-            </ul>
-        </div> -->      
+    <div class="section-2">    
 
         <div class="tab-content">
             <div class="tab-pane active" id="team">
@@ -74,23 +67,24 @@
                         <div class="col-md-3 col-sm-2 left">
                             <button class="btn btn-default btn-block" id="btnCreateGroup">Click here to create group</button>
                         </div>
+                        
+                            <!-- the popup to create new group -->
+                            <div id="myModal" class="modal">
 
-                        <div id="myModal" class="modal">
+                              <!-- Modal content -->
+                              <div class="modal-content">
+                                <span class="close">&times;</span>
 
-                          <!-- Modal content -->
-                          <div class="modal-content">
-                            <span class="close">&times;</span>
+                                <input type="text" name="group_name" class="form-control" placeholder="Group Name">
+                                
+                                <br>
 
-                            <input type="text" name="group_name" class="form-control" placeholder="Group Name">
-                            
-                            <br>
+                                <p>Assign your employees</p>
 
-                            <p>Assign your employees</p>
+                                <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
+                              </div>
 
-                            <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
-                          </div>
-
-                        </div>
+                            </div>
 
                         <div class="col-md-2 col-sm-2 top30">
                             <select name="field-job-position" id="field-job-position" class="form-control">
@@ -239,7 +233,7 @@
                                         @foreach($staff as $sta)
                                             <tbody>
                                                 <tr>    
-                                                    <td><a href="">{{ $sta->full_name }}</a></td>
+                                                    <td><a href="{{ route('admin.user.profile', $sta->user_id) }}">{{ $sta->full_name }}</a></td>
                                                     <!-- <td>{{ $sta->preffered_name }}</td> -->
                                                     <td>{{ $sta->gender }} </td>
                                                     <td>{{ $sta->email }}</td>

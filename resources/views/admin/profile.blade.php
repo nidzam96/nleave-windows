@@ -27,7 +27,9 @@
 						</div>
 
 						<div class="col-md-3 col-md-offset-2">
-							<a href="">Edit</a>
+						@if (Auth::user()->position != 7)
+							<a href="" id="personal_edits">Edit</a>
+						@endif
 						</div>
 					</div>
 					
@@ -118,7 +120,9 @@
 							<p>Employment Info</p>
 						</div>
 						<div class="col-md-3 col-md-offset-2">
-							<a href="">Edit</a>
+						@if (Auth::user()->position != 7)	
+							<a href="" id="employment_edits">Edit</a>
+						@endif
 						</div>
         			</div>
 					
@@ -183,7 +187,9 @@
         					<p>Compensation</p>
         				</div>
         				<div class="col-md-3 col-md-offset-2">
-        					<a href="">Edit</a>
+        				@if (Auth::user()->position != 7)	
+        					<a href="" id="compensation_edits">Edit</a>
+        				@endif
         				</div>
         			</div>
 
