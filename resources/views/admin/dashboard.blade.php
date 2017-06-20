@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="row">
                 <ul class="list-clearfix">
-                @if (Auth::user()->position == "7")
+                @if (Auth::user()->position == 'HR')
                     <li class="icon-container">
                         <a href="{{ url('#') }}">
                             <i class="icon fa fa-building" aria-hidden="true"></i>
@@ -15,7 +15,7 @@
                         <div>Company Settings</div>
                     </li>
                 @endif
-                @if (Auth::user()->position == "7")
+                @if (Auth::user()->position == 'HR')
                     <li class="icon-container">
                         <a href="{{ url('/admin/users') }}">
                             <i class="icon fa fa-group" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
                         <div>Your Profile</div>
                     </li>
                 @endif                   
-                @if (Auth::user()->position == "7")
+                @if (Auth::user()->position == 'HR')
                     <li class="icon-container">
                         <a href="{{ url('#') }}">
                             <i class="icon fa fa-calendar" aria-hidden="true"></i>

@@ -75,7 +75,7 @@ class StaffsController extends Controller
         $branch     = $request->input('branch');
         $position   = $request->input('position');
 
-        //send invite links
+        // send invite links
         Mail::send('emails.invitation', ['staffName' => $staffName, 'branch' => $branch, 'position' => $position], function ($message) use($staffName, $staffEmail)
         {
             
@@ -86,9 +86,12 @@ class StaffsController extends Controller
         });
 
         $user = New User;
-        $user->name = $request->input('prefername');
+        $user->name  = $request->input('prefername');
         $user->email = $request->input('email');
-        $user->position = $request->input('position');
+
+        $getPosition  = Position::where('id', '=', $position)->first();
+        $positionName = $getPosition->position_name;
+        $user->position = $positionName;
 
         $user->save();
 
@@ -152,5 +155,10 @@ class StaffsController extends Controller
         $compensation = Compensation::where('user_id', '=', $id)->get();
 
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
+    }
+
+    public function editStaffInfo(Request $request)
+    {
+        
     }
 }

@@ -26,7 +26,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('first_login', 'setpassword');
     }
 
     // Shows dashboard page
@@ -116,6 +116,6 @@ class AdminController extends Controller
         $get_id  = $user_id->id;
         $staff   = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
 
-        return redirect('/');
+        return redirect('/admin/leave');
     }
 }

@@ -62,7 +62,7 @@
                                                             </div>
                                                         </div>
     
-                                                        <!-- @if (Auth::user()->id == '6')
+                                                        <!-- @if (Auth::user()->id == 'HR')
                                                             <div class="form-row">
                                                                 <label class="form-label">Select Employees</label>
                                                                 <div class="form-controls">
@@ -200,7 +200,7 @@
                             <table class="table table-bordered" id="leaveTable" width="100%">
                                 <thead>
                                     <tr>
-                                        @if (Auth::user()->position == '7')
+                                        @if (Auth::user()->position == 'HR')
                                             <th width="140">Employee</th>
                                             <th width="100">Position</th>
                                         @endif
@@ -218,7 +218,7 @@
                                 @foreach($leaves as $leave)
                                     <tbody>
                                         <tr>    
-                                            @if (Auth::user()->position == '7')
+                                            @if (Auth::user()->position == 'HR')
                                                 <td>{{ $leave->user->name }}</td>
                                                 <td>{{ $leave->user->position }}</td>
                                             @endif
@@ -230,7 +230,7 @@
                                                 <td>{{ $leave->reason }}</td>
                                                 <td></td>
 
-                                            @if (Auth::user()->position == '7')
+                                            @if (Auth::user()->position == 'HR')
                                                 <div class="form-group">
                                                     
                                                     <td>

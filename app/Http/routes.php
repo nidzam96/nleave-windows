@@ -56,3 +56,5 @@ Route::post('/send', ['as' => 'send', 'uses' => 'EmailController@send'] );
 Route::post('/admin/user/add', ['as' => 'admin.user.add', 'uses' => 'StaffsController@store']);
 
 Route::get('/admin/user/profile/{id}', ['as' => 'admin.user.profile', 'uses' => 'StaffsController@userprofile']);
+
+Route::post('/user/profile/edit', ['as' => 'user.profile.edit', 'uses' => 'StaffsController@editStaffInfo']);

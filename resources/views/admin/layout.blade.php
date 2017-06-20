@@ -22,7 +22,7 @@
 								Dashboard
 							</a>
 						</li>
-						@if (Auth::user()->position == "7")
+						@if (Auth::user()->position == 'HR')
 							<li>
 								<a href="{{ url('/admin/users') }}">
 									<span class="fa fa-users fa-fw"></span>
