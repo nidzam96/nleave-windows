@@ -19,7 +19,7 @@
                         <form action="{{ route('admin.user.add') }}" method="post">
                             {{ csrf_field() }}
                             
-                            <h2>Staff Information</h2>
+                            <h2>Personal Details</h2>
                             
                             <div class="row">
                                 <div class="col-md-4">
@@ -42,67 +42,73 @@
                             </div>
 
                             <div class="row top20">
+
                                 <div class="col-md-4">
                                     <label>Email</label>
                                     <input type="email" name="email" class="form-control" required="required">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label>Position</label>    
-                                    <!-- <input type="text" name="position" class="form-control" required="required"> -->
+                                    <label>Phone Number</label>
+                                    <input type="text" name="number" class="form-control">
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label>Date Of Birth</label>
+                                    <input type="date" name="dob" class="form-control">
+                                </div>
+                            </div>
+
+                            <h2 class="top30">Employment Info</h2>
+                            
+                            <div class="row top20">
+
+                                <div class="col-md-4">
+                                    <label>Employee Number</label>
+                                    <input type="text" name="empNum" class="form-control"></input>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Start Date</label>
+                                    <input type="date" name="sdate" class="form-control">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Reports to</label>
+                                    <!-- <input type="text" name="report" class="form-control"> -->
+                                    <select name="report" class="form-control">
+                                        @foreach ($staff as $sta)
+                                            <option value="{{ $sta->preffered_name }}">{{ $sta->preffered_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row top20">
+                                <div class="col-md-4">
+                                    <label>Position</label>
+                                    <!-- <input type="text" name="position" class="form-control"> -->
                                     <select name="position" class="form-control">
                                         @foreach ($position as $pos)
                                             <option value="{{ $pos->id }}">{{ $pos->position_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
                                 <div class="col-md-4">
-                                    <label>Branch</label>
-                                    <select name="branch" class="form-control">
+                                    <label>Location</label>
+                                    <!-- <input type="text" name="location" class="form-control"> -->
+                                    <select name="location" class="form-control">
                                         @foreach ($branchview as $branch)
                                             <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="row top20">
-                                <div class="col-md-4">
-                                    <label>Address</label>
-                                    <textarea name="address" class="form-control"></textarea>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Phone Number</label>
-                                    <input type="text" name="number" class="form-control">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Date Of Birth</label>
-                                    <input type="date" name="dob" class="form-control"></div>
-                            </div>
-
-                            <div class="row top20">
-                                <div class="col-md-4">
-                                    <label>Nationality</label>
-                                    <input type="text" name="nationality" class="form-control">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Marital Status</label>
-                                    <input type="text" name="status" class="form-control">
-                                </div>
                                 
                                 <div class="col-md-4">
-                                    <label>Leave Taken</label>
-                                    <input type="text" name="leave_taken" class="form-control">
+                                    <label>Department</label>
+                                    <input type="text" name="department" class="form-control">
                                 </div>
-
-                                <!-- <div class="col-md-3">
-                                    <label>Password</label>
-                                    <input type="password" name="passsword" class="form-control">
-                                </div> -->
                             </div>
 
                             <div class="row top20">

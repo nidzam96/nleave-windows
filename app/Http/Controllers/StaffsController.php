@@ -47,36 +47,34 @@ class StaffsController extends Controller
     {
         //
         $staff = New Staff;
-        $staff->full_name = $request->input('fullname');
-        $staff->preffered_name = $request->input('prefername');
-        $staff->gender = $request->input('gender');
-        $staff->email = $request->input('email');
-        $staff->position_id = $request->input('position');
-        $staff->branch_id = $request->input('branch');
-        $staff->address = $request->input('address');
-        $staff->number = $request->input('number');
-        $staff->dob = $request->input('dob');
-        $staff->nationality = $request->input('nationality');
-        $staff->status = $request->input('status');
-        // $staff->password = $request->input('password');
+        
+        $staff->full_name       = $request->input('fullname');
+        $staff->preffered_name  = $request->input('prefername');
+        $staff->gender          = $request->input('gender');
+        $staff->email           = $request->input('email');
+        $staff->number          = $request->input('number');
+        $staff->dob             = $request->input('dob');
+        $staff->branch_id       = $request->input('location');
+        $staff->position_id     = $request->input('position');
 
-            if (empty($request->input('leave_takens'))) {
-                # code...
-                $staff->leave_taken = 0;
-            }
-            else{
-                $staff->leave_taken = $request->input('leave_takens');
-            }
-            
         $staff->save();
+
+        $employment = New Employment;
+
+        $employment->department    = $request->input('department');
+        $employment->start         = $request->input('sdate');
+        $employment->report        = $request->input('report');
+        $employment->branch_id     = $request->input('location');
+        $employment->position_id   = $request->input('position');
+        $employment->employee_number = $request->input('empNum');
+
+        $employment->save();
      
         $staffName  = $request->input('fullname');
         $staffEmail = $request->input('email');
-        $branch     = $request->input('branch');
-        $position   = $request->input('position');
 
         // send invite links
-        Mail::send('emails.invitation', ['staffName' => $staffName, 'branch' => $branch, 'position' => $position], function ($message) use($staffName, $staffEmail)
+        Mail::send('emails.invitation', ['staffName' => $staffName], function ($message) use($staffName, $staffEmail)
         {
             
             $message->from(Auth()->user()->email, Auth()->user()->name);
@@ -89,8 +87,9 @@ class StaffsController extends Controller
         $user->name  = $request->input('prefername');
         $user->email = $request->input('email');
 
-        $getPosition  = Position::where('id', '=', $position)->first();
-        $positionName = $getPosition->position_name;
+        $position      = $request->input('position');
+        $getPosition    = Position::where('id', '=', $position)->first();
+        $positionName   = $getPosition->position_name;
         $user->position = $positionName;
 
         $user->save();
@@ -146,19 +145,33 @@ class StaffsController extends Controller
     public function userprofile($id)
     {
 
-        $branch = Branch::all();
-        $ltype = Leavetype::all();
-        $ltime = Leavetime::all();
-        $position = Position::all();
-        $staff = Staff::where('user_id', '=', $id)->get();
-        $employment = Employment::where('user_id', '=', $id)->get();
+        $branch       = Branch::all();
+        $ltype        = Leavetype::all();
+        $ltime        = Leavetime::all();
+        $position     = Position::all();
+        $staff        = Staff::where('user_id', '=', $id)->get();
+        $employment   = Employment::where('user_id', '=', $id)->get();
         $compensation = Compensation::where('user_id', '=', $id)->get();
 
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }
 
-    public function editStaffInfo(Request $request)
+    public function editStaffInfo(Request $request, $id)
     {
-        
+
+        $email          = $request->input('emailEdit');
+        $fname          = $request->input('fnameEdit');
+        $prefername     = $request->input('preferedEdit');
+        $address        = $request->input('addressEdit');
+        $number         = $request->input('numberEdit');
+        $gender         = $request->input('genderEdit');
+        $dob            = $request->input('dobEdit');
+        $nationality    = $request->input('nationalityEdit');
+        $status         = $request->input('statusEdit');
+
+        $staffEdit = Staff::where('user_id', $id)->update(array ('email' => $email,'full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
+
+        return redirect('/admin/profile');
+
     }
 }

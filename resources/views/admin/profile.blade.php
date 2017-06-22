@@ -27,9 +27,7 @@
 						</div>
 
 						<div class="col-md-3 col-md-offset-2">
-						@if (Auth::user()->position != 'HR')
 							<a href="#" type="button" id="personal_edits">Edit</a>
-						@endif
 						</div>
 					</div>
 					
@@ -108,76 +106,76 @@
 							</div>
 						</div>					
 
-					<!-- the popup to edit staff information -->
-					<div id="staffModal" class="modal">
+						<!-- the popup to edit staff information -->
+						<div id="staffModal" class="modal">
 
-					  <div class="modal-content" style="width: 100%; height: 300px">
-					    <span class="close">&times;</span>
-						
-						<div class="col-md-12">
+						  <div class="modal-content" style="width: 100%; height: 300px">
+						    <span class="close">&times;</span>
+							
+							<div class="col-md-12">
 
-							<p>Personal Information</p>
-							<form method="post" action="#">
-								{{ csrf_field() }}
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" name="emailEdit" class="form-control" placeholder="{{ $sta->email }}">
+								<p>Personal Information</p>
+								<form method="post" action="{{ route('user.profile.edit', $sta->user_id) }}">
+									{{ csrf_field() }}
+									<div class="row">
+										<div class="col-md-4">
+											<input type="text" name="emailEdit" class="form-control" placeholder="{{ $sta->email }}" value="{{ $sta->email }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" name="fnameEdit" class="form-control" placeholder="{{ $sta->full_name }}" value="{{ $sta->full_name }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" name="preferedEdit" class="form-control" placeholder="{{ $sta->preffered_name }}" value="{{ $sta->preffered_name }}">
+										</div>
 									</div>
+									<div class="row top30">
 									<div class="col-md-4">
-										<input type="text" name="fnameEdit" class="form-control" placeholder="{{ $sta->full_name }}">
-									</div>
-									<div class="col-md-4">
-										<input type="text" name="preferedEdit" class="form-control" placeholder="{{ $sta->preffered_name }}">
-									</div>
-								</div>
-								<div class="row top30">
-								<div class="col-md-4">
-									<input type="text" class="form-control" name="addressEdit" placeholder="{{ $sta->address }}">
-								</div>
-								<div class="col-md-4">
-									<input type="text" class="form-control" name="numberEdit" placeholder="{{ $sta->number }}">
-								</div>
-								<div class="col-md-4">
-									<input type="text" class="form-control" name="genderEdit" placeholder="{{ $sta->gender }}">
-								</div>
-								</div>
-								<div class="row top30">
-									<div class="col-md-4">
-										<input type="text" class="form-control" name="dobEdit" placeholder="{{ $sta->dob }}">
+										<input type="text" class="form-control" name="addressEdit" placeholder="{{ $sta->address }}" value="{{ $sta->address }}">
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" name="nationalityEdit" placeholder="{{ $sta->nationality }}">
+										<input type="text" class="form-control" name="numberEdit" placeholder="{{ $sta->number }}" value="{{ $sta->number }}">
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" name="statusEdit" placeholder="{{ $sta->status }}">
+										<input type="text" class="form-control" name="genderEdit" placeholder="{{ $sta->gender }}" value="{{ $sta->gender }}">
 									</div>
-								</div>
-								<div class="row top30">
-									<div class="col-md-4 col-md-offset-5">
-										<button type="submit" name="submitEdit" class="btn btn-success">Commit Changes</button>
 									</div>
-								</div>
-							</form>
+									<div class="row top30">
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="dobEdit" placeholder="{{ $sta->dob }}" value="{{ $sta->dob }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="nationalityEdit" placeholder="{{ $sta->nationality }}" value="{{ $sta->nationality }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="statusEdit" placeholder="{{ $sta->status }}" value="{{ $sta->status }}">
+										</div>
+									</div>
+									<div class="row top30">
+										<div class="col-md-4 col-md-offset-5">
+											<button type="submit" name="submitEdit" class="btn btn-success">Commit Changes</button>
+										</div>
+									</div>
+								</form>
+
+							</div>
+
+						  </div>
 
 						</div>
-
-					  </div>
-
-					</div>
-				@endforeach
+					@endforeach
         		</div>
         	</div>
 
         	<div class="row top30">
         		<div class="col-md-12">
         			
-        			<div class="row">        				
+        			<div class="row">
 						<div class="col-md-3">
 							<p>Employment Info</p>
 						</div>
 						<div class="col-md-3 col-md-offset-2">
-						@if (Auth::user()->position != 'HR')	
-							<a type="button" id="employment_edits">Edit</a>
+						@if (Auth::user()->position == 'HR')	
+							<a href="#" type="button" id="employment_edits">Edit</a>
 						@endif
 						</div>
         			</div>
@@ -231,18 +229,63 @@
 	        					{{ $info->employee_number }}
 	        				</div>
 	        			</div>
+
+		        		<!-- the popup to edit employment information -->
+		        		<!-- <div id="employmentModal" class="modal">
+
+		        		  <div class="modal-content">
+		        		    <span class="close">&times;</span>
+
+							<div class="col-md-12">
+
+								<p>Personal Information</p>
+								<form method="post" action="#">
+									{{ csrf_field() }}
+									<div class="row">
+										<div class="col-md-4">
+											<input type="text" name="emailEdit" class="form-control" placeholder="{{ $sta->email }}" value="{{ $sta->email }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" name="fnameEdit" class="form-control" placeholder="{{ $sta->full_name }}" value="{{ $sta->full_name }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" name="preferedEdit" class="form-control" placeholder="{{ $sta->preffered_name }}" value="{{ $sta->preffered_name }}">
+										</div>
+									</div>
+									<div class="row top30">
+									<div class="col-md-4">
+										<input type="text" class="form-control" name="addressEdit" placeholder="{{ $sta->address }}" value="{{ $sta->address }}">
+									</div>
+									<div class="col-md-4">
+										<input type="text" class="form-control" name="numberEdit" placeholder="{{ $sta->number }}" value="{{ $sta->number }}">
+									</div>
+									<div class="col-md-4">
+										<input type="text" class="form-control" name="genderEdit" placeholder="{{ $sta->gender }}" value="{{ $sta->gender }}">
+									</div>
+									</div>
+									<div class="row top30">
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="dobEdit" placeholder="{{ $sta->dob }}" value="{{ $sta->dob }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="nationalityEdit" placeholder="{{ $sta->nationality }}" value="{{ $sta->nationality }}">
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" name="statusEdit" placeholder="{{ $sta->status }}" value="{{ $sta->status }}">
+										</div>
+									</div>
+									<div class="row top30">
+										<div class="col-md-4 col-md-offset-5">
+											<button type="submit" name="submitEdit" class="btn btn-success">Commit Changes</button>
+										</div>
+									</div>
+								</form>
+
+							</div>
+		        		  </div>
+
+		        		</div> -->
 	        		@endforeach
-
-	        		<!-- the popup to edit employment information -->
-	        		<!-- <div id="employmentModal" class="modal">
-
-	        		  <div class="modal-content">
-	        		    <span class="close">&times;</span>
-
-
-	        		  </div>
-
-	        		</div> -->
         		</div>
         	</div>
 
@@ -254,8 +297,8 @@
         					<p>Compensation</p>
         				</div>
         				<div class="col-md-3 col-md-offset-2">
-        				@if (Auth::user()->position != 'HR')	
-        					<a type="button" id="compensation_edits">Edit</a>
+        				@if (Auth::user()->position == 'HR')	
+        					<a href="#" type="button" id="compensation_edits">Edit</a>
         				@endif
         				</div>
         			</div>

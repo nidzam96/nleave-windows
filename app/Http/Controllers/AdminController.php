@@ -97,8 +97,9 @@ class AdminController extends Controller
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
         $position = Position::all();
+        $staff    = Staff::all();
 
-        return view('admin.add_user')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('position', $position);
+        return view('admin.add_user')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('position', $position)->with('staff', $staff);
     }
 
     public function first_login(){
@@ -113,6 +114,7 @@ class AdminController extends Controller
         $user = User::where('email', '=', $email)->update(array ('password' => $password ));
 
         $user_id = User::where('email', '=', $email)->first();
+
         $get_id  = $user_id->id;
         $staff   = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
 

@@ -695,8 +695,8 @@
       }
   })
 
-  // // The popup for edit employment information 
-  // // Get the modal
+  // The popup for edit employment information 
+  // Get the modal
   // var modal = document.getElementById('employmentModal');
 
   // // Get the button that opens the modal

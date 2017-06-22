@@ -36,7 +36,7 @@ Route::get('admin/user/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminCon
 
 Route::get('/first_login', 'AdminController@first_login');
 
-Route::post('/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminController@setpassword']);
+Route::post('user/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminController@setpassword']);
 
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
@@ -57,4 +57,4 @@ Route::post('/admin/user/add', ['as' => 'admin.user.add', 'uses' => 'StaffsContr
 
 Route::get('/admin/user/profile/{id}', ['as' => 'admin.user.profile', 'uses' => 'StaffsController@userprofile']);
 
-Route::post('/user/profile/edit', ['as' => 'user.profile.edit', 'uses' => 'StaffsController@editStaffInfo']);
+Route::post('/user/profile/edit/{id}', ['as' => 'user.profile.edit', 'uses' => 'StaffsController@editStaffInfo']);
