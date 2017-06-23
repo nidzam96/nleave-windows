@@ -54,10 +54,6 @@ class AdminController extends Controller
         $ltime = Leavetime::all();
         $staff = Staff::all();
 
-        // $branch = Branch::pluck('branch_name', 'id');
-        // $ltype = Leavetype::pluck('leave_name', 'id');
-        // $ltime = Leavetime::pluck('times_name', 'id');
-
         if (Auth()->user()->position == '7') {
             # code...
             $leave = Leave::all();
@@ -88,10 +84,13 @@ class AdminController extends Controller
         $employment = Employment::where('user_id', '=', Auth()->user()->id)->get();
         $compensation = Compensation::where('user_id', '=', Auth()->user()->id)->get();
 
+        // dd($compensation);
+
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }
 
-    public function add_user(){
+    public function add_user(){    
+
         
         $branch = Branch::all();
         $ltype = Leavetype::all();

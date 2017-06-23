@@ -171,7 +171,24 @@ class StaffsController extends Controller
 
         $staffEdit = Staff::where('user_id', $id)->update(array ('email' => $email,'full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
-        return redirect('/admin/profile');
+        if (Auth()->user()->position == 'HR') {
+            # code...
+            return redirect('admin/users');
+        }
+        else
+            return redirect('/admin/profile');
+    }
 
+    public function editEmployment(Request $request, $id)
+    {
+
+        $report     = $request->input('reportEdit');
+        $branch     = $request->input('branchEdit');
+        $department = $request->input('departmentEdit');
+        $position   = $request->input('positionEdit');
+        $start      = $request->input('startEdit');
+        $empNum     = $request->input('empnumEdit');
+
+        $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report','branch','department','position','start','employee_number') );
     }
 }

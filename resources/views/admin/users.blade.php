@@ -74,13 +74,15 @@
                               <div class="modal-content">
                                 <span class="close">&times;</span>
 
-                                <input type="text" name="group_name" class="form-control" placeholder="Group Name">
-                                
-                                <br>
+                                <form action="#" method="post">
+                                    <input type="text" name="group_name" class="form-control" placeholder="Group Name">
+                                    
+                                    <br>
 
-                                <p>Assign your employees</p>
+                                    <p>Assign your employees</p>
 
-                                <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
+                                    <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
+                                </form>
                               </div>
 
                             </div>

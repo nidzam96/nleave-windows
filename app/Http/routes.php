@@ -57,4 +57,6 @@ Route::post('/admin/user/add', ['as' => 'admin.user.add', 'uses' => 'StaffsContr
 
 Route::get('/admin/user/profile/{id}', ['as' => 'admin.user.profile', 'uses' => 'StaffsController@userprofile']);
 
-Route::post('/user/profile/edit/{id}', ['as' => 'user.profile.edit', 'uses' => 'StaffsController@editStaffInfo']);
+Route::post('/user/profile/editpersonal/{id}', ['as' => 'user.profile.edit.personal', 'uses' => 'StaffsController@editStaffInfo']);
+
+Route::post('/user/profile/editemployment/{id}', ['as' => 'user.profile.edit.employment', 'uses' => 'StaffsController@editEmployment']);
