@@ -47,6 +47,8 @@ Route::get('leave/reject/{id}', ['as' => 'leave.reject', 'uses' => 'LeavesContro
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
 
+Route::get('leaves/days/{leave_type_id}', 'LeavesController@getLeaveDays');
+
 Route::resource('leaves', 'LeavesController');
 
 //Route for EmailController
@@ -59,4 +61,6 @@ Route::get('/admin/user/profile/{id}', ['as' => 'admin.user.profile', 'uses' => 
 
 Route::post('/user/profile/editpersonal/{id}', ['as' => 'user.profile.edit.personal', 'uses' => 'StaffsController@editStaffInfo']);
 
-Route::post('/user/profile/editemployment/{id}', ['as' => 'user.profile.edit.employment', 'uses' => 'StaffsController@editEmployment']);
+Route::post('/user/profile/edit/employment', ['as' => 'user.profile.edit.employment', 'uses' => 'StaffsController@editEmployment']);
+
+Route::post('/user/profile/edit/compensation', ['as' => 'user.profile.edit.compensation', 'uses' => 'StaffsController@editCompensation']);

@@ -189,13 +189,14 @@
 						</div>
         			</div>
 					
-					@foreach ($employment as $info)
 	        			<div class="row top20">
 	        				<div class="col-md-3">
 	        					<label for="">Reports To : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->report }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->report }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 	        			<div class="row">
@@ -203,7 +204,9 @@
 	        					<label for="">Branch : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->branch->branch_name }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->branch->branch_name }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 	        			<div class="row">
@@ -211,7 +214,9 @@
 	        					<label for="">Department : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->department }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->department }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 	        			<div class="row">
@@ -219,7 +224,9 @@
 	        					<label for="">Position : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->position->position_name }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->position->position_name }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 	        			<div class="row">
@@ -227,7 +234,9 @@
 	        					<label for="">Start Date : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->start }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->start }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 	        			<div class="row">
@@ -235,7 +244,9 @@
 	        					<label for="">Employee Number : </label>
 	        				</div>
 	        				<div class="col-md-3">
-	        					{{ $info->employee_number }}
+	        					@foreach ($employment as $info)
+	        						{{ $info->employee_number }}
+	        					@endforeach
 	        				</div>
 	        			</div>
 
@@ -248,38 +259,54 @@
 							<div class="col-md-12">
 
 								<p>Personal Information</p>
-								<form method="post" action="#">
+								<form method="post" action="{{ route('user.profile.edit.employment') }}">
 									{{ csrf_field() }}
+									
+									@foreach ($employment as $info)
+										<input type="hidden" name="id" value="{{ $info->user_id }}">
+									@endforeach
 
 									<div class="row">
 										<div class="col-md-4">
 											<label>Report To</label>
-											<input type="text" name="reportEdit" class="form-control" placeholder="{{ $info->report }}" value="{{ $info->report }}">
+											@foreach ($employment as $info)
+												<input type="text" name="reportEdit" class="form-control" placeholder="{{ $info->report }}" value="{{ $info->report }}">
+											@endforeach
 										</div>
 										<div class="col-md-4">
 											<label>Branch</label>
-											<input type="text" name="branchEdit" class="form-control" placeholder="{{ $info->branch->branch_name }}" value="{{ $info->branch->branch_name }}">
+											@foreach ($employment as $info)
+												<input type="text" name="branchEdit" class="form-control" placeholder="{{ $info->branch->branch_name }}" value="{{ $info->branch->branch_name }}">
+											@endforeach
 										</div>
 										<div class="col-md-4">
 											<label>Department</label>
-											<input type="text" name="departmentEdit" class="form-control" placeholder="{{ $info->department }}" value="{{ $info->department }}">
+											@foreach ($employment as $info)
+												<input type="text" name="departmentEdit" class="form-control" placeholder="{{ $info->department }}" value="{{ $info->department }}">
+											@endforeach
 										</div>
 									</div>
 									<div class="row top30">
 										<div class="col-md-4">
 											<label>Position</label>
-											<input type="text" class="form-control" name="positionEdit" placeholder="{{ $info->position->position_name }}" value="{{ $info->position->position_name }}">
+											@foreach ($employment as $info)
+												<input type="text" class="form-control" name="positionEdit" placeholder="{{ $info->position->position_name }}" value="{{ $info->position->position_name }}">
+											@endforeach
 											<!-- <select name="positionEdit" class="form-control">
 												<option value=""></option>
 											</select> -->
 										</div>
 										<div class="col-md-4">
 											<label>Start Date</label>
-											<input type="text" class="form-control" name="startEdit" placeholder="{{ $info->start }}" value="{{ $info->start }}">
+											@foreach ($employment as $info)
+												<input type="text" class="form-control" name="startEdit" placeholder="{{ $info->start }}"  value="{{ $info->start }}">
+											@endforeach
 										</div>
 										<div class="col-md-4">
 											<label>Employee Number</label>
-											<input type="text" class="form-control" name="empnumEdit" placeholder="{{ $info->employee_number }}" value="{{ $info->employee_number }}">
+											@foreach ($employment as $info)
+												<input type="text" class="form-control" name="empnumEdit" placeholder="{{ $info->employee_number }}" value="{{ $info->employee_number }}">
+											@endforeach
 										</div>
 									</div>
 
@@ -294,7 +321,6 @@
 		        		  </div>
 
 		        		</div>
-	        		@endforeach
         		</div>
         	</div>
 
@@ -312,22 +338,37 @@
         				</div>
         			</div>
 
-					@foreach ($compensation as $comp)
 	        			<div class="row top20">
 	        				<div class="col-md-3"><label for="">Employment type : </label></div>
-	        				<div class="col-md-3">{{ $comp->type }}</div>
+	        				<div class="col-md-3">
+	        				@foreach ($compensation as $comp)
+	        					{{ $comp->type }}
+	        				@endforeach
+	        				</div>
 	        			</div>
 	        			<div class="row">
 	        				<div class="col-md-3"><label for="">Salary : </label></div>
-	        				<div class="col-md-3">{{ $comp->salary }}</div>
+	        				<div class="col-md-3">
+	        				@foreach ($compensation as $comp)
+	        					{{ $comp->salary }}
+	        				@endforeach
+							</div>
 	        			</div>
 	        			<div class="row">
 	        				<div class="col-md-3"><label for="">Pay method : </label></div>
-	        				<div class="col-md-3">{{ $comp->pay_method }}</div>
+	        				<div class="col-md-3">
+	        				@foreach ($compensation as $comp)
+	        					{{ $comp->pay_method }}
+	        				@endforeach
+	        				</div>
 	        			</div>
 	        			<div class="row">
 	        				<div class="col-md-3"><label for="">Bank name : </label></div>
-	        				<div class="col-md-3">{{ $comp->bank }}</div>
+	        				<div class="col-md-3">
+								@foreach ($compensation as $comp)
+									{{ $comp->bank }}
+								@endforeach
+	        				</div>	
 	        			</div>
 
 		        		<!-- the popup to edit compensation information -->
@@ -339,27 +380,39 @@
 							<div class="col-md-12">
 
 								<p>Personal Information</p>
-								<form method="post" action="#">
+								<form method="post" action="{{ route('user.profile.edit.compensation') }}">
 									{{ csrf_field() }}
+
+									@foreach ($compensation as $comp)
+										<input type="hidden" name="id" value="{{ $comp->user_id }}">
+									@endforeach
 
 									<div class="row">
 										<div class="col-md-4">
 											<label>Employment type</label>
-											<input type="text" name="emptypeEdit" class="form-control" placeholder="{{ $comp->type }}" value="{{ $comp->type }}">
+											@foreach ($compensation as $comp)
+												<input type="text" name="emptypeEdit" class="form-control" placeholder="{{ $comp->type }}" value="{{ $comp->type }}">
+											@endforeach
 										</div>
 										<div class="col-md-4">
 											<label>Salary</label>
-											<input type="text" name="salaryEdit" class="form-control" placeholder="{{ $comp->salary }}" value="{{ $comp->salary }}">
+											@foreach ($compensation as $comp)
+												<input type="text" name="salaryEdit" class="form-control" placeholder="{{ $comp->salary }}" value="{{ $comp->salary }}">
+											@endforeach
 										</div>
 										<div class="col-md-4">
 											<label>Pay Method</label>
-											<input type="text" name="paymethodEdit" class="form-control" placeholder="{{ $comp->pay_method }}" value="{{ $comp->pay_method }}">
+											@foreach ($compensation as $comp)
+												<input type="text" name="paymethodEdit" class="form-control" placeholder="{{ $comp->pay_method }}" value="{{ $comp->pay_method }}">
+											@endforeach
 										</div>
 									</div>
 									<div class="row top30">
 										<div class="col-md-4">
 											<label>Bank</label>
-											<input type="text" class="form-control" name="bankEdit" placeholder="{{ $comp->bank }}" value="{{ $comp->bank }}">
+											@foreach ($compensation as $comp)
+												<input type="text" class="form-control" name="bankEdit" placeholder="{{ $comp->bank }}" value="{{ $comp->bank }}">
+											@endforeach
 										</div>
 									</div>
 
@@ -375,7 +428,6 @@
 		        		  </div>
 
 		        		</div>
-		        	@endforeach
         		</div>
         	</div>
         </div>

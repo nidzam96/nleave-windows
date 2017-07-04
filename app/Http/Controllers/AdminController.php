@@ -54,7 +54,7 @@ class AdminController extends Controller
         $ltime = Leavetime::all();
         $staff = Staff::all();
 
-        if (Auth()->user()->position == '7') {
+        if (Auth()->user()->position == 'HR') {
             # code...
             $leave = Leave::all();
         }
@@ -113,9 +113,11 @@ class AdminController extends Controller
         $user = User::where('email', '=', $email)->update(array ('password' => $password ));
 
         $user_id = User::where('email', '=', $email)->first();
-
         $get_id  = $user_id->id;
-        $staff   = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
+
+        $staff        = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
+        $compensation = Compensation::where('email', '=', $email)->update(array ('user_id' => $get_id));
+        $employment   = Employment::where('email', '=', $email)->update(array ('user_id' => $get_id));
 
         return redirect('/admin/leave');
     }

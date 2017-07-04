@@ -10,6 +10,7 @@ use App\User;
 use Mail;
 use Alert;
 use Carbon\Carbon;
+use App\leaveType;
 
 class LeavesController extends Controller
 {
@@ -220,5 +221,12 @@ class LeavesController extends Controller
         });
 
         return redirect()-> route('admin.leaves');
+    }
+
+    public function getLeaveDays($leave_type_id)
+    {
+        $leave_days = Leavetype::where('id', '=', $leave_type_id)->pluck('leave_day','id');
+
+        return $leave_days;
     }
 }

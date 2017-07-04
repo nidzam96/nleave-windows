@@ -80,7 +80,7 @@
       $('#calendar').fullCalendar({
         
         theme: true,
-        editable: true,
+        editable: false,
         eventLimit: true,
 
         displayEventTime : false,
@@ -154,6 +154,33 @@
         }
       })
 
+      $('#leaveType').on('change', function (){
+
+        var leave_type_id = $(this).val();
+        // console.log(leave_type_id);
+
+        getLeaveDays(leave_type_id);
+      })
+
+      function getLeaveDays(leave_type_id){
+
+        //send leave_type_id to controller
+        var ajax_url = '/leaves/days/' + leave_type_id;
+
+        $.get(ajax_url, function( data ) {
+
+          console.log(data);
+
+          $('#avails-day').empty();
+
+          $.each(data, function(leave_type_id, leave_day){
+
+            console.log(data);
+            $('#avails-day').append(leave_day+' remaining days');
+          })
+        })
+      }
+
       // Get the modal
       var modal = document.getElementById('myModal');
 
@@ -181,14 +208,6 @@
         if (event.target == modal) {
               modal.style.display = "none";
           }
-      })
-
-      $('#leaveType').on('change', function (){
-
-        if ($(this).val() == '1') {
-          $('#avails-day').text('Available days');
-        } 
-
       })
 
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects

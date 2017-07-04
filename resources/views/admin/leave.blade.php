@@ -47,7 +47,6 @@
                                             <div role="tabpanel" class="tab-pane active" id="leave">
                                                 <form id="applyleave" method="post" action="{{ route('leaves.apply') }}">
                                                     {{ csrf_field() }}
-                                                    <!-- <input type="hidden" name="action" value="apply_leave"> -->
 
                                                     <div class="form-group" style="margin-top: -28px;">
                                                         
@@ -61,17 +60,6 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-    
-                                                        <!-- @if (Auth::user()->id == 'HR')
-                                                            <div class="form-row">
-                                                                <label class="form-label">Select Employees</label>
-                                                                <div class="form-controls">
-                                                                    <select name="selectEmployee" id="selectEmployee" class="form-control">
-                                                                        <option value="{{Auth::user()->id}}" >{{Auth::user()->name}}</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        @endif -->
 
                                                         <div class="form-row">
                                                             <label class="form-label">Leave Type</label>
@@ -82,7 +70,7 @@
                                                                     @endforeach
                                                                 </select>
 
-                                                                <p><strong id="avails-day"></strong></p>
+                                                                <p id="avails-day">0 available day</p>
                                                             </div>
                                                                 
                                                         </div>

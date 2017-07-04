@@ -45,7 +45,7 @@ class StaffsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //create new Staff in database
         $staff = New Staff;
         
         $staff->full_name       = $request->input('fullname');
@@ -59,8 +59,10 @@ class StaffsController extends Controller
 
         $staff->save();
 
+        //create new Employment in database
         $employment = New Employment;
 
+        $employment->email         = $request->input('email');
         $employment->department    = $request->input('department');
         $employment->start         = $request->input('sdate');
         $employment->report        = $request->input('report');
@@ -69,6 +71,11 @@ class StaffsController extends Controller
         $employment->employee_number = $request->input('empNum');
 
         $employment->save();
+
+        //create new Compensation in database
+        $compensation = New Compensation;
+        $compensation->email = $request->input('email');
+        $compensation->save();
      
         $staffName  = $request->input('fullname');
         $staffEmail = $request->input('email');
@@ -83,6 +90,7 @@ class StaffsController extends Controller
 
         });
 
+        //create new User in database
         $user = New User;
         $user->name  = $request->input('prefername');
         $user->email = $request->input('email');
@@ -152,6 +160,7 @@ class StaffsController extends Controller
         $staff        = Staff::where('user_id', '=', $id)->get();
         $employment   = Employment::where('user_id', '=', $id)->get();
         $compensation = Compensation::where('user_id', '=', $id)->get();
+        // dd($staff, $employment, $compensation);
 
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }
@@ -169,8 +178,10 @@ class StaffsController extends Controller
         $nationality    = $request->input('nationalityEdit');
         $status         = $request->input('statusEdit');
 
+        //update record in table Staff
         $staffEdit = Staff::where('user_id', $id)->update(array ('email' => $email,'full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
+        //redirect user to specific page after update process
         if (Auth()->user()->position == 'HR') {
             # code...
             return redirect('admin/users');
@@ -179,16 +190,42 @@ class StaffsController extends Controller
             return redirect('/admin/profile');
     }
 
-    public function editEmployment(Request $request, $id)
+    public function editEmployment(Request $request)
     {
-
+        //update record in table Employment
+        $id         = $request->input('id');
         $report     = $request->input('reportEdit');
+
         $branch     = $request->input('branchEdit');
+        $getbranch  = Branch::where('branch_name', '=', $branch)->first();
+        $branch_id  = $getbranch->id;
+
         $department = $request->input('departmentEdit');
+
         $position   = $request->input('positionEdit');
+        $getposition = Position::where('position_name', '=', $position)->first();
+        $position_id = $getposition->id;
+
         $start      = $request->input('startEdit');
         $empNum     = $request->input('empnumEdit');
 
-        $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report','branch','department','position','start','employee_number') );
+        $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report' => $report,'branch_id' => $branch_id,'department' => $department,'position_id' => $position_id,'start' => $start,'employee_number' => $empNum) );
+
+        return redirect('admin/users');
+    }
+
+    public function editCompensation(Request $request)
+    {
+        //update record in table Compensation
+        $id         = $request->input('id');
+        $emptype    = $request->input('emptypeEdit');
+        $salary     = $request->input('salaryEdit');
+        $paymethod  = $request->input('paymethodEdit');
+        $bank   = $request->input('bankEdit');
+
+        $compensationEdit = Compensation::where('user_id', '=', $id)->update(array ('type' => $emptype,'salary' => $salary,'pay_method' => $paymethod,'bank' => $bank));
+
+        return redirect('admin/users');
+
     }
 }
