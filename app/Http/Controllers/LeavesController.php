@@ -11,6 +11,7 @@ use Mail;
 use Alert;
 use Carbon\Carbon;
 use App\leaveType;
+use App\Staff;
 
 class LeavesController extends Controller
 {
@@ -118,7 +119,7 @@ class LeavesController extends Controller
                 # code...
                 $leave->ltime_id = $request->input('ltime');
 
-                if ($leave->end != $leave->start) {
+                if ($request->input('edate') != $request->input('sdate')) {
                     # code...
                     $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 09:00:00');
                     $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
@@ -155,12 +156,6 @@ class LeavesController extends Controller
         $user_id = Auth()->user()->id;
         $branch_id = $request->input('branch');
         $ltype_id = $request->input('leaveType');
-
-        // if (!empty($request->input('ltime'))) {
-        //     # code...
-
-        //     $ltime_id = $request->input('ltime');
-        // }
         
         $sdate = $request->input('sdate');
         $edate = $request->input('edate');
@@ -169,7 +164,7 @@ class LeavesController extends Controller
         //send reminder email to admin
         Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
         {
-            $adminEmail = User::where('position', '=', '7')->first();
+            $adminEmail = User::where('position', '=', 'HR')->first();
             // $userEmail = User::where('position', '=', 'others' && 'id', '=', $user_id)->get();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
@@ -181,10 +176,48 @@ class LeavesController extends Controller
         return redirect() ->route('admin.leaves');
     }
 
-    public function approve($id, $user_id){
+    public function approve($id, $user_id, $days_requested, $ltype_id){
 
         //find the approve application
-        $leave = Leave::where('id', $id)->update(array ('status' => 'Approve'));
+        $leave    = Leave::where('id', $id)->update(array ('status' => 'Approve'));
+
+        $getstaff = Staff::where('user_id', '=', $user_id)->first();
+        $ltaken   = $getstaff->leave_taken;
+        $staff    = Staff::where('user_id', $user_id)->update(array ('leave_taken' => $ltaken+$days_requested));
+
+        if ($ltype_id == 1) {
+            # code...
+            $annual_taken = $getstaff->annual_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('annual_taken' => $annual_taken+$days_requested));
+        }
+        elseif ($ltype_id == 2) {
+            # code...
+            $marriage_taken = $getstaff->marriage_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('marriage_taken' => $marriage_taken+$days_requested));
+
+        }
+        elseif ($ltype_id == 3) {
+            # code...
+            $maternity_taken = $getstaff->maternity_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('maternity_taken' => $maternity_+$days_requested));
+
+        }
+        elseif ($ltype_id == 4) {
+            # code...
+            $paternity_taken = $getstaff->paternity_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('paternity_taken' => $paternity_taken+$days_requested));
+
+        }
+        elseif ($ltype_id == 5) {
+            # code...
+            $sick_taken = $getstaff->sick_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('sick_taken' => $sick_taken+$days_requested));
+
+        }
+        else{
+
+        }
+        
         $userId = $user_id;
 
         //send approve mail to user
@@ -228,5 +261,45 @@ class LeavesController extends Controller
         $leave_days = Leavetype::where('id', '=', $leave_type_id)->pluck('leave_day','id');
 
         return $leave_days;
+    }
+
+    public function checkLeaveDayRemain($leave_type_id)
+    {
+        if ($leave_type_id == 1) {
+            # code...
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('annual_taken', 'user_id');
+            return $getuser;
+        }
+        elseif ($leave_type_id == '2') {
+            # code...
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('marriage_taken', 'user_id');
+            return $getuser;
+        }
+        elseif ($leave_type_id == '3') {
+            # code...
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('maternity_taken', 'user_id');
+            return $getuser;
+        }
+        elseif ($leave_type_id == '4') {
+            # code...
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('paternity_taken', 'user_id');
+            return $getuser;
+        }
+        elseif ($leave_type_id == '5') {
+            # code...
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('sick_taken', 'user_id');
+            return $getuser;
+        }
+        else{
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('annual_taken', 'user_id');
+            return $getuser;
+        }
+    }
+
+    public function getUserId()
+    {
+        $id = Auth()->user()->id;
+
+        return $id;
     }
 }

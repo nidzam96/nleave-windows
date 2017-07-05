@@ -80,7 +80,7 @@
       $('#calendar').fullCalendar({
         
         theme: true,
-        editable: false,
+        editable: true,
         eventLimit: true,
 
         displayEventTime : false,
@@ -88,7 +88,7 @@
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay'
+          right: 'month,agendaWeek,agendaDay',
         },
 
         events: "{{ url('/admin/events') }}",
@@ -134,7 +134,8 @@
 
           $('#submitApply').text('Apply for ' +days+ ' days');
 
-          document.getElementById("dateDiff").value = days;
+          document.getElementById('dateDiff').value = days;
+          // console.log(document.getElementById('dateDiff').value)S
         }
       })
 
@@ -159,55 +160,9 @@
         var leave_type_id = $(this).val();
         // console.log(leave_type_id);
 
-        getLeaveDays(leave_type_id);
-      })
-
-      function getLeaveDays(leave_type_id){
-
-        //send leave_type_id to controller
-        var ajax_url = '/leaves/days/' + leave_type_id;
-
-        $.get(ajax_url, function( data ) {
-
-          console.log(data);
-
-          $('#avails-day').empty();
-
-          $.each(data, function(leave_type_id, leave_day){
-
-            console.log(data);
-            $('#avails-day').append(leave_day+' remaining days');
-          })
-        })
-      }
-
-      // Get the modal
-      var modal = document.getElementById('myModal');
-
-      // Get the button that opens the modal
-      var btn = document.getElementById("btn-reject");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-
-      // When the user clicks the button, open the modal 
-      $(btn).on('click', function() {
-        
-          modal.style.display = "block";
-      })
-
-      // When the user clicks on <span> (x), close the modal
-      $(span).on('click', function() {
-          
-        modal.style.display = "none";
-      })
-
-      // When the user clicks anywhere outside of the modal, close it
-      $(window).on('click', function() {
-          
-        if (event.target == modal) {
-              modal.style.display = "none";
-          }
+        $('#avails-day').empty();
+        getUserId(leave_type_id);
+        // getLeaveDays(leave_type_id);
       })
 
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
@@ -249,8 +204,85 @@
            iDateDiff = ((diffWeek) * 5) - (iWeekday1 - iWeekday2)
         }
 
-      return (iDateDiff + 1); // add 1 because dates are inclusive
+       return (iDateDiff + 1); // add 1 because dates are inclusive
       }
+
+      function getUserId(leave_type_id){
+
+        var ajax_url = '/leaves/getUserId/';
+
+        $.get(ajax_url, function( data ){
+
+          var user_id = data;
+          getLeaveDays(leave_type_id, user_id);
+        })
+      }
+
+      function getLeaveDays(leave_type_id, user_id){
+        
+        //send leave_type_id to controller
+        var ajax_url = '/leaves/days/' + leave_type_id;
+
+        $.get(ajax_url, function( data ) {
+
+          console.log(data);
+
+          $.each(data, function(leave_type_id, leave_day){
+
+            checkUserLeaveRemain(leave_type_id, leave_day);
+          })
+        })
+      }
+
+      function checkUserLeaveRemain(leave_type_id, leave_day){
+
+        //send specify leave day to controller to compare with how many day have user take
+        var ajax_url = '/leaves/checkRemain/' + leave_type_id;
+
+        $.get(ajax_url, function( data ){
+          // console.log(data)
+          $.each(data, function(user_id, leave_taken){
+
+            var remainDays = leave_day - leave_taken;
+
+            if (remainDays == 0 && remainDays < 0) {
+
+            }
+            else{
+              $('#avails-day').append(remainDays+' remaining days');
+            }
+          })
+        })
+      }
+
+      // Get the modal
+      var modal = document.getElementById('myModal');
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("btn-reject");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks the button, open the modal 
+      $(btn).on('click', function() {
+        
+          modal.style.display = "block";
+      })
+
+      // When the user clicks on <span> (x), close the modal
+      $(span).on('click', function() {
+          
+        modal.style.display = "none";
+      })
+
+      // When the user clicks anywhere outside of the modal, close it
+      $(window).on('click', function() {
+          
+        if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      })
 
     });
 

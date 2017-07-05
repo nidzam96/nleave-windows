@@ -3,15 +3,7 @@
  $json = array();
 
  // Query that retrieves events
-
-if (Auth::user()->position == 'HR') {
-	# code...
-	$requete = "SELECT * FROM leaves WHERE  (status = 'Approve') ORDER BY id";
-}
-else
-{
-	$requete = "SELECT * FROM leaves WHERE  (status = 'Approve') ORDER BY id"; 
-}
+ $requete = "SELECT * FROM leaves WHERE ('status' = 'Approve') ORDER BY id";
 
  // connection to the database
  try {

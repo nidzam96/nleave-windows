@@ -65,12 +65,13 @@
                                                             <label class="form-label">Leave Type</label>
                                                             <div class="form-controls">
                                                                 <select name="leaveType" id="leaveType" class="form-control">
+                                                                    <option value="">Please select</option>
                                                                     @foreach ($ltview as $ltype)
                                                                         <option value="{{ $ltype->id }}">{{ $ltype->leave_name }}</option>
                                                                     @endforeach
                                                                 </select>
 
-                                                                <p id="avails-day">0 available day</p>
+                                                                <p id="avails-day"></p>
                                                             </div>
                                                                 
                                                         </div>
@@ -228,7 +229,7 @@
                                                         <br>
                                                         
                                                         @if ($leave->status == 'Pending')
-                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
+                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id, $leave->days, $leave->ltype_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
                                                             <button type="button" id="btn-reject" class="btn btn-danger">Reject</button>
                                                           
                                                             <div id="myModal" class="modal">

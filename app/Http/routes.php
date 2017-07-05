@@ -41,13 +41,17 @@ Route::post('user/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminCon
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 
-Route::get('leave/approve/{id}{user_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
+Route::get('leave/approve/{id}{user_id}{days}{ltype_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
 
 Route::get('leave/reject/{id}', ['as' => 'leave.reject', 'uses' => 'LeavesController@reject']);
 
 Route::post('leaves/applyLeave', ['as' => 'leaves.apply', 'uses' => 'LeavesController@applyLeave']);
 
 Route::get('leaves/days/{leave_type_id}', 'LeavesController@getLeaveDays');
+
+Route::get('leaves/checkRemain/{leave_type_id}', 'LeavesController@checkLeaveDayRemain');
+
+Route::get('leaves/getUserId', 'LeavesController@getUserId');
 
 Route::resource('leaves', 'LeavesController');
 
