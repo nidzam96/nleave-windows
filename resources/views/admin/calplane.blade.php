@@ -92,6 +92,12 @@
         },
 
         events: "{{ url('/admin/events') }}",
+
+        eventClick: function(calEvent, jsEvent, view){
+
+          alert(""+calEvent.reason);
+          // popup(""+calEvent.reason);
+        }
      
         // Convert the allDay from string to boolean
         // eventRender: function(event, element, view) {
@@ -155,16 +161,6 @@
         }
       })
 
-      $('#leaveType').on('change', function (){
-
-        var leave_type_id = $(this).val();
-        // console.log(leave_type_id);
-
-        $('#avails-day').empty();
-        getUserId(leave_type_id);
-        // getLeaveDays(leave_type_id);
-      })
-
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
         
         var iWeeks, iDateDiff, iAdjust = 0;
@@ -207,9 +203,17 @@
        return (iDateDiff + 1); // add 1 because dates are inclusive
       }
 
+      $('#leaveType').on('change', function (){
+
+        var leave_type_id = $(this).val();
+
+        $('#avails-day').empty();
+        getUserId(leave_type_id);
+      })
+
       function getUserId(leave_type_id){
 
-        var ajax_url = '/leaves/getUserId/';
+        var ajax_url = '/leaves/getUserId';
 
         $.get(ajax_url, function( data ){
 
@@ -225,8 +229,6 @@
 
         $.get(ajax_url, function( data ) {
 
-          console.log(data);
-
           $.each(data, function(leave_type_id, leave_day){
 
             checkUserLeaveRemain(leave_type_id, leave_day);
@@ -240,17 +242,13 @@
         var ajax_url = '/leaves/checkRemain/' + leave_type_id;
 
         $.get(ajax_url, function( data ){
-          // console.log(data)
+          console.log(data)
           $.each(data, function(user_id, leave_taken){
 
             var remainDays = leave_day - leave_taken;
+            
+            $('#avails-day').append(remainDays+' remaining days');
 
-            if (remainDays == 0 && remainDays < 0) {
-
-            }
-            else{
-              $('#avails-day').append(remainDays+' remaining days');
-            }
           })
         })
       }

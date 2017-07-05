@@ -3,7 +3,7 @@
  $json = array();
 
  // Query that retrieves events
- $requete = "SELECT * FROM leaves WHERE ('status' = 'Approve') ORDER BY id";
+ $requete = "SELECT * FROM leaves WHERE (status = 'Approve')";
 
  // connection to the database
  try {

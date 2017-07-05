@@ -54,7 +54,7 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('admin.add_user') }}">Add a single employee</a>
-                                            <a href="#">Batch add employee</a>
+                                            <!-- <a href="#">Batch add employee</a> -->
                                         </li>
                                     </ul>
                                 </div>
@@ -71,7 +71,7 @@
                             <!-- the popup to create new group -->
                             <div id="myModal" class="modal">
 
-                              <div class="modal-content">
+                              <div class="modal-content table-responsive" style="width: 600px">
                                 <span class="close">&times;</span>
 
                                 <form action="#" method="post">
@@ -80,7 +80,33 @@
                                     <br>
 
                                     <p>Assign your employees</p>
+                                    
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Tick[/]</td>
+                                            <td>Full Name</td>
+                                            <td>Gender</td>
+                                            <td>Email</td>
+                                            <td>Branch</td>
+                                            <td>Position</td>
+                                            <!-- <td></td> -->
+                                        </tr>
 
+                                        @foreach ($staff as $sta)
+                                            <tr>
+                                                <td><input type="checkbox" name="staffSelected"></td>
+                                                <td>{{ $sta->full_name }}</td>
+                                                <td>{{ $sta->gender }}</td>
+                                                <td>{{ $sta->email }}</td>
+                                                <td>{{ $sta->branch->branch_name }}</td>
+                                                <td>{{ $sta->position->position_name }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <td>
+                                            <a type="button" class="btn btn-success" >Submit</a>
+                                        </td>
+                                    </table>
                                     <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
                                 </form>
                               </div>

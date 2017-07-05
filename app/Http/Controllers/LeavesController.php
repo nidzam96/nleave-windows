@@ -179,6 +179,7 @@ class LeavesController extends Controller
     public function approve($id, $user_id, $days_requested, $ltype_id){
 
         //find the approve application
+        // dd($id, $user_id, $days_requested, $ltype_id);
         $leave    = Leave::where('id', $id)->update(array ('status' => 'Approve'));
 
         $getstaff = Staff::where('user_id', '=', $user_id)->first();
@@ -215,7 +216,8 @@ class LeavesController extends Controller
 
         }
         else{
-
+            $sick_taken = $getstaff->sick_taken;
+            $staff    = Staff::where('user_id', $user_id)->update(array ('sick_taken' => $sick_taken+$days_requested));
         }
         
         $userId = $user_id;
