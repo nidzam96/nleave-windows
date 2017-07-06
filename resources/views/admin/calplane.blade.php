@@ -80,7 +80,7 @@
       $('#calendar').fullCalendar({
         
         theme: true,
-        editable: true,
+        editable: false,
         eventLimit: true,
 
         displayEventTime : false,

@@ -15,6 +15,7 @@ use App\Employment;
 use App\Department;
 use App\Compensation;
 use App\User;
+use App\Birthday;
 
 class AdminController extends Controller
 {
@@ -118,6 +119,7 @@ class AdminController extends Controller
         $staff        = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
         $compensation = Compensation::where('email', '=', $email)->update(array ('user_id' => $get_id));
         $employment   = Employment::where('email', '=', $email)->update(array ('user_id' => $get_id));
+        $employment   = Birthday::where('email', '=', $email)->update(array ('user_id' => $get_id));
 
         return redirect('/admin/leave');
     }

@@ -74,13 +74,15 @@
                               <div class="modal-content table-responsive" style="width: 600px">
                                 <span class="close">&times;</span>
 
-                                <form action="#" method="post">
-                                    <input type="text" name="group_name" class="form-control" placeholder="Group Name">
+                                <form action="{{ route('leave.create.department') }}" method="post">
+                                    {{ csrf_field() }}
+
+                                    <label>New Department</label>
+                                    <input type="text" name="new_department" class="form-control" placeholder="Group Name">
                                     
                                     <br>
 
-                                    <p>Assign your employees</p>
-                                    
+                                    <label>Assign your employees</label>                                   
                                     <table class="table table-bordered">
                                         <tr>
                                             <td>Tick[/]</td>
@@ -94,7 +96,7 @@
 
                                         @foreach ($staff as $sta)
                                             <tr>
-                                                <td><input type="checkbox" name="staffSelected"></td>
+                                                <td><input type="checkbox" name="staffSelected[]" value="{{ $sta->user_id }}"></td>
                                                 <td>{{ $sta->full_name }}</td>
                                                 <td>{{ $sta->gender }}</td>
                                                 <td>{{ $sta->email }}</td>
@@ -102,11 +104,12 @@
                                                 <td>{{ $sta->position->position_name }}</td>
                                             </tr>
                                         @endforeach
-
-                                        <td>
-                                            <a type="button" class="btn btn-success" >Submit</a>
-                                        </td>
+                                        
                                     </table>
+                                    
+                                    <div class="col-md-2 col-md-offset-5">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
                                     <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
                                 </form>
                               </div>
@@ -249,10 +252,11 @@
                                             <tr>
                                                 <th >Full Name</th>
                                                 <!-- <th >Preferred Name</th> -->
-                                                <th >Gender</th>
-                                                <th >Email</th>
-                                                <th >Branch</th>
-                                                <th >Position</th>
+                                                <th>Gender</th>
+                                                <th>Email</th>
+                                                <th>Branch</th>
+                                                <th>Position</th>
+                                                <!-- <th>Action</th> -->
                                                 <!-- <th >Leave Taken</th> -->
                                             </tr>
                                         </thead>
@@ -266,7 +270,11 @@
                                                     <td>{{ $sta->email }}</td>
                                                     <td>{{ $sta->branch->branch_name }}</td>
                                                     <td>{{ $sta->position->position_name }}</td>
-                                                    <!-- <td>{{ $sta->leave_taken }}</td> -->
+                                                    <!-- <td>
+                                                        <a href="#" type="button" class="btn btn-sm btn-warning">
+                                                            Remove
+                                                        </a>
+                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         @endforeach

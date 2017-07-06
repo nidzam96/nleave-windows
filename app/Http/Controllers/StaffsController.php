@@ -13,6 +13,7 @@ use App\Leavetype;
 use App\Leavetime;
 use App\Employment;
 use App\Compensation;
+use App\Birthday;
 use Mail;
 
 class StaffsController extends Controller
@@ -76,6 +77,14 @@ class StaffsController extends Controller
         $compensation = New Compensation;
         $compensation->email = $request->input('email');
         $compensation->save();
+
+        $birthday = New Birthday;
+
+        $birthday->email = $request->input('email');
+        $birthday->title = $request->input('prefername');
+        $birthday->start = $request->input('dob');
+
+        $birthday->save();
      
         $staffName  = $request->input('fullname');
         $staffEmail = $request->input('email');

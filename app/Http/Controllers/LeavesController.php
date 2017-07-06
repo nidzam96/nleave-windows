@@ -12,6 +12,7 @@ use Alert;
 use Carbon\Carbon;
 use App\leaveType;
 use App\Staff;
+use App\Department;
 
 class LeavesController extends Controller
 {
@@ -24,6 +25,13 @@ class LeavesController extends Controller
     {
         //get the application into fullcalendar
         return view('admin.events');
+
+    }
+
+    public function birthday()
+    {
+        //get the application into fullcalendar
+        return view('admin.bevent');
 
     }
 
@@ -238,14 +246,21 @@ class LeavesController extends Controller
 
     }
 
-    public function reject($id, $user_id){
+    public function reject(Request $request){
+
+        // dd($request);
+
+        //keep the received data
+        $leave_id = $request->input('leave_id');
+        $userId   = $request->input('user_id');
+        $reason   = $request->input('remark');
+        // dd($leave_id, $userId, $reason);
 
         //find the rejected application
-        $leave = Leave::where('id', $id)->update(array ('status' => 'Reject'));
-        $userId = $user_id;
+        $leave = Leave::where('id', $leave_id)->update(array ('status' => 'Reject'));
 
         //send rejected email to user
-        Mail::send('emails.reject', [$userId], function ($message) use($userId)
+        Mail::send('emails.reject', [$userId, 'reason' => $reason], function ($message) use($userId)
         {
             $userEmail = User::where('id', '=', $userId)->first();
 
@@ -303,5 +318,23 @@ class LeavesController extends Controller
         $id = Auth()->user()->id;
 
         return $id;
+    }
+
+    public function newDepartment(Request $request){
+
+        //create new department and store member id
+        $request->merge([ 
+                'staffSelected' => implode(',', (array) $request->get('staffSelected'))
+            ]);
+        // dd($request->input('staffSelected'));
+
+        $department = New Department;
+        
+        $department->department_name = $request->input('new_department');  
+        $department->member          = $request->input('staffSelected'); 
+
+        $department->save();
+
+        return redirect('/admin/users');
     }
 }

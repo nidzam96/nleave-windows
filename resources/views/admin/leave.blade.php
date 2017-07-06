@@ -235,15 +235,20 @@
                                                             <div id="myModal" class="modal">
 
                                                               <!-- Modal content -->
-                                                              <div class="modal-content">
-                                                                <span class="close">&times;</span>
+                                                              <form method="post" action="{{ route('leave.reject') }}">
+                                                                  {{ csrf_field() }}
+                                                                  <div class="modal-content">
+                                                                    <span class="close">&times;</span>
 
-                                                                <input type="text" name="remark" class="form-control" placeholder="Enter your reason here">
-                                                                
-                                                                <br>
+                                                                    <input type="text" name="remark" class="form-control" placeholder="Enter your reason here">
+                                                                    <input type="hidden" name="leave_id" value="{{ $leave->id }}">
+                                                                    <input type="hidden" name="user_id" value="{{ $leave->user_id }}">
+                                                                    
+                                                                    <br>
 
-                                                                <a href="{{ route('leave.reject', $leave->id) }}" type="button" class="btn btn-danger">Submit</a>
-                                                              </div>
+                                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                                                  </div>
+                                                              </form>
 
                                                             </div>
                                                         @endif
