@@ -32,6 +32,8 @@ Route::get('admin/benefits', 'AdminController@benefits');
 
 Route::get('admin/profile', 'AdminController@showProfile');
 
+Route::get('admin/claim', ['as' => 'admin.claim', 'uses' => 'AdminController@claim']);
+
 Route::get('admin/user/add_user', ['as' => 'admin.add_user', 'uses' => 'AdminController@add_user']);
 
 Route::get('/first_login', 'AdminController@first_login');

@@ -74,6 +74,12 @@ class AdminController extends Controller
     	return view('admin.benefits');
     }
 
+    //Shows claim page
+    public function claim()
+    {
+        return view('admin.claim');
+    }
+
     //Shows profile page
     public function showProfile(){
     	

@@ -64,59 +64,58 @@
 
                     <div class="row">
                         
-                        <div class="col-md-3 col-sm-2 left">
+                        <!-- <div class="col-md-3 col-sm-2 left">
                             <button class="btn btn-default btn-block" id="btnCreateGroup">Click here to create group</button>
-                        </div>
+                        </div> -->
                         
-                            <!-- the popup to create new group -->
-                            <div id="myModal" class="modal">
+                        <!-- the popup to create new group -->
+                        <!-- <div id="myModal" class="modal">
 
-                              <div class="modal-content table-responsive" style="width: 600px">
-                                <span class="close">&times;</span>
+                          <div class="modal-content table-responsive" style="width: 600px">
+                            <span class="close">&times;</span>
 
-                                <form action="{{ route('leave.create.department') }}" method="post">
-                                    {{ csrf_field() }}
+                            <form action="{{ route('leave.create.department') }}" method="post">
+                                {{ csrf_field() }}
 
-                                    <label>New Department</label>
-                                    <input type="text" name="new_department" class="form-control" placeholder="Group Name">
-                                    
-                                    <br>
+                                <label>New Department</label>
+                                <input type="text" name="new_department" class="form-control" placeholder="Group Name">
+                                
+                                <br>
 
-                                    <label>Assign your employees</label>                                   
-                                    <table class="table table-bordered">
+                                <label>Assign your employees</label>                                   
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Tick[/]</td>
+                                        <td>Full Name</td>
+                                        <td>Gender</td>
+                                        <td>Email</td>
+                                        <td>Branch</td>
+                                        <td>Position</td>
+                                        <td></td>
+                                    </tr>
+
+                                    @foreach ($staff as $sta)
                                         <tr>
-                                            <td>Tick[/]</td>
-                                            <td>Full Name</td>
-                                            <td>Gender</td>
-                                            <td>Email</td>
-                                            <td>Branch</td>
-                                            <td>Position</td>
-                                            <!-- <td></td> -->
+                                            <td><input type="checkbox" name="staffSelected[]" value="{{ $sta->user_id }}"></td>
+                                            <td>{{ $sta->full_name }}</td>
+                                            <td>{{ $sta->gender }}</td>
+                                            <td>{{ $sta->email }}</td>
+                                            <td>{{ $sta->branch->branch_name }}</td>
+                                            <td>{{ $sta->position->position_name }}</td>
                                         </tr>
-
-                                        @foreach ($staff as $sta)
-                                            <tr>
-                                                <td><input type="checkbox" name="staffSelected[]" value="{{ $sta->user_id }}"></td>
-                                                <td>{{ $sta->full_name }}</td>
-                                                <td>{{ $sta->gender }}</td>
-                                                <td>{{ $sta->email }}</td>
-                                                <td>{{ $sta->branch->branch_name }}</td>
-                                                <td>{{ $sta->position->position_name }}</td>
-                                            </tr>
-                                        @endforeach
-                                        
-                                    </table>
+                                    @endforeach
                                     
-                                    <div class="col-md-2 col-md-offset-5">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                    <!-- <a href="" type="button" class="btn btn-danger">Submit</a> -->
-                                </form>
-                              </div>
+                                </table>
+                                
+                                <div class="col-md-2 col-md-offset-5">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                          </div>
 
-                            </div>
+                        </div> -->
 
-                        <div class="col-md-2 col-sm-2 top30">
+                        <!-- <div class="col-md-2 col-sm-2 top30">
                             <select name="field-job-position" id="field-job-position" class="form-control">
                                 <option value="">Job Position</option>
                                 
@@ -147,7 +146,7 @@
                                     <span class="glyphicon glyphicon-search"></span>    
                                 </button>
                             </form>
-                        </div>          
+                        </div> -->          
                     </div>
 
                     <div class="section-body" style="margin-top: 10px">

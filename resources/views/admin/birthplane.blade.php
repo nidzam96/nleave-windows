@@ -80,7 +80,7 @@
       $('#calendar').fullCalendar({
         
         theme: true,
-        editable: true,
+        editable: false,
         eventLimit: true,
 
         displayEventTime : false,
@@ -95,7 +95,7 @@
 
         eventClick: function(calEvent, jsEvent, view){
 
-          alert(""+calEvent.reason);
+          alert("Happy Birthday and Good Year");
           // popup(""+calEvent.reason);
         }
      

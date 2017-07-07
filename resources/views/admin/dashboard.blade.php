@@ -45,7 +45,7 @@
                         <div>Apply Leave</div>
                     </li>
                     <li class="icon-container">
-                        <a href="{{ url('#') }}">
+                        <a href="{{ url('/admin/leave') }}">
                             <i class="icon fa fa-book" aria-hidden="true"></i>
                         </a>
                         <div>Leave History</div>

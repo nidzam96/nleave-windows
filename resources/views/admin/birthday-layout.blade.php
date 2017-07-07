@@ -49,6 +49,12 @@
 								Benefits
 							</a>
 						</li>
+						<li>
+							<a href="{{ route('admin.claim') }}">
+								<span class="fa fa-files-o fa-fw"></span>
+								Claim
+							</a>
+						</li>
 					</ul>	
 
 					<ul class="nav navbar-right">
