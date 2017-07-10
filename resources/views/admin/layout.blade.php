@@ -46,15 +46,15 @@
 						<li>
 							<a href="{{ url('/admin/benefits') }}">
 								<span class="fa fa-birthday-cake fa-fw"></span>
-								Benefits
+								Birthday
 							</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="{{ route('admin.claim') }}">
 								<span class="fa fa-files-o fa-fw"></span>
 								Claims
 							</a>
-						</li>
+						</li> -->
 					</ul>	
 
 					<ul class="nav navbar-right">

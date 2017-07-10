@@ -70,6 +70,7 @@
 <body>
 	@yield('body')
   
+  {{ Html::script('asset/js/Chart.js') }}  
   {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
   {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
@@ -164,7 +165,7 @@
       }
   })
 
-  
+    
 </script>
 <!-- END JSCRIPT -->
 	@yield('extrascripts')

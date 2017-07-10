@@ -44,9 +44,35 @@
 	        		</div>
 					
 					<div class="section-body" style="margin-top: 20px">
-						<div class="row top30">
-							<button class="btn btn-default">New claim</button>
-						</div>
+    					<div class="panel panel-primary">	
+                            <div class="panel-heading">
+                                <span class="fa fa-plus fa-fw"></span>
+                                New Claim
+                            </div>
+
+                            <div class="panel-body">
+                                                      
+                                <div class="xol-md-12">
+                                    <div class="col-md-5">
+                                        <!-- <canvas id="pieTransport" width="400" height="400"></canvas> -->
+                                    </div>
+                                    <div class="col-md-7">
+                                        <form method="POST" action="#">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label>Amount</label>
+                                                            <input type="text" name="amount" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>                      
+                            </div>
+                        </div>
 					</div>
 				</section>
         	</div>
