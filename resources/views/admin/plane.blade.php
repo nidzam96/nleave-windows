@@ -71,6 +71,7 @@
 	@yield('body')
   
   {{ Html::script('asset/js/Chart.js') }}  
+  {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
   {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
   {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
@@ -165,7 +166,93 @@
       }
   })
 
-    
+  //create bar chart for user claim
+  var ctx = $('#barClaim');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ["Jan", "Feb", "March", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+              label: 'Amount your claims this month',
+              data: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(48, 57, 217, 0.5)',
+                  'rgba(255, 126, 87, 0.5)',
+                  'rgba(255, 235, 87, 0.5)',
+                  'rgba(87, 255, 252, 0.5)',
+                  'rgba(255, 97, 208, 0.5)',
+                  'rgba(98, 243, 152, 0.5)',
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(48, 57, 217, 1)',
+                  'rgba(255, 126, 87, 1)',
+                  'rgba(255, 235, 87, 1)',
+                  'rgba(87, 255, 252, 1)',
+                  'rgba(255, 97, 208, 1)',
+                  'rgba(98, 243, 152, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });  
+
+  //input type date configuration
+  var today = moment().format('YYYY-MM-DD');
+  document.getElementById("c_date").value = today; 
+  document.getElementById("c_date").setAttribute('min', today);
+  console.log(document.getElementById("c_date").value);
+
+  var current_month = moment().format('YYYY-MM');
+  document.getElementById('c_month').value = current_month;
+  document.getElementById('c_month').setAttribute('min', current_month);
+  console.log(document.getElementById("c_month").value);
+
+  $('#entertainment-amount').hide();
+  $('#travel-claim').hide();
+
+  $('#c_type').on('change', function (){
+
+    var current = $(this).val();
+
+    if (current ==  2) {
+      $('travel-claim').hide();
+      $('#normal-amount').hide(); 
+      $('#entertainment-amount').show();
+    }
+    else if (current == 14) {
+      $('#normal-claim').hide();
+      $('#travel-claim').show();
+    }
+    else{
+      $('#normal-claim').show();
+      $('#normal-amount').show();
+      $('#entertainment-amount').hide();
+      $('#travel-claim').hide();
+    }
+
+  })
+
 </script>
 <!-- END JSCRIPT -->
 	@yield('extrascripts')
