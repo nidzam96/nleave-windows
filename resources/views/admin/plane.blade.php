@@ -62,6 +62,7 @@
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
     {{ Html::style('asset/css/team.css') }}
+    {{ Html::style('asset/css/sweetalert.css') }}
     
 @yield('extrastyles')    
 
@@ -71,10 +72,13 @@
 	@yield('body')
   
   {{ Html::script('asset/js/Chart.js') }}  
+  {{ Html::script('asset/js/sweetalert.min.js') }}  
   {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
   {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
   {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
+
+  @include('sweet::alert')
 
 <script type="text/javascript">
    
@@ -207,13 +211,14 @@
           }]
       },
       options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
-          }
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        responsive: true
       }
   });  
 

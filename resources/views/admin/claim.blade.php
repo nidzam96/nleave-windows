@@ -57,7 +57,7 @@
                                         <canvas id="barClaim" width="400" height="400"></canvas>
                                     </div>
                                     <div class="col-md-5 col-md-offset-1 top20">
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="{{ route('claim.create') }}">
                                             {{ csrf_field() }}
 
                                             <div class="row">
@@ -100,7 +100,7 @@
 
                                                         <div id="normal-amount" class="row top20">
                                                             <label>Amount</label>
-                                                            <input type="text" name="c_amount" class="form-control" placeholder="*Claim amount Here">
+                                                            <input type="text" name="c_namount" class="form-control" placeholder="*Claim amount Here">
                                                         </div>
 
                                                         <div id="entertainment-amount">
@@ -121,7 +121,7 @@
 
                                                             <div class="row top20">
                                                                 <label>Amount</label>
-                                                                <input type="text" name="c_amount" class="form-control" placeholder="*Claim amount here">
+                                                                <input type="text" name="c_eamount" class="form-control" placeholder="*Claim amount here">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -134,7 +134,7 @@
 
                                                         <div class="row top20">
                                                             <label>Destination</label>
-                                                            <input type="text" name="destiantion" class="form-control" placeholder="*Destination here">
+                                                            <input type="text" name="destination" class="form-control" placeholder="*Destination here">
                                                         </div>
 
                                                         <div class="row top20">

@@ -10,6 +10,7 @@
     {{ Html::style('asset/css/bootstrap/dist/css/bootstrap.min.css') }}
     {{ Html::style('asset/css/fa/css/font-awesome.min.css') }}
     {{ Html::style('asset/css/login-style.css') }}
+    {{ Html::style('asset/css/sweetalert.css') }}
 
 
 </head>
@@ -37,7 +38,11 @@
 		</form>
 	</div>
 </body>
-
+	
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
     {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }} 
+    {{ Html::script('asset/js/sweetalert.min.js') }} 
+
+	@include('sweet::alert')
+
 </html>

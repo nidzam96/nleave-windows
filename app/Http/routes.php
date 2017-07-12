@@ -74,3 +74,6 @@ Route::post('/user/profile/editpersonal/{id}', ['as' => 'user.profile.edit.perso
 Route::post('/user/profile/edit/employment', ['as' => 'user.profile.edit.employment', 'uses' => 'StaffsController@editEmployment']);
 
 Route::post('/user/profile/edit/compensation', ['as' => 'user.profile.edit.compensation', 'uses' => 'StaffsController@editCompensation']);
+
+//Route for ClaimController
+Route::post('/admin/claim', ['as' => 'claim.create', 'uses' => 'ClaimController@createClaim']);

@@ -15,6 +15,7 @@ use App\Employment;
 use App\Compensation;
 use App\Birthday;
 use Mail;
+use Alert;
 
 class StaffsController extends Controller
 {
@@ -111,6 +112,8 @@ class StaffsController extends Controller
 
         $user->save();
 
+        alert()->success('New staff successfully created and email have been sent to corresponding staff.', 'Good Work!')->persistent('OK');
+
         return redirect('admin/users');
     }
 
@@ -190,6 +193,8 @@ class StaffsController extends Controller
         //update record in table Staff
         $staffEdit = Staff::where('user_id', $id)->update(array ('email' => $email,'full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
+        alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
+
         //redirect user to specific page after update process
         if (Auth()->user()->position == 'HR') {
             # code...
@@ -220,6 +225,8 @@ class StaffsController extends Controller
 
         $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report' => $report,'branch_id' => $branch_id,'department' => $department,'position_id' => $position_id,'start' => $start,'employee_number' => $empNum) );
 
+        alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
+
         return redirect('admin/users');
     }
 
@@ -233,6 +240,8 @@ class StaffsController extends Controller
         $bank   = $request->input('bankEdit');
 
         $compensationEdit = Compensation::where('user_id', '=', $id)->update(array ('type' => $emptype,'salary' => $salary,'pay_method' => $paymethod,'bank' => $bank));
+
+        alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
         return redirect('admin/users');
 
