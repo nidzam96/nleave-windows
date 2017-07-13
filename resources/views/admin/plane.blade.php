@@ -171,14 +171,27 @@
   })
 
   //create bar chart for user claim
-  var ctx = $('#barClaim');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ["Jan", "Feb", "March", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
-          datasets: [{
+  var ctx  = $('#barClaim');
+  var year = ['Jan','Feb','March','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+
+  $.ajax({
+
+      url: "{{ url('/admin/claim_data') }}",
+      method : "GET",
+      success: function(data) {
+        console.log(data);
+        var amount = [];
+
+        for(var i in data) {
+            amount.push(data[i].score);
+        }
+
+        var chartdata = {
+          labels: year,
+          datasets: [
+            {
               label: 'Amount your claims this month',
-              data: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+              data: amount,
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
@@ -207,20 +220,66 @@
                   'rgba(255, 97, 208, 1)',
                   'rgba(98, 243, 152, 1)'
               ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
-        responsive: true
+              borderWidth: 1,
+            }
+          ]
+        }
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartdata,
+            options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              },
+              responsive: true
+            }
+        }); 
       }
-  });  
+  }) 
+
+  // $.ajax({
+  //     url: "{{ url('/admin/claim_data') }}",
+  //     method: "GET",
+  //     success: function(data) {
+  //       console.log(data);
+  //       var player = [];
+  //       var score = [];
+
+  //       for(var i in data) {
+  //         player.push("Player " + data[i].playerid);
+  //         score.push(data[i].score);
+  //       }
+
+  //       var chartdata = {
+  //         labels: player,
+  //         datasets : [
+  //           {
+  //             label: 'Player Score',
+  //             backgroundColor: 'rgba(200, 200, 200, 0.75)',
+  //             borderColor: 'rgba(200, 200, 200, 0.75)',
+  //             hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+  //             hoverBorderColor: 'rgba(200, 200, 200, 1)',
+  //             data: score
+  //           }
+  //         ]
+  //       };
+
+  //       var ctx = $("#mycanvas");
+
+  //       var barGraph = new Chart(ctx, {
+  //         type: 'bar',
+  //         data: chartdata
+  //       });
+  //     },
+  //     error: function(data) {
+  //       console.log(data);
+  //     }
+  //   });
 
   //input type date configuration
   var today = moment().format('YYYY-MM-DD');

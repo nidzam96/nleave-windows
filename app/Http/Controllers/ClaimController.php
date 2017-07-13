@@ -20,6 +20,7 @@ class ClaimController extends Controller
     	$claim->month 	   = $request->input('c_month');
     	$claim->claim_id   = $request->input('c_type');
     	$claim->date 	   = $request->input('c_date');
+    	$claim->status 	   = "Pending";
 
     	if (!empty($request->input('c_particular') )) {
     		
@@ -57,5 +58,10 @@ class ClaimController extends Controller
     	alert()->success('Claim successfully created.', 'Good Work!')->autoclose(3000);
 
     	return redirect()->route('admin.claim');
+    }
+
+    public function claimChart()
+    {
+    	return view('chart.claim_data');
     }
 }

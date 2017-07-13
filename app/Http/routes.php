@@ -77,3 +77,5 @@ Route::post('/user/profile/edit/compensation', ['as' => 'user.profile.edit.compe
 
 //Route for ClaimController
 Route::post('/admin/claim', ['as' => 'claim.create', 'uses' => 'ClaimController@createClaim']);
+
+Route::get('/admin/claim_data', 'ClaimController@claimChart');
