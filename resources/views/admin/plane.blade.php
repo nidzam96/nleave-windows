@@ -171,76 +171,76 @@
   })
 
   //create bar chart for user claim
-  var ctx  = $('#barClaim');
-  var year = ['Jan','Feb','March','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+  // var ctx  = $('#barClaim');
+  // var year = ['Jan','Feb','March','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
 
-  $.ajax({
+  // $.ajax({
 
-      url: "{{ url('/admin/claim_data') }}",
-      method : "GET",
-      success: function(data) {
-        console.log(data);
-        var amount = [];
+  //     url: "{{ url('/admin/claim_data') }}",
+  //     method : "GET",
+  //     success: function(data) {
+  //       console.log(data);
+  //       var amount = [];
 
-        for(var i in data) {
-            amount.push(data[i].score);
-        }
+  //       for(var i in data) {
+  //           amount.push(data[i].score);
+  //       }
 
-        var chartdata = {
-          labels: year,
-          datasets: [
-            {
-              label: 'Amount your claims this month',
-              data: amount,
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(48, 57, 217, 0.5)',
-                  'rgba(255, 126, 87, 0.5)',
-                  'rgba(255, 235, 87, 0.5)',
-                  'rgba(87, 255, 252, 0.5)',
-                  'rgba(255, 97, 208, 0.5)',
-                  'rgba(98, 243, 152, 0.5)',
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(48, 57, 217, 1)',
-                  'rgba(255, 126, 87, 1)',
-                  'rgba(255, 235, 87, 1)',
-                  'rgba(87, 255, 252, 1)',
-                  'rgba(255, 97, 208, 1)',
-                  'rgba(98, 243, 152, 1)'
-              ],
-              borderWidth: 1,
-            }
-          ]
-        }
+  //       var chartdata = {
+  //         labels: year,
+  //         datasets: [
+  //           {
+  //             label: 'Amount your claims this month',
+  //             data: amount,
+  //             backgroundColor: [
+  //                 'rgba(255, 99, 132, 0.2)',
+  //                 'rgba(54, 162, 235, 0.2)',
+  //                 'rgba(255, 206, 86, 0.2)',
+  //                 'rgba(75, 192, 192, 0.2)',
+  //                 'rgba(153, 102, 255, 0.2)',
+  //                 'rgba(255, 159, 64, 0.2)',
+  //                 'rgba(48, 57, 217, 0.5)',
+  //                 'rgba(255, 126, 87, 0.5)',
+  //                 'rgba(255, 235, 87, 0.5)',
+  //                 'rgba(87, 255, 252, 0.5)',
+  //                 'rgba(255, 97, 208, 0.5)',
+  //                 'rgba(98, 243, 152, 0.5)',
+  //             ],
+  //             borderColor: [
+  //                 'rgba(255,99,132,1)',
+  //                 'rgba(54, 162, 235, 1)',
+  //                 'rgba(255, 206, 86, 1)',
+  //                 'rgba(75, 192, 192, 1)',
+  //                 'rgba(153, 102, 255, 1)',
+  //                 'rgba(255, 159, 64, 1)',
+  //                 'rgba(48, 57, 217, 1)',
+  //                 'rgba(255, 126, 87, 1)',
+  //                 'rgba(255, 235, 87, 1)',
+  //                 'rgba(87, 255, 252, 1)',
+  //                 'rgba(255, 97, 208, 1)',
+  //                 'rgba(98, 243, 152, 1)'
+  //             ],
+  //             borderWidth: 1,
+  //           }
+  //         ]
+  //       }
 
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: chartdata,
-            options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              },
-              responsive: true
-            }
-        }); 
-      }
-  }) 
+  //       var myChart = new Chart(ctx, {
+  //           type: 'bar',
+  //           data: chartdata,
+  //           options: {
+  //             scales: {
+  //                 yAxes: [{
+  //                     ticks: {
+  //                         beginAtZero:true
+  //                     }
+  //                 }]
+  //             },
+  //             responsive: true
+  //           }
+  //       }); 
+  //     }
+  // }) 
 
   // $.ajax({
   //     url: "{{ url('/admin/claim_data') }}",
@@ -251,8 +251,9 @@
   //       var score = [];
 
   //       for(var i in data) {
-  //         player.push("Player " + data[i].playerid);
-  //         score.push(data[i].score);
+  //         player.push("Player " + data[i].user_id);
+  //         score.push(data[i].total_amount);
+  //         console.log(data[i])
   //       }
 
   //       var chartdata = {
@@ -269,7 +270,7 @@
   //         ]
   //       };
 
-  //       var ctx = $("#mycanvas");
+  //       var ctx = $("#barClaim");
 
   //       var barGraph = new Chart(ctx, {
   //         type: 'bar',
@@ -280,6 +281,8 @@
   //       console.log(data);
   //     }
   //   });
+
+  // var year = ['2013','2014','2015', '2016'];
 
   //input type date configuration
   var today = moment().format('YYYY-MM-DD');

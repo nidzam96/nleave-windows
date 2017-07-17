@@ -18,6 +18,7 @@ use App\User;
 use App\Birthday;
 use App\Claim;
 use App\Claim_application;
+use DB;
 
 class AdminController extends Controller
 {
@@ -60,10 +61,14 @@ class AdminController extends Controller
         if (Auth()->user()->position == 'HR') {
             # code...
             $leave = Leave::all();
+            // $leave = Leave::paginate(2);
+            // $leave = $leave->paginate(5);
         }
         else{
             $leave = Leave::where('user_id', '=', Auth()->user()->id)->get();
+            // $leave = Leave::paginate(2);
         }
+
 
         return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave)->with('staff', $staff);
 
@@ -80,25 +85,31 @@ class AdminController extends Controller
     public function claim()
     {
         $claim = Claim::all();
-        // $Claim_application  = Claim_application::where('user_id', '=', Auth()->user()->id);
+
+        if (Auth()->user()->position == 'HR') {
+            # code...
+            $claim_app = Claim_application::all();
+        }
+        else{
+            $claim_app = Claim_application::where('user_id', '=', Auth()->user()->id)->get();
+        }
+
+        $month = Claim_application::select(DB::raw("SUM(total_amount) as count"))
+                ->where('user_id', '=', Auth()->user()->id )
+                ->where('status', '=', 'Approve')
+                ->orderBy("created_at")
+                ->groupBy(DB::raw("month"))
+                ->get()->toArray();
+        $month = array_column($month, 'count');
         
-        // $viewer = View::select(DB::raw("SUM(numberofview) as count"))
-        //         ->orderBy("created_at")
-        //         ->groupBy(DB::raw("year(created_at)"))
-        //         ->get()->toArray();
-        //     $viewer = array_column($viewer, 'count');
-            
-        //     $click = Click::select(DB::raw("SUM(numberofclick) as count"))
-        //         ->orderBy("created_at")
-        //         ->groupBy(DB::raw("year(created_at)"))
-        //         ->get()->toArray();
-        //     $click = array_column($click, 'count');
-            
-        //     return view('chartjs')
-        //             ->with('viewer',json_encode($viewer,JSON_NUMERIC_CHECK))
-        //             ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
-        
-        return view('admin.claim')->with('claim', $claim);
+        // $month = Claim_application::select(DB::raw('MONTHNAME(month) as month'), DB::raw("DATE_FORMAT(month,'%Y-%m') as monthNum"), DB::raw('count(*) as projects'))
+        //             ->groupBy('monthNum')
+        //             ->get();
+
+        return view('admin.claim')
+            ->with('claim', $claim)
+            ->with('claim_app', $claim_app)
+            ->with('month',json_encode($month,JSON_NUMERIC_CHECK));
     }
 
     //Shows profile page

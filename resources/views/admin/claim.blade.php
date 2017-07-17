@@ -24,8 +24,8 @@
                     </a>
                 </li>
                 <li role="presentation" style="margin-left: -2px;">
-                    <a href="#myClaim" role="tab" data-toggle="tab" aria-controls="myClaim" id="tabmyClaim">
-                        My Claim
+                    <a href="#claim_App" role="tab" data-toggle="tab" aria-controls="claim_App" id="tabclaim_App">
+                        View Claim
                     </a>
                 </li>
             </ul>
@@ -53,9 +53,11 @@
                             <div class="panel-body">
                                                       
                                 <div class="xol-md-12">
+
                                     <div class="col-md-6">
                                         <canvas id="barClaim" width="400" height="400"></canvas>
                                     </div>
+
                                     <div class="col-md-5 col-md-offset-1 top20">
                                         <form method="POST" action="{{ route('claim.create') }}">
                                             {{ csrf_field() }}
@@ -186,18 +188,157 @@
 				</section>
         	</div>
 
-        	<div class="tab-pane" id="myClaim" role="tabpanel">
-        		<div class="row">
-        			<div class="col-md-12">
-        				
-        				<div class="top20">
-        					<h2 class="title">My Claims</h2>
-        				</div>
-        			</div>
-        		</div>
+        	<div class="tab-pane" id="claim_App" role="tabpanel">
+                <section class="section-secondary section-team">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="top20">
+                                <h2 class="title">Claim Summary</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-body" style="margin-top: 20px">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="claimTable">
+                                <thead>
+                                    <tr>
+                                        @if (Auth::user()->position == 'HR')
+                                            <th>Employee</th>
+                                            <th>Position</th>
+                                        @endif
+                                            <th>Application Date</th>
+                                            <th>Claim Type</th>
+                                            <th>Claim for Month</th>
+                                            <th>Particular</th>
+                                            <th>Bus. Reg. Np</th>
+                                            <th>GST No</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                @foreach ($claim_app as $claim_app)
+                                    <tbody>
+                                        <tr>
+                                            @if (Auth::user()->position == 'HR')
+                                                <td>{{ $claim_app->user->name }}</td>
+                                                <td>{{ $claim_app->user->position }}</td>
+                                            @endif
+                                                <td>{{ $claim_app->date }}</td>
+                                                <td>{{ $claim_app->claim->claim_name }}</td>
+                                                <td>{{ $claim_app->month }}</td>
+                                                <td>{{ $claim_app->particular }}</td>
+                                                <td>{{ $claim_app->brn }}</td>
+                                                <td>{{ $claim_app->gstno }}</td>
+                                                <td>{{ $claim_app->total_amount }}</td>
+                                                
+                                            @if (Auth()->user()->position == 'HR')
+                                                    <td>
+                                                        <h2 class="btn btn-info">{{ $claim_app->status }}</h2>
+                                                        
+                                                        @if ($claim_app->status == 'Pending')
+
+                                                        <br>
+                                                        <br>
+
+                                                        <a href="{{ route('claim.approve', $claim_app->id) }}" type="button" class="btn btn-default">Approve</a>
+
+                                                        <button class="btn btn-danger">
+                                                            Reject
+                                                        </button>
+                                                    </td>
+                                                @endif
+                                            @else
+                                                <td>{{ $claim_app->status }}</td>
+                                            @endif
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+
+                            </table>
+                        </div>
+                    </div>
+                </section>
         	</div>
 
         </div>
 
     </div>
+@endsection
+
+@section ('extrascripts')
+    <script type="text/javascript">
+        var month = ['Jan','Feb','March','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+        var data_month = <?php echo $month; ?>;
+        console.log(data_month)
+
+        var barChartData = {
+            labels: month,
+            datasets: [{
+              label: 'Amount claim this month',
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(48, 57, 217, 0.5)',
+                  'rgba(255, 126, 87, 0.5)',
+                  'rgba(255, 235, 87, 0.5)',
+                  'rgba(87, 255, 252, 0.5)',
+                  'rgba(255, 97, 208, 0.5)',
+                  'rgba(98, 243, 152, 0.5)',
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(48, 57, 217, 1)',
+                  'rgba(255, 126, 87, 1)',
+                  'rgba(255, 235, 87, 1)',
+                  'rgba(87, 255, 252, 1)',
+                  'rgba(255, 97, 208, 1)',
+                  'rgba(98, 243, 152, 1)'
+              ],
+              borderWidth: 1,
+              data: data_month
+            }]
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("barClaim");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    elements: {
+                        rectangle: {
+                            borderWidth: 2,
+                            borderColor: 'rgb(0, 255, 0)',
+                            borderSkipped: 'bottom'
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    // title: {
+                    //     display: true,
+                    //     text: 'Yearly Website Visitor'
+                    // }
+                }
+            });
+
+        };
+    </script>
 @endsection

@@ -16,7 +16,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT user_id, total_amount FROM claim_applications ORDER BY user_id");
+$query = sprintf("SELECT user_id, total_amount FROM claim_applications ORDER BY claim_id");
 
 //execute query
 $result = $mysqli->query($query);

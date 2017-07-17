@@ -49,12 +49,12 @@
 								Birthday
 							</a>
 						</li>
-						<!-- <li>
+						<li>
 							<a href="{{ route('admin.claim') }}">
 								<span class="fa fa-files-o fa-fw"></span>
 								Claim
 							</a>
-						</li> -->
+						</li>
 					</ul>	
 
 					<ul class="nav navbar-right">

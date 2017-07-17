@@ -55,7 +55,7 @@ class ClaimController extends Controller
 
     	$claim->save();
 
-    	alert()->success('Claim successfully created.', 'Good Work!')->autoclose(3000);
+    	alert()->success('Claim successfully created.', 'Good Work!')->autoclose(2000);
 
     	return redirect()->route('admin.claim');
     }
@@ -63,5 +63,23 @@ class ClaimController extends Controller
     public function claimChart()
     {
     	return view('chart.claim_data');
+    }
+
+    public function approveClaim($id)
+    {
+        $approve = Claim_application::where('id', $id)->update(array ('status' => 'Approve'));
+
+        alert()->success('Claim approve.', 'Thank You');
+
+        return redirect()->route('admin.claim');
+    }
+
+    public function rejectClaim($id)
+    {
+        $reject = Claim_application::where('id', $id)->update(array ('status' => 'Reject'));
+
+        alert()->success('Claim rejected', 'Thank You');
+
+        return redirect()->route('admin.claim');
     }
 }
