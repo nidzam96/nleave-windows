@@ -270,12 +270,14 @@
 
 @section ('extrascripts')
     <script type="text/javascript">
-        var month = ['Jan','Feb','March','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
-        var data_month = <?php echo $month; ?>;
-        console.log(data_month)
+
+        //create bar chart for claim application
+        var data_amount = <?php echo $amount; ?>;
+        var data_month  = <?php echo $month; ?>;
+        console.log(data_amount, data_month)
 
         var barChartData = {
-            labels: month,
+            labels: data_month,
             datasets: [{
               label: 'Amount claim this month',
               backgroundColor: [
@@ -307,7 +309,7 @@
                   'rgba(98, 243, 152, 1)'
               ],
               borderWidth: 1,
-              data: data_month
+              data: data_amount
             }]
         };
 
@@ -332,13 +334,8 @@
                         }]
                     },
                     responsive: true,
-                    // title: {
-                    //     display: true,
-                    //     text: 'Yearly Website Visitor'
-                    // }
                 }
             });
-
         };
     </script>
 @endsection

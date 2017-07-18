@@ -94,21 +94,26 @@ class AdminController extends Controller
             $claim_app = Claim_application::where('user_id', '=', Auth()->user()->id)->get();
         }
 
-        $month = Claim_application::select(DB::raw("SUM(total_amount) as count"))
+        $amount = Claim_application::select(DB::raw("SUM(total_amount) as count"))
+                ->where('user_id', '=', Auth()->user()->id )
+                ->where('status', '=', 'Approve')
+                ->orderBy("created_at")
+                ->groupBy(DB::raw("month"))
+                ->get()->toArray();
+        $amount = array_column($amount, 'count');
+
+        $month = Claim_application::select(DB::raw("month as count"))
                 ->where('user_id', '=', Auth()->user()->id )
                 ->where('status', '=', 'Approve')
                 ->orderBy("created_at")
                 ->groupBy(DB::raw("month"))
                 ->get()->toArray();
         $month = array_column($month, 'count');
-        
-        // $month = Claim_application::select(DB::raw('MONTHNAME(month) as month'), DB::raw("DATE_FORMAT(month,'%Y-%m') as monthNum"), DB::raw('count(*) as projects'))
-        //             ->groupBy('monthNum')
-        //             ->get();
 
         return view('admin.claim')
             ->with('claim', $claim)
             ->with('claim_app', $claim_app)
+            ->with('amount',json_encode($amount,JSON_NUMERIC_CHECK))
             ->with('month',json_encode($month,JSON_NUMERIC_CHECK));
     }
 

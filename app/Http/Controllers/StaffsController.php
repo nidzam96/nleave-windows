@@ -47,6 +47,20 @@ class StaffsController extends Controller
      */
     public function store(Request $request)
     {
+        //vaidate the leave application
+        $this->validate($request, [
+                'fullname' => 'required|alpha|max:255',
+                'prefername' => 'required|alpha',
+                'gender' => 'required',
+                'email' => 'required',
+                'number' => 'required',
+                'dob' => 'required',
+                'sdate' => 'required',
+                'report' => 'required|alpha',
+                'position' => 'required',
+                'location' => 'required',
+            ]);
+
         //create new Staff in database
         $staff = New Staff;
         
