@@ -53,7 +53,7 @@ class StaffsController extends Controller
                 'prefername' => 'required|alpha',
                 'gender' => 'required',
                 'email' => 'required',
-                'number' => 'required',
+                'number' => 'required|numeric',
                 'dob' => 'required',
                 'sdate' => 'required',
                 'report' => 'required|alpha',
@@ -193,8 +193,18 @@ class StaffsController extends Controller
 
     public function editStaffInfo(Request $request, $id)
     {
+        //validate the edit information
+        $this->validate($request, [
+                'fnameEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+                'preferedEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+                'addressEdit' => 'required',
+                'numberEdit' => 'required|numeric',
+                'genderEdit' => 'required|alpha',
+                'dobEdit' => 'required',
+                'nationalityEdit' => 'required|alpha',
+                'statusEdit' => 'required|alpha',
+            ]);
 
-        $email          = $request->input('emailEdit');
         $fname          = $request->input('fnameEdit');
         $prefername     = $request->input('preferedEdit');
         $address        = $request->input('addressEdit');
@@ -205,7 +215,7 @@ class StaffsController extends Controller
         $status         = $request->input('statusEdit');
 
         //update record in table Staff
-        $staffEdit = Staff::where('user_id', $id)->update(array ('email' => $email,'full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
+        $staffEdit = Staff::where('user_id', $id)->update(array ('full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
@@ -220,6 +230,16 @@ class StaffsController extends Controller
 
     public function editEmployment(Request $request)
     {
+        //validate the edit information
+        $this->validate($request, [
+                'reportEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+                'branchEdit' => 'required|alpha',
+                'departmentEdit' => 'required|alpha',
+                'positionEdit' => 'required',
+                'startEdit' => 'required',
+                'empnumEdit' => 'required',
+            ]);
+
         //update record in table Employment
         $id         = $request->input('id');
         $report     = $request->input('reportEdit');
@@ -246,6 +266,14 @@ class StaffsController extends Controller
 
     public function editCompensation(Request $request)
     {
+        //validate the edit information
+        $this->validate($request, [
+                'emptypeEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+                'salaryEdit' => 'required|numeric',
+                'paymethodEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+                'bankEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            ]);
+
         //update record in table Compensation
         $id         = $request->input('id');
         $emptype    = $request->input('emptypeEdit');

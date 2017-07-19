@@ -250,13 +250,10 @@
                                         <thead>
                                             <tr>
                                                 <th >Full Name</th>
-                                                <!-- <th >Preferred Name</th> -->
                                                 <th>Gender</th>
                                                 <th>Email</th>
                                                 <th>Branch</th>
                                                 <th>Position</th>
-                                                <!-- <th>Action</th> -->
-                                                <!-- <th >Leave Taken</th> -->
                                             </tr>
                                         </thead>
                                         
@@ -264,16 +261,10 @@
                                             <tbody>
                                                 <tr>    
                                                     <td><a href="{{ route('admin.user.profile', $sta->user_id) }}">{{ $sta->full_name }}</a></td>
-                                                    <!-- <td>{{ $sta->preffered_name }}</td> -->
                                                     <td>{{ $sta->gender }} </td>
                                                     <td>{{ $sta->email }}</td>
                                                     <td>{{ $sta->branch->branch_name }}</td>
                                                     <td>{{ $sta->position->position_name }}</td>
-                                                    <!-- <td>
-                                                        <a href="#" type="button" class="btn btn-sm btn-warning">
-                                                            Remove
-                                                        </a>
-                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         @endforeach
