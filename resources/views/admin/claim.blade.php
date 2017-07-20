@@ -34,15 +34,19 @@
         <div class="tab-content">
 
         	<div class="tab-pane active" id="claim" role="tabpanel">
+                
+                @if ($errors->all() )
+                    <div class="alert alert-danger" role="alert">
+                        <p>Validation error.</p>
+                        <ul>
+                            @foreach ($errors->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
         		<section class="section-secondary section-team">
-	        		<div class="row">
-	        			<div class="col-md-12">
-	        				<div class="top20">
-	        					<h2 class="title">Claim</h2>
-	        				</div>
-	        			</div>
-	        		</div>
-					
 					<div class="section-body" style="margin-top: 20px">
     					<div class="panel panel-primary">	
                             <div class="panel-heading">
@@ -50,9 +54,8 @@
                                 New Claim
                             </div>
 
-                            <div class="panel-body">
-                                                      
-                                <div class="xol-md-12">
+                            <div class="panel-body">       
+                                <div class="col-md-12">
 
                                     <div class="col-md-6">
                                         <canvas id="barClaim" width="400" height="400"></canvas>
@@ -71,7 +74,7 @@
                                                 <div class="col-md-12">
                                                     <div class="row">
                                                         <label>Claim Type</label>
-                                                        <select id="c_type" name="c_type" class="form-control">
+                                                        <select id="c_type" name="c_type" class="form-control" required="required">
                                                             <option value="">Please select type</option>
                                                             @foreach ($claim as $claims)
                                                                 <option value="{{ $claims->id }}">{{ $claims->claim_name }}</option>
@@ -81,7 +84,7 @@
 
                                                     <div class="row top20">
                                                         <label>Date</label>
-                                                        <input type="date" id="c_date" name="c_date" class="form-control">
+                                                        <input type="date" id="c_date" name="c_date" class="form-control" required="required">
                                                     </div>
                                                     
                                                     <div id="normal-claim">

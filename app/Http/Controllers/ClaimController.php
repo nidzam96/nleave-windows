@@ -13,6 +13,13 @@ class ClaimController extends Controller
     //
     public function createClaim(Request $request)
     {
+        //validate the claim application
+        // $this->validate($request, [
+        //         'c_month' => 'required',
+        //         'c_type' => 'required',
+        //         'c_date' => 'required',
+        //     ]);
+
     	//create new claim
     	$claim = New Claim_application;
 

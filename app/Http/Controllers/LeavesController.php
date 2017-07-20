@@ -101,18 +101,17 @@ class LeavesController extends Controller
         //
     }
 
-    public function applyLeave(Request $request){
-
-        // $this->validate($request, [
-
-        //         'branch' => 'required|alpha ',
-        //         // 'selectEmployee' => 'required',
-        //         'leaveType' => 'required|numeric',
-        //         // 'ltime' => 'required',
-        //         'sdate' => 'required',
-        //         'edate' => 'required',
-        //         'reason' => 'required',
-        //     ]);
+    public function applyLeave(Request $request)
+    {
+        //vaidate the leave application
+        $this->validate($request, [
+                'branch' => 'required',
+                'leaveType' => 'required',
+                'ltime' => 'required',
+                'sdate' => 'required',
+                'edate' => 'required',
+                'reason' => 'required',
+            ]);
 
         //store new application into database
         $leave = new Leave;

@@ -44,8 +44,21 @@
                                 <div role="panel" class="tabs">
                                     <div class="form-body">
                                         <div class="tab-content">
+
+                                            @if ($errors->all() )
+                                                <div class="alert alert-danger" role="alert">
+                                                    <p>Validation error.</p>
+                                                    <ul>
+                                                        @foreach ($errors->all() as $message)
+                                                            <li>{{ $message }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <br>
+                                            @endif
+
                                             <div role="tabpanel" class="tab-pane active" id="leave">
-                                                <form id="applyleave" method="post" action="{{ route('leaves.apply') }}">
+                                                <form id="applyleave" method="post" action="{{ route('leaves.apply') }}" enctype="multipart/from-data">
                                                     {{ csrf_field() }}
 
                                                     <div class="form-group" style="margin-top: -28px;">
@@ -63,7 +76,7 @@
 
                                                         <div class="form-row">
                                                             <label class="form-label">Leave Type</label>
-                                                            <div class="form-controls">
+                                                            <div class="form-controls {{ $errors->has('reason') ? 'has-error' : false }}">
                                                                 <select name="leaveType" id="leaveType" class="form-control">
                                                                     <option value="">Please select</option>
                                                                     @foreach ($ltview as $ltype)
@@ -106,9 +119,14 @@
                                                         </div>
 
                                                         <div class="form-row">
+                                                            <label>Attachment</label>
+                                                            <input type="file" name="attachment" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-row">
                                                             <label class="form-label">Reason</label>
-                                                            <div class="form-controls">
-                                                                <textarea name="reason" id="reason" class="form-control" required="required" style="height: 100px"></textarea>
+                                                            <div class="form-controls {{ $errors->has('reason') ? 'has-error' : false }}">
+                                                                <textarea name="reason" id="reason" class="form-control" style="height: 100px"></textarea>
                                                             </div>
                                                         </div>
 
@@ -142,48 +160,6 @@
                      </div><!-- /.section-head -->
 
                      <div class="section-body">
-                        
-                        <!-- @if (Auth()->user()->position == 'HR')
-                            <div class="form form-rules leave-table-fitlering">
-                                <div class="form-row">
-                                    <div class="form-controls">
-                                        <select id="select_department" name="select_department" class="form-control" required>
-                                            <option value="">Select department</option>
-                                        </select>
-                                    </div>
-                                 
-                                    <div class="form-controls">
-                                        <select id="select_location" name="select_location" class="form-control" required>
-                                            <option value="">Select location</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-controls">
-                                        <input id="daterange-summarytable" class = "field date-range-picker  form-control" placeholder="Select date range to filter" value="" >
-                                    </div>
-                                 
-                                    <div class="pull-right" style="padding-top: 0">
-                                        <div class="form-controls">
-                                            <input class="form-control field" type="text" id="leave_summary_table_search" placeholder="search"/>
-                                        </div>
-                                        
-                                        <div class="form-controls">
-                                            <div class="section-actions form-control">
-                                                <a href="/leave/view_application?format=csv&q=leave_history" data-href="/leave/view_application?format=csv&q=leave_history" class="link-export">
-                                                    
-                                                    <i class="glyphicon glyphicon-export"></i>
-                                                    Export
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                               </div>
-                            </div>
-                        @endif -->
-                        
-                        <br>
-                        <br>
-                        <br>
 
                         <div class="table-responsive">
                             <table class="table table-bordered" id="leaveTable" width="100%">

@@ -47,7 +47,7 @@ class StaffsController extends Controller
      */
     public function store(Request $request)
     {
-        //vaidate the leave application
+        //vaidate the new staff information
         $this->validate($request, [
                 'fullname' => 'required|alpha|max:255',
                 'prefername' => 'required|alpha',
