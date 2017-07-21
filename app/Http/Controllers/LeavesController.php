@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Storage;
 use App\Leave;
 use App\User;
 use Mail;
@@ -103,7 +104,7 @@ class LeavesController extends Controller
 
     public function applyLeave(Request $request)
     {
-        //vaidate the leave application
+        //validate the leave application
         $this->validate($request, [
                 'branch' => 'required',
                 'leaveType' => 'required',
