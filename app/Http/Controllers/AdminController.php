@@ -44,13 +44,13 @@ class AdminController extends Controller
     	$branch = Branch::all();
         $ltype = Leavetype::all();
         $ltime = Leavetime::all();
-        $staff = Staff::all();
+        $staff = Staff::paginate(10);
         $position = Position::all();
 
         return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
     }
 
-    //Shows leave page
+    //Shows leave page with pagination
     public function leave(){
 
         $branch = Branch::all();
@@ -60,19 +60,16 @@ class AdminController extends Controller
 
         if (Auth()->user()->position == 'HR') {
             # code...
-            $leave = Leave::all();
+            $leave = Leave::paginate(5);
             // $leave = Leave::paginate(2);
             // $leave = $leave->paginate(5);
         }
         else{
-            $leave = Leave::where('user_id', '=', Auth()->user()->id)->get();
-            // $leave = Leave::paginate(2);
+            $leave = Leave::where('user_id', '=', Auth()->user()->id)->paginate(5);
         }
 
 
         return view('admin.leave')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('leaves', $leave)->with('staff', $staff);
-
-        // return view('admin.leave', compact('leave', 'branch', 'ltype', 'ltime'));
     }
 
 
@@ -88,10 +85,10 @@ class AdminController extends Controller
 
         if (Auth()->user()->position == 'HR') {
             # code...
-            $claim_app = Claim_application::all();
+            $claim_app = Claim_application::paginate(5);
         }
         else{
-            $claim_app = Claim_application::where('user_id', '=', Auth()->user()->id)->get();
+            $claim_app = Claim_application::where('user_id', '=', Auth()->user()->id)->paginate(5);
         }
 
         $amount = Claim_application::select(DB::raw("SUM(total_amount) as count"))

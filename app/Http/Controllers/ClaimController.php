@@ -7,18 +7,70 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Claim_application;
 use Alert;
+use Validator;
 
 class ClaimController extends Controller
 {
     //
     public function createClaim(Request $request)
     {
-        //validate the claim application
-        // $this->validate($request, [
-        //         'c_month' => 'required',
-        //         'c_type' => 'required',
-        //         'c_date' => 'required',
-        //     ]);
+        //validation for normal claim
+        // $validator = Validator::make($request->all(), [
+        //     'c_month' => 'required',
+        //     'c_type' => 'required',
+        //     'c_date' => 'required',
+        //     'c_particular' => 'required',
+        //     'c_brn' => 'required',
+        //     'c_gstno' => 'required',
+        //     'c_namount' => 'required',
+        // ]);
+
+        // // //validation for entertainment claim
+        // $validatorE = Validator::make($request->all(), [
+        //     'c_month' => 'required',
+        //     'c_type' => 'required',
+        //     'c_date' => 'required',
+        //     'c_particular' => 'required',
+        //     'c_brn' => 'required',
+        //     'c_gstno' => 'required',
+        //     'exsclient_amount' => 'required',
+        //     'potclient_amount' => 'required',
+        //     'suplier_amount' => 'required',
+        //     'c_eamount' => 'required',
+        // ]);
+
+        // // //validation for travel claim
+        // $validatorT = Validator::make($request->all() [
+        //     'c_month' => 'required',
+        //     'c_type' => 'required',
+        //     'c_date' => 'required',
+        //     'client_name' => 'required',
+        //     'destination' => 'required',
+        //     'toll' => 'required',
+        //     'parking' => 'required',
+        //     'accomodation' => 'required',
+        //     'allowance' => 'required',
+        //     'mileage' => 'required',
+        //     'amount' => 'required',
+        // ]);
+
+        // if ($validator->fails()) {
+            
+        //     return redirect('admin/claim')
+        //                 ->withErrors($validator, 'normal');
+        // }
+
+        // if ($validatorE->fails()) {
+            
+        //     return redirect('admin/claim')
+        //                 ->withErrors($validatorE, 'entertainment');
+        // }
+
+        // if ($validatorT->fails()) {
+            
+        //     return redirect('admin/claim')
+        //                 ->withErrors($validatorT, 'travel');
+        // }
 
     	//create new claim
     	$claim = New Claim_application;

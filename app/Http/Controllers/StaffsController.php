@@ -16,6 +16,7 @@ use App\Compensation;
 use App\Birthday;
 use Mail;
 use Alert;
+use Validator;
 
 class StaffsController extends Controller
 {
@@ -194,16 +195,22 @@ class StaffsController extends Controller
     public function editStaffInfo(Request $request, $id)
     {
         //validate the edit information
-        $this->validate($request, [
-                'fnameEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-                'preferedEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-                'addressEdit' => 'required',
-                'numberEdit' => 'required|numeric',
-                'genderEdit' => 'required|alpha',
-                'dobEdit' => 'required',
-                'nationalityEdit' => 'required|alpha',
-                'statusEdit' => 'required|alpha',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'fnameEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'preferedEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'addressEdit' => 'required',
+            'numberEdit' => 'required|numeric',
+            'genderEdit' => 'required|alpha',
+            'dobEdit' => 'required',
+            'nationalityEdit' => 'required|alpha',
+            'statusEdit' => 'required|alpha',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/user/profile/'.$id)
+                        ->withErrors($validator, 'staff')
+                        ->withInput();
+        }
 
         $fname          = $request->input('fnameEdit');
         $prefername     = $request->input('preferedEdit');
@@ -230,18 +237,26 @@ class StaffsController extends Controller
 
     public function editEmployment(Request $request)
     {
+        //user id
+        $id         = $request->input('id');
+
         //validate the edit information
-        $this->validate($request, [
-                'reportEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-                'branchEdit' => 'required|alpha',
-                'departmentEdit' => 'required|alpha',
-                'positionEdit' => 'required',
-                'startEdit' => 'required',
-                'empnumEdit' => 'required',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'reportEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'branchEdit' => 'required|alpha',
+            'departmentEdit' => 'required|alpha',
+            'positionEdit' => 'required',
+            'startEdit' => 'required',
+            'empnumEdit' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/user/profile/'.$id)
+                        ->withErrors($validator, 'employ')
+                        ->withInput();
+        }
 
         //update record in table Employment
-        $id         = $request->input('id');
         $report     = $request->input('reportEdit');
 
         $branch     = $request->input('branchEdit');
@@ -266,16 +281,24 @@ class StaffsController extends Controller
 
     public function editCompensation(Request $request)
     {
+        //user id
+        $id         = $request->input('id');
+
         //validate the edit information
-        $this->validate($request, [
-                'emptypeEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-                'salaryEdit' => 'required|numeric',
-                'paymethodEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-                'bankEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'emptypeEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'salaryEdit' => 'required|numeric',
+            'paymethodEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'bankEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/user/profile/'.$id)
+                        ->withErrors($validator, 'compen')
+                        ->withInput();
+        }
 
         //update record in table Compensation
-        $id         = $request->input('id');
         $emptype    = $request->input('emptypeEdit');
         $salary     = $request->input('salaryEdit');
         $paymethod  = $request->input('paymethodEdit');

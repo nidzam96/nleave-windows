@@ -155,6 +155,18 @@ class LeavesController extends Controller
 
         }
 
+        // $file = $request->file('attachment');
+        // $leave->file = Storage::put('attachment', $file);
+        // $leave->file = $request->input('attachment');
+
+        $destinationPath = 'attachments';
+        $file = $request->file('attachment');
+        if($file){
+            $file->move(public_path($destinationPath), $file->getClientOriginalName());
+            $pathname = $file->getClientOriginalName();
+            $leave->file = $pathname;
+        }
+
         $leave->reason = $request->input('reason');
         $leave->status = "Pending";
 

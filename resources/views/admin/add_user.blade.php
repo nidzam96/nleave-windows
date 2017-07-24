@@ -8,7 +8,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="team">
                 
-                //show the errors produce when filling out the form
+                <!-- show the errors produce when filling out the form -->
                 @if ($errors->all() )
                     <div class="alert alert-danger" role="alert">
                         <p>Validation error.</p>

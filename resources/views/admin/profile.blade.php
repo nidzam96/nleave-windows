@@ -112,11 +112,11 @@
 						  <div class="modal-content" style="width: 100%; height: 800px;">
 						    <span class="close">&times;</span>
 							
-							@if ($errors->all() )
+							@if ($errors->staff->all() )
 							    <div class="alert alert-danger" role="alert">
 							        <p>Validation error.</p>
 							        <ul>
-							            @foreach ($errors->all() as $message)
+							            @foreach ($errors->staff->all() as $message)
 							                <li>{{ $message }}</li>
 							            @endforeach
 							        </ul>
@@ -279,11 +279,11 @@
 		        		  <div class="modal-content" style="width: 100%; height: 600px">
 		        		    <span class="close">&times;</span>
 
-		        		    @if ($errors->all() )
+		        		    @if ($errors->employ->all() )
 		        		        <div class="alert alert-danger" role="alert">
 		        		            <p>Validation error.</p>
 		        		            <ul>
-		        		                @foreach ($errors->all() as $message)
+		        		                @foreach ($errors->employ->all() as $message)
 		        		                    <li>{{ $message }}</li>
 		        		                @endforeach
 		        		            </ul>
@@ -418,11 +418,11 @@
 		        		  <div class="modal-content" style="width: 100%; height: 500px">
 		        		    <span class="close">&times;</span>
 							
-							@if ($errors->all() )
+							@if ($errors->compen->all() )
 							    <div class="alert alert-danger" role="alert">
 							        <p>Validation error.</p>
 							        <ul>
-							            @foreach ($errors->all() as $message)
+							            @foreach ($errors->compen->all() as $message)
 							                <li>{{ $message }}</li>
 							            @endforeach
 							        </ul>

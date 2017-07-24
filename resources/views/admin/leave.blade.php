@@ -58,7 +58,7 @@
                                             @endif
 
                                             <div role="tabpanel" class="tab-pane active" id="leave">
-                                                <form id="applyleave" method="post" action="{{ route('leaves.apply') }}" enctype="multipart/from-data">
+                                                <form id="applyleave" method="post" action="{{ route('leaves.apply') }}" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
 
                                                     <div class="form-group" style="margin-top: -28px;">
@@ -193,7 +193,11 @@
                                                 <td>{{ $leave->days }}</td>
                                                 <td>{{ $leave->ltype->leave_name }}</td>
                                                 <td>{{ $leave->reason }}</td>
-                                                <td></td>
+                                                <td>
+                                                    @if (!empty($leave->file) )
+                                                        <a href="{{ asset('attachments/'.$leave->file) }}" target="blank">View file</a>
+                                                    @endif
+                                                </td>
 
                                             @if (Auth::user()->position == 'HR')
                                                 <div class="form-group">
@@ -238,7 +242,11 @@
                                         </tr>
                                     </tbody>
                                 @endforeach
+                                
+                                {{ $leaves->appends(Request::except('page'))->links() }}
+
                             </table>
+                        {{ $leaves->appends(Request::except('page'))->links() }}
                         </div><!-- /.table -->
                     
                     </div><!-- /.section-body -->

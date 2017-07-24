@@ -95,7 +95,7 @@
 
         eventClick: function(calEvent, jsEvent, view){
 
-          alert(""+calEvent.reason);
+          alert("Reason : "+calEvent.reason);
           // popup(""+calEvent.reason);
         }
      
@@ -248,6 +248,14 @@
             var remainDays = leave_day - leave_taken;
             
             $('#avails-day').append(remainDays+' remaining days');
+
+            if (remainDays < 1) {
+              $('#submitApply').attr('disabled','disabled');
+            }
+            else
+            {
+              $('#submitApply').removeAttr('disabled');
+            }
 
           })
         })

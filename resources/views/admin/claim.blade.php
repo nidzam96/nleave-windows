@@ -35,17 +35,38 @@
 
         	<div class="tab-pane active" id="claim" role="tabpanel">
                 
-                @if ($errors->all() )
+                @if ($errors->normal->all() )
                     <div class="alert alert-danger" role="alert">
                         <p>Validation error.</p>
                         <ul>
-                            @foreach ($errors->all() as $message)
+                            @foreach ($errors->normal->all() as $message)
                                 <li>{{ $message }}</li>
                             @endforeach
                         </ul>
                     </div>
                 @endif
 
+                @if ($errors->entertainment->all() )
+                    <div class="alert alert-danger" role="alert">
+                        <p>Validation error.</p>
+                        <ul>
+                            @foreach ($errors->entertainment->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if ($errors->travel->all() )
+                    <div class="alert alert-danger" role="alert">
+                        <p>Validation error.</p>
+                        <ul>
+                            @foreach ($errors->travel->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
         		<section class="section-secondary section-team">
 					<div class="section-body" style="margin-top: 20px">
     					<div class="panel panel-primary">	
@@ -222,31 +243,31 @@
                                     </tr>
                                 </thead>
 
-                                @foreach ($claim_app as $claim_app)
+                                @foreach ($claim_app as $claim)
                                     <tbody>
                                         <tr>
                                             @if (Auth::user()->position == 'HR')
-                                                <td>{{ $claim_app->user->name }}</td>
-                                                <td>{{ $claim_app->user->position }}</td>
+                                                <td>{{ $claim->user->name }}</td>
+                                                <td>{{ $claim->user->position }}</td>
                                             @endif
-                                                <td>{{ $claim_app->date }}</td>
-                                                <td>{{ $claim_app->claim->claim_name }}</td>
-                                                <td>{{ $claim_app->month }}</td>
-                                                <td>{{ $claim_app->particular }}</td>
-                                                <td>{{ $claim_app->brn }}</td>
-                                                <td>{{ $claim_app->gstno }}</td>
-                                                <td>{{ $claim_app->total_amount }}</td>
+                                                <td>{{ $claim->date }}</td>
+                                                <td>{{ $claim->claim->claim_name }}</td>
+                                                <td>{{ $claim->month }}</td>
+                                                <td>{{ $claim->particular }}</td>
+                                                <td>{{ $claim->brn }}</td>
+                                                <td>{{ $claim->gstno }}</td>
+                                                <td>{{ $claim->total_amount }}</td>
                                                 
                                             @if (Auth()->user()->position == 'HR')
                                                     <td>
-                                                        <h2 class="btn btn-info">{{ $claim_app->status }}</h2>
+                                                        <h2 class="btn btn-info">{{ $claim->status }}</h2>
                                                         
-                                                        @if ($claim_app->status == 'Pending')
+                                                        @if ($claim->status == 'Pending')
 
                                                         <br>
                                                         <br>
 
-                                                        <a href="{{ route('claim.approve', $claim_app->id) }}" type="button" class="btn btn-default">Approve</a>
+                                                        <a href="{{ route('claim.approve', $claim->id) }}" type="button" class="btn btn-default">Approve</a>
 
                                                         <button class="btn btn-danger">
                                                             Reject
@@ -254,13 +275,18 @@
                                                     </td>
                                                 @endif
                                             @else
-                                                <td>{{ $claim_app->status }}</td>
+                                                <td>{{ $claim->status }}</td>
                                             @endif
                                         </tr>
                                     </tbody>
                                 @endforeach
+                                
+                                {{ $claim_app->appends(Request::except('page'))->links() }}
 
                             </table>
+
+                            {{ $claim_app->appends(Request::except('page'))->links() }}
+
                         </div>
                     </div>
                 </section>

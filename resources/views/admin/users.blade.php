@@ -268,7 +268,13 @@
                                                 </tr>
                                             </tbody>
                                         @endforeach
+
+                                        {{ $staff->appends(Request::except('page'))->links() }}
+
                                     </table>
+                                    
+                                    {{ $staff->appends(Request::except('page'))->links() }}
+
                                 </div><!-- /.table -->
 
                             </div>
