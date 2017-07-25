@@ -81,9 +81,18 @@
                                     <div class="col-md-6">
                                         <canvas id="barClaim" width="400" height="400"></canvas>
                                     </div>
-
+                                    
                                     <div class="col-md-5 col-md-offset-1 top20">
-                                        <form method="POST" action="{{ route('claim.create') }}">
+                                        
+                                        <div class="panel panel-danger" id="panelError">
+                                            <div class="panel-heading">
+                                                Errors
+                                            </div>
+                                            <div class="panel-body">
+                                            </div>
+                                        </div> 
+
+                                        <form name="claimForm" method="POST" action="{{ route('claim.create') }}">
                                             {{ csrf_field() }}
 
                                             <div class="row">

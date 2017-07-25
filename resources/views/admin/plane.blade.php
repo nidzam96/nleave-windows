@@ -75,13 +75,17 @@
   {{ Html::script('asset/js/sweetalert.min.js') }}  
   {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
   {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
+  {{ Html::script('asset/js/jquery.validate.min.js') }}  
+  {{ Html::script('asset/js/claim-validation.js') }}  
   {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
   {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
 
   @include('sweet::alert')
 
 <script type="text/javascript">
-   
+  
+  $('#panelError').hide();
+
   // The popup for creating new group 
   var modal = document.getElementById('myModal');
   var btn = document.getElementById("btnCreateGroup");

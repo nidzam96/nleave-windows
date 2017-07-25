@@ -17,6 +17,7 @@ use App\Birthday;
 use Mail;
 use Alert;
 use Validator;
+use Carbon\Carbon;
 
 class StaffsController extends Controller
 {
@@ -57,12 +58,14 @@ class StaffsController extends Controller
                 'number' => 'required|numeric',
                 'dob' => 'required',
                 'sdate' => 'required',
-                'report' => 'required|alpha',
+                'report' => 'required',
                 'position' => 'required',
                 'location' => 'required',
             ]);
 
         //create new Staff in database
+        $current_year = Carbon::now()->format('Y');
+
         $staff = New Staff;
         
         $staff->full_name       = $request->input('fullname');
@@ -98,7 +101,7 @@ class StaffsController extends Controller
 
         $birthday->email = $request->input('email');
         $birthday->title = $request->input('prefername');
-        $birthday->start = $request->input('dob');
+        $birthday->start = Carbon::parse($request->input('dob'))->format(''.$current_year.'-m-d');
 
         $birthday->save();
      

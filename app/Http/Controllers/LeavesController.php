@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\leaveType;
 use App\Staff;
 use App\Department;
+use App\Employment;
 
 class LeavesController extends Controller
 {
@@ -155,10 +156,6 @@ class LeavesController extends Controller
 
         }
 
-        // $file = $request->file('attachment');
-        // $leave->file = Storage::put('attachment', $file);
-        // $leave->file = $request->input('attachment');
-
         $destinationPath = 'attachments';
         $file = $request->file('attachment');
         if($file){
@@ -182,10 +179,13 @@ class LeavesController extends Controller
         $reason= $request->input('reason');
 
         //send reminder email to admin
-        Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message)
+        Mail::send('emails.reminder', ['branch' => $branch_id, 'ltype' => $ltype_id, 'sdate' => $sdate, 'edate' => $edate, 'reason' => $reason], function ($message) use ($user_id)
         {
-            $adminEmail = User::where('position', '=', 'HR')->first();
-            // $userEmail = User::where('position', '=', 'others' && 'id', '=', $user_id)->get();
+            // $adminEmail = User::where('position', '=', 'HR')->first();
+            $getAdmin   = Employment::where('user_id', '=', $user_id)->first();
+            $getAdminId = $getAdmin->report;
+
+            $adminEmail = User::where('id', '=', $getAdminId)->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 

@@ -95,7 +95,7 @@
                                         <select name="report" class="form-control">
                                             <option value="">Please select</option>
                                             @foreach ($staff as $sta)
-                                                <option value="{{ $sta->preffered_name }}">{{ $sta->preffered_name }}</option>
+                                                <option value="{{ $sta->user_id }}">{{ $sta->preffered_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

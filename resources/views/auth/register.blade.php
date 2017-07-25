@@ -67,10 +67,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Position</label>
+                            <label for="position" class="col-md-4 control-label">Position</label>
 
                             <div class="col-md-6">
-                                <!-- <input id="password" type="password" class="form-control" name="password"> -->
+                                <!-- <input id="position" type="position" class="form-control" name="position"> -->
                                 <select name="position" class="form-control">
                                     <option value="6">Developer</option>
                                     <option value="7">HR</option>
