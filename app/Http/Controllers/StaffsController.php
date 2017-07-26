@@ -21,6 +21,11 @@ use Carbon\Carbon;
 
 class StaffsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+
+        $this->middleware('check_user_role:admin')->except('editStaffInfo');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -104,7 +109,7 @@ class StaffsController extends Controller
         $birthday->start = Carbon::parse($request->input('dob'))->format(''.$current_year.'-m-d');
 
         $birthday->save();
-     
+
         $staffName  = $request->input('fullname');
         $staffEmail = $request->input('email');
 

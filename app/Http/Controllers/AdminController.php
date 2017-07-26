@@ -35,7 +35,13 @@ class AdminController extends Controller
 
     // Shows dashboard page
     public function dashboard(){
-    	return view('admin.dashboard');
+        $leave = Leave::where('status', '=', 'Pending')
+            ->orWhere('status', '=', 'Approve')
+            ->paginate(5, ['*'], 'leave');
+
+        $claim = Claim_application::paginate(5, ['*'], 'claim');
+
+    	return view('admin.dashboard')->with('leave', $leave)->with('claim', $claim);
     }
 
     //Shows users page

@@ -40,6 +40,8 @@ Route::get('/first_login', 'AdminController@first_login');
 
 Route::post('user/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminController@setpassword']);
 
+Route::get('user/setUserRole', 'AdminController@setUserRole');
+
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 

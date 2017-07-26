@@ -161,7 +161,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
-
+        Laratrust\LaratrustServiceProvider::class,  
     ],
 
     /*
@@ -213,7 +213,7 @@ return [
 
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 
-
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
     ],
 
 ];

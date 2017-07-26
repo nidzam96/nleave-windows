@@ -79,5 +79,10 @@ class AuthController extends Controller
             'password' => $data['password'],
             'position' => $data['position'],
         ]);
+
+        $member_role_id = 1;
+        $user->attachRole($member_role_id);
+
+        return $user;
     }
 }
