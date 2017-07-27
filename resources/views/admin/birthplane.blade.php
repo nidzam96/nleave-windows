@@ -98,15 +98,13 @@
           alert("Happy Birthday and Good Year");
           // popup(""+calEvent.reason);
         }
-     
-        // Convert the allDay from string to boolean
-        // eventRender: function(event, element, view) {
-
-        // },
-     
       });
 
-
+      var tyear = 2018;
+      // console.log(tyear);
+      if (tyear != moment().format('YYYY')) {
+        
+      }
     });
 
   </script> 

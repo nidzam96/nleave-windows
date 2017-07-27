@@ -3,7 +3,7 @@
  $json = array();
 
  // Query that retrieves events
- $requete = "SELECT * FROM birthdays";
+ $requete  = "SELECT * FROM birthdays";
 
  // connection to the database
  try {
