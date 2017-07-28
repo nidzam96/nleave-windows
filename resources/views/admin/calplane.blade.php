@@ -136,12 +136,10 @@
           var checkStart = moment(startDate, 'YYYY-MM-DD 09:00:00');
 
           var days = calcBusinessDays(checkStart,checkEnd);
-          console.log(days)
 
           $('#submitApply').text('Apply for ' +days+ ' days');
 
           document.getElementById('dateDiff').value = days;
-          // console.log(document.getElementById('dateDiff').value)S
         }
       })
 

@@ -17,64 +17,6 @@ class ClaimController extends Controller
     //
     public function createClaim(Request $request)
     {
-        //validation for normal claim
-        // $validator = Validator::make($request->all(), [
-        //     'c_month' => 'required',
-        //     'c_type' => 'required',
-        //     'c_date' => 'required',
-        //     'c_particular' => 'required',
-        //     'c_brn' => 'required',
-        //     'c_gstno' => 'required',
-        //     'c_namount' => 'required',
-        // ]);
-
-        // // //validation for entertainment claim
-        // $validatorE = Validator::make($request->all(), [
-        //     'c_month' => 'required',
-        //     'c_type' => 'required',
-        //     'c_date' => 'required',
-        //     'c_particular' => 'required',
-        //     'c_brn' => 'required',
-        //     'c_gstno' => 'required',
-        //     'exsclient_amount' => 'required',
-        //     'potclient_amount' => 'required',
-        //     'suplier_amount' => 'required',
-        //     'c_eamount' => 'required',
-        // ]);
-
-        // // //validation for travel claim
-        // $validatorT = Validator::make($request->all() [
-        //     'c_month' => 'required',
-        //     'c_type' => 'required',
-        //     'c_date' => 'required',
-        //     'client_name' => 'required',
-        //     'destination' => 'required',
-        //     'toll' => 'required',
-        //     'parking' => 'required',
-        //     'accomodation' => 'required',
-        //     'allowance' => 'required',
-        //     'mileage' => 'required',
-        //     'amount' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-            
-        //     return redirect('admin/claim')
-        //                 ->withErrors($validator, 'normal');
-        // }
-
-        // if ($validatorE->fails()) {
-            
-        //     return redirect('admin/claim')
-        //                 ->withErrors($validatorE, 'entertainment');
-        // }
-
-        // if ($validatorT->fails()) {
-            
-        //     return redirect('admin/claim')
-        //                 ->withErrors($validatorT, 'travel');
-        // }
-
         $month       = $request->input('c_month');
         $type        = $request->input('c_type');
         $date        = $request->input('c_date');

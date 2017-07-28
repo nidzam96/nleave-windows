@@ -65,10 +65,7 @@ class AdminController extends Controller
         $staff = Staff::all();
 
         if (Auth()->user()->position == 'HR') {
-            # code...
             $leave = Leave::paginate(5);
-            // $leave = Leave::paginate(2);
-            // $leave = $leave->paginate(5);
         }
         else{
             $leave = Leave::where('user_id', '=', Auth()->user()->id)->paginate(5);
@@ -130,8 +127,6 @@ class AdminController extends Controller
         $staff = Staff::where('user_id', '=', Auth()->user()->id)->get();
         $employment = Employment::where('user_id', '=', Auth()->user()->id)->get();
         $compensation = Compensation::where('user_id', '=', Auth()->user()->id)->get();
-
-        // dd($compensation);
 
         return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
     }

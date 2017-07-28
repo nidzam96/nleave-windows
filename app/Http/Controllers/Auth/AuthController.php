@@ -80,9 +80,15 @@ class AuthController extends Controller
             'position' => $data['position'],
         ]);
 
-        $member_role_id = 1;
-        $user->attachRole($member_role_id);
-
-        return $user;
+        if ($data['position'] == 7) {
+            $member_role_id = 1;
+            $user->attachRole($member_role_id);
+            return $user;
+        }
+        else{
+            $member_role_id = 2;
+            $user->attachRole($member_role_id);
+            return $user;
+        }
     }
 }
