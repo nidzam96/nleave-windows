@@ -40,14 +40,18 @@ Route::get('/first_login', 'AdminController@first_login');
 
 Route::post('user/setpassword', ['as' => 'user.setpassword', 'uses' => 'AdminController@setpassword']);
 
+Route::get('/admin/create/staff', 'AdminController@newStaff');
+
 Route::get('user/setUserRole', 'AdminController@setUserRole');
+
+Route::get('admin/leave-setting', ['as' => 'admin.leaveSet', 'uses' => 'AdminController@leaveSetting']);
 
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 
 Route::get('admin/birthday', 'LeavesController@birthday');
 
-Route::get('leave/approve/{id}{user_id}{days}{ltype_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
+Route::get('leave/approve/{id}{user_id}{ltype_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
 
 Route::post('leave/reject', ['as' => 'leave.reject', 'uses' => 'LeavesController@reject']);
 
@@ -77,11 +81,13 @@ Route::post('/user/profile/edit/employment', ['as' => 'user.profile.edit.employm
 
 Route::post('/user/profile/edit/compensation', ['as' => 'user.profile.edit.compensation', 'uses' => 'StaffsController@editCompensation']);
 
+Route::get('/user/getName/{id}', 'StaffsController@getUserId');
+
 //Route for ClaimController
 Route::post('/admin/claim', ['as' => 'claim.create', 'uses' => 'ClaimController@createClaim']);
 
 Route::get('/admin/claim_data', 'ClaimController@claimChart');
 
-Route::get('/admin/claim/{id}', ['as' => 'claim.approve', 'uses' => 'ClaimController@approveClaim']);
+Route::get('/admin/claim/{id}{user_id}', ['as' => 'claim.approve', 'uses' => 'ClaimController@approveClaim']);
 
-// Route::get('/admin/claim/{id}', ['as' => 'claim.reject', 'uses' => 'ClaimController@rejectClaim']);
+Route::post('/admin/claim/reject', ['as' => 'claim.reject', 'uses' => 'ClaimController@rejectClaim']);

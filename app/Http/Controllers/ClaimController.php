@@ -77,6 +77,14 @@ class ClaimController extends Controller
     		$claim->total_amount = $tramount;
     	}
 
+        $destinationPath = 'attachments/claim';
+        $file = $request->file('claimFile');
+        if($file){
+            $file->move(public_path($destinationPath), $file->getClientOriginalName());
+            $pathname = $file->getClientOriginalName();
+            $claim->file = $pathname;
+        }
+
     	$claim->save();
 
         $type_n = Claim::where('id', '=', $type)->first();
@@ -104,18 +112,44 @@ class ClaimController extends Controller
     	return view('chart.claim_data');
     }
 
-    public function approveClaim($id)
+    public function approveClaim($id, $user_id)
     {
         $approve = Claim_application::where('id', $id)->update(array ('status' => 'Approve'));
+
+        //send approved email to user
+        Mail::send('emails.claim-approve', [], function ($message) use($user_id)
+        {
+            $userEmail = User::where('id', '=', $user_id)->first();
+
+            $message->from(Auth()->user()->email, Auth()->user()->name);
+
+            $message->to($userEmail->email, $userEmail->name);
+
+        });
 
         alert()->success('Claim approve.', 'Thank You');
 
         return redirect()->route('admin.claim');
     }
 
-    public function rejectClaim($id)
+    public function rejectClaim(Request $request)
     {
-        $reject = Claim_application::where('id', $id)->update(array ('status' => 'Reject'));
+        $user_id  = $request->input('user_id');
+        $claim_id = $request->input('claim_id');
+        $reason   = $request->input('remark');
+
+        $claim_app = Claim_application::where('id', $claim_id)->update(array ('status' => 'Rejected'));
+
+        //send rejected email to user
+        Mail::send('emails.claim-reject', [$user_id, 'reason' => $reason], function ($message) use($user_id)
+        {
+            $userEmail = User::where('id', '=', $user_id)->first();
+
+            $message->from(Auth()->user()->email, Auth()->user()->name);
+
+            $message->to($userEmail->email, $userEmail->name);
+
+        });
 
         alert()->success('Claim rejected', 'Thank You');
 

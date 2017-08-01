@@ -29,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/leave';
+    protected $redirectTo = '/admin/create/staff';
 
     /**
      * Create a new authentication controller instance.
@@ -66,29 +66,15 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'position' => $data['position'],
         ]);
 
-        return Staff::create([
-            'preffered_name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-            'position' => $data['position'],
-        ]);
-
-        if ($data['position'] == 7) {
-            $member_role_id = 1;
-            $user->attachRole($member_role_id);
-            return $user;
-        }
-        else{
-            $member_role_id = 2;
-            $user->attachRole($member_role_id);
-            return $user;
-        }
+        $member_role_id = 1;
+        $user->attachRole($member_role_id);
+        return $user;
     }
 }

@@ -195,9 +195,13 @@ class StaffsController extends Controller
         $staff        = Staff::where('user_id', '=', $id)->get();
         $employment   = Employment::where('user_id', '=', $id)->get();
         $compensation = Compensation::where('user_id', '=', $id)->get();
-        // dd($staff, $employment, $compensation);
 
-        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
+        $uInfo = Employment::where('user_id', '=', $id )->first();
+        $uRepo = $uInfo->report;
+
+        $rep_name = User::where('id', '=', $uRepo)->pluck('name');
+
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation)->with('sv_name', $rep_name);
     }
 
     public function editStaffInfo(Request $request, $id)
@@ -231,6 +235,8 @@ class StaffsController extends Controller
 
         //update record in table Staff
         $staffEdit = Staff::where('user_id', $id)->update(array ('full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
+
+        $dobEdit   = Birthday::where('user_id', $id)->update(array ('start' => $dob));
 
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
@@ -317,6 +323,12 @@ class StaffsController extends Controller
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
         return redirect('admin/users');
+    }
 
+    public function getUserId($id)
+    {
+        $user    = User::where('id', '=', $id)->pluck('name','id');
+
+        return $user;
     }
 }

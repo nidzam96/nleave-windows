@@ -149,14 +149,14 @@ class LeavesController extends Controller
             }
             else{
                 $leave->ltime_id = $request->input('ltime');    
-                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 13:00:00');
+                $leave->start = Carbon::parse($request->input('sdate'))->format('Y-m-d 14:00:00');
                 $leave->end = Carbon::parse($request->input('edate'))->format('Y-m-d 17:59:59');
                 $leave->days = 0.5;
             }
 
         }
 
-        $destinationPath = 'attachments';
+        $destinationPath = 'attachments/leave';
         $file = $request->file('attachment');
         if($file){
             $file->move(public_path($destinationPath), $file->getClientOriginalName());
@@ -196,41 +196,42 @@ class LeavesController extends Controller
         return redirect() ->route('admin.leaves');
     }
 
-    public function approve($id, $user_id, $days_requested, $ltype_id){
-
+    public function approve($id, $user_id, $ltype_id)
+    {
+        // dd($id, $user_id, $ltype_id);
+     
         //find the approve application
-        // dd($id, $user_id, $days_requested, $ltype_id);
         $leave    = Leave::where('id', $id)->update(array ('status' => 'Approve'));
+        $leave2   = Leave::where('id', $id)->first();
+
+        $days_requested = $leave2->days;
 
         $getstaff = Staff::where('user_id', '=', $user_id)->first();
         $ltaken   = $getstaff->leave_taken;
+
         $staff    = Staff::where('user_id', $user_id)->update(array ('leave_taken' => $ltaken+$days_requested));
 
         if ($ltype_id == 1) {
-            # code...
             $annual_taken = $getstaff->annual_taken;
             $staff    = Staff::where('user_id', $user_id)->update(array ('annual_taken' => $annual_taken+$days_requested));
+
         }
         elseif ($ltype_id == 2) {
-            # code...
             $marriage_taken = $getstaff->marriage_taken;
             $staff    = Staff::where('user_id', $user_id)->update(array ('marriage_taken' => $marriage_taken+$days_requested));
 
         }
         elseif ($ltype_id == 3) {
-            # code...
             $maternity_taken = $getstaff->maternity_taken;
             $staff    = Staff::where('user_id', $user_id)->update(array ('maternity_taken' => $maternity_+$days_requested));
 
         }
         elseif ($ltype_id == 4) {
-            # code...
             $paternity_taken = $getstaff->paternity_taken;
             $staff    = Staff::where('user_id', $user_id)->update(array ('paternity_taken' => $paternity_taken+$days_requested));
 
         }
         elseif ($ltype_id == 5) {
-            # code...
             $sick_taken = $getstaff->sick_taken;
             $staff    = Staff::where('user_id', $user_id)->update(array ('sick_taken' => $sick_taken+$days_requested));
 
@@ -332,7 +333,8 @@ class LeavesController extends Controller
         return $id;
     }
 
-    public function newDepartment(Request $request){
+    public function newDepartment(Request $request)
+    {
 
         //create new department and store member id
         $request->merge([ 

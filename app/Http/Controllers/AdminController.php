@@ -120,15 +120,20 @@ class AdminController extends Controller
     //Shows profile page
     public function showProfile(){
     	
-        $branch = Branch::all();
-        $ltype = Leavetype::all();
-        $ltime = Leavetime::all();
-        $position = Position::all();
-        $staff = Staff::where('user_id', '=', Auth()->user()->id)->get();
-        $employment = Employment::where('user_id', '=', Auth()->user()->id)->get();
+        $branch       = Branch::all();
+        $ltype        = Leavetype::all();
+        $ltime        = Leavetime::all();
+        $position     = Position::all();
+        $staff        = Staff::where('user_id', '=', Auth()->user()->id)->get();
+        $employment   = Employment::where('user_id', '=', Auth()->user()->id)->get();
         $compensation = Compensation::where('user_id', '=', Auth()->user()->id)->get();
 
-        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation);
+        $uInfo = Employment::where('user_id', '=', Auth()->user()->id )->first();
+        $uRepo = $uInfo->report;
+
+        $rep_name = User::where('id', '=', $uRepo)->pluck('name');
+
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation)->with('sv_name', $rep_name);
     }
 
     public function add_user(){    
@@ -154,14 +159,62 @@ class AdminController extends Controller
         $password = bcrypt($request->input('password'));
         $user = User::where('email', '=', $email)->update(array ('password' => $password ));
 
-        $user_id = User::where('email', '=', $email)->first();
+        $user_id        = User::where('email', '=', $email)->first();
+        $member_role_id = 2;
+        $user_id->attachRole($member_role_id);
+
         $get_id  = $user_id->id;
 
         $staff        = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
         $compensation = Compensation::where('email', '=', $email)->update(array ('user_id' => $get_id));
         $employment   = Employment::where('email', '=', $email)->update(array ('user_id' => $get_id));
-        $employment   = Birthday::where('email', '=', $email)->update(array ('user_id' => $get_id));
+        $birthday     = Birthday::where('email', '=', $email)->update(array ('user_id' => $get_id));
 
         return redirect('/admin/leave');
+    }
+
+    public function leaveSetting()
+    {
+        return view('admin.leave-settings');
+    }
+
+    public function newStaff()
+    {
+        $user    = User::where('id', '=', Auth()->user()->id )->first();
+
+        $staff = New Staff;
+
+        $staff->user_id = $user->id;
+        $staff->full_name = $user->name;
+        $staff->email = $user->email;
+        $staff->password = $user->password;
+        $staff->position_id = $user->position;
+
+        $staff->save();
+
+        $employment = New Employment;
+
+        $employment->email   = $user->email;
+        $employment->user_id = $user->id;
+        $employment->position_id = $user->position;
+
+        $employment->save();
+
+        $compensation = New Compensation;
+
+        $compensation->email = $user->email;
+        $compensation->user_id = $user->id;
+
+        $compensation->save();
+
+        $birthday = New Birthday;
+
+        $birthday->email = $user->email;
+        $birthday->user_id = $user->id;
+        $birthday->title   = $user->name;
+
+        $birthday->save();
+
+        return redirect('admin/leave');
     }
 }

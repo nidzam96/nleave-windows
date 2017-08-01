@@ -70,8 +70,7 @@
                             <label for="position" class="col-md-4 control-label">Position</label>
 
                             <div class="col-md-6">
-                                <select name="position" class="form-control">
-                                    <option value="6">Staff</option>
+                                <select name="position" class="form-control">                                   
                                     <option value="7">HR</option>
                                 </select>
 

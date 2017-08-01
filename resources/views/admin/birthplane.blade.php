@@ -93,6 +93,10 @@
 
         events: "{{ url('/admin/birthday') }}",
 
+        eventRender: function (event, element, view){
+
+        },
+
         eventClick: function(calEvent, jsEvent, view){
 
           alert("Happy Birthday and Good Year");

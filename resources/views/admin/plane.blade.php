@@ -83,8 +83,6 @@
   @include('sweet::alert')
 
 <script type="text/javascript">
-  
-  $('#panelError').hide();
 
   // The popup for creating new group 
   var modal = document.getElementById('myModal');

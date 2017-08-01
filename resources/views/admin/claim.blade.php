@@ -5,17 +5,6 @@
 @section('section')
     <div class="section-2">    
 
-        <!-- <div class="tab-content">
-            <div class="col-md-12">
-                <div class="row">
-                	
-                	<div class="col-md-3">
-                		<img src="{{ asset('/images/images.jpeg') }}" alt="testing" class="img-responsive" >
-                	</div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="tabs" role="tabpanel">
             <ul class="nav-tabs" role="tablist">
                 <li class="active" role="presentation">
@@ -84,7 +73,7 @@
                                     
                                     <div class="col-md-5 col-md-offset-1 top20">
                                         
-                                        <form name="claimForm" method="POST" action="{{ route('claim.create') }}">
+                                        <form name="claimForm" method="POST" action="{{ route('claim.create') }}" enctype="multipart/form-data">
                                             {{ csrf_field() }}
 
                                             <div class="row">
@@ -195,6 +184,11 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="row top20">
+                                                        <label>Attachment</label>
+                                                        <input type="file" name="claimFile" class="form-control">
+                                                    </div>
+
                                                 </div>
                                             </div>
 
@@ -236,10 +230,8 @@
                                             <th>Application Date</th>
                                             <th>Claim Type</th>
                                             <th>Claim for Month</th>
-                                            <th>Particular</th>
-                                            <th>Bus. Reg. Np</th>
-                                            <th>GST No</th>
                                             <th>Amount</th>
+                                            <th>Attachments</th>
                                             <th>Status</th>
                                     </tr>
                                 </thead>
@@ -254,11 +246,13 @@
                                                 <td>{{ $claim->date }}</td>
                                                 <td>{{ $claim->claim->claim_name }}</td>
                                                 <td>{{ $claim->month }}</td>
-                                                <td>{{ $claim->particular }}</td>
-                                                <td>{{ $claim->brn }}</td>
-                                                <td>{{ $claim->gstno }}</td>
                                                 <td>{{ $claim->total_amount }}</td>
-                                                
+                                                <td>
+                                                    @if (!empty($claim->file) )
+                                                        <a href="{{ asset('attachments/claim/'.$claim->file) }}" target="blank">View file</a>
+                                                    @endif
+                                                </td>
+
                                             @if (Auth()->user()->position == 'HR')
                                                     <td>
                                                         <h2 class="btn btn-info">{{ $claim->status }}</h2>
@@ -268,11 +262,28 @@
                                                         <br>
                                                         <br>
 
-                                                        <a href="{{ route('claim.approve', $claim->id) }}" type="button" class="btn btn-default">Approve</a>
+                                                        <a href="{{ route('claim.approve', [$claim->id, $claim->user_id]) }}" type="button" class="btn btn-default">Approve</a>
 
-                                                        <button class="btn btn-danger">
-                                                            Reject
-                                                        </button>
+                                                        <button type="button" id="btn-reject" class="btn btn-danger">Reject</button>
+                                                        
+                                                        <div id="myModal" class="modal">
+
+                                                          <!-- Modal content -->
+                                                          <form method="post" action="{{ route('claim.reject') }}">
+                                                              {{ csrf_field() }}
+                                                              <div class="modal-content"  style="height: 200px">
+                                                                <span class="close">&times;</span>
+
+                                                                <input type="text" name="remark" class="form-control" placeholder="Enter your reason here">
+                                                                <input type="hidden" name="claim_id" value="{{ $claim->id }}">
+                                                                <input type="hidden" name="user_id" value="{{ $claim->user_id }}">
+                                                                
+                                                                <br>
+
+                                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                                              </div>
+                                                          </form>
+                                                        </div>
                                                     </td>
                                                 @endif
                                             @else
@@ -396,6 +407,35 @@
             var all = (Math.round(all * 100) / 100).toFixed(2)
 
             $('#amount').attr('value', all);
+        })
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("btn-reject");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        $(btn).on('click', function() {
+          
+            modal.style.display = "block";
+        })
+
+        // When the user clicks on <span> (x), close the modal
+        $(span).on('click', function() {
+            
+          modal.style.display = "none";
+        })
+
+        // When the user clicks anywhere outside of the modal, close it
+        $(window).on('click', function() {
+            
+          if (event.target == modal) {
+                modal.style.display = "none";
+            }
         })
     </script>
 @endsection

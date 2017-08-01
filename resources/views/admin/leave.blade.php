@@ -195,7 +195,7 @@
                                                 <td>{{ $leave->reason }}</td>
                                                 <td>
                                                     @if (!empty($leave->file) )
-                                                        <a href="{{ asset('attachments/'.$leave->file) }}" target="blank">View file</a>
+                                                        <a href="{{ asset('attachments/leave/'.$leave->file) }}" target="blank">View file</a>
                                                     @endif
                                                 </td>
 
@@ -209,7 +209,7 @@
                                                         <br>
                                                         
                                                         @if ($leave->status == 'Pending')
-                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id, $leave->days, $leave->ltype_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
+                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id, $leave->ltype_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
                                                             <button type="button" id="btn-reject" class="btn btn-danger">Reject</button>
                                                           
                                                             <div id="myModal" class="modal">
@@ -229,7 +229,6 @@
                                                                     <button type="submit" class="btn btn-danger">Submit</button>
                                                                   </div>
                                                               </form>
-
                                                             </div>
                                                         @endif
 

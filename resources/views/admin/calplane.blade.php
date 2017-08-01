@@ -96,14 +96,8 @@
         eventClick: function(calEvent, jsEvent, view){
 
           alert("Reason : "+calEvent.reason);
-          // popup(""+calEvent.reason);
         }
-     
-        // Convert the allDay from string to boolean
-        // eventRender: function(event, element, view) {
-
-        // },
-     
+        
       });
       
       //input type date configuration
