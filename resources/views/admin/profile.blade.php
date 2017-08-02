@@ -304,48 +304,54 @@
 
 									<div class="panel-body">
 										<p>Personal Information</p>
-										@foreach ($employment as $info)
-											<form method="post" action="{{ route('user.profile.edit.employment') }}">
-												{{ csrf_field() }}
-												
-													<input type="hidden" name="id" value="{{ $info->user_id }}">
+										<form method="post" action="{{ route('user.profile.edit.employment') }}">
+											{{ csrf_field() }}
+											
+												<input type="hidden" name="id" value="{{ $info->user_id }}">
 
-												<div class="row">
-													<div class="col-md-4">
-														<label>Report To</label>
-															<input type="text" name="reportEdit" class="form-control" placeholder="{{ $info->report }}" value="{{ $info->report }}">
-													</div>
-													<div class="col-md-4">
-														<label>Branch</label>
-															<input type="text" name="branchEdit" class="form-control" placeholder="{{ $info->branch->branch_name }}" value="{{ $info->branch->branch_name }}">
-													</div>
-													<div class="col-md-4">
-														<label>Department</label>
-															<input type="text" name="departmentEdit" class="form-control" placeholder="{{ $info->department }}" value="{{ $info->department }}">
-													</div>
+											<div class="row">
+												<div class="col-md-4">
+													<label>Report To</label>
+														<!-- <input type="text" name="reportEdit" class="form-control" placeholder="{{ $info->report }}" value="{{ $info->report }}"> -->
+														<select name="reportEdit" class="form-control">
+															@foreach ($sv_name as $sv)
+																<option value="{{ $sv }}">{{ $sv }}</option>
+															@endforeach
+															@foreach ($all_staff as $all)
+																<option value="{{ $all->id }}">{{ $all->full_name }}</option>
+															@endforeach
+														</select>
 												</div>
-												<div class="row top30">
-													<div class="col-md-4">
-														<label>Position</label>
-															<input type="text" class="form-control" name="positionEdit" placeholder="{{ $info->position->position_name }}" value="{{ $info->position->position_name }}">
-													</div>
-													<div class="col-md-4">
-														<label>Start Date</label>
-															<input type="text" class="form-control" name="startEdit" placeholder="{{ $info->start }}"  value="{{ $info->start }}">
-													</div>
-													<div class="col-md-4">
-														<label>Employee Number</label>
-															<input type="text" class="form-control" name="empnumEdit" placeholder="{{ $info->employee_number }}" value="{{ $info->employee_number }}">
-													</div>
+												<div class="col-md-4">
+													<label>Branch</label>
+														<input type="text" name="branchEdit" class="form-control" placeholder="{{ $info->branch->branch_name }}" value="{{ $info->branch->branch_name }}">
 												</div>
+												<div class="col-md-4">
+													<label>Department</label>
+														<input type="text" name="departmentEdit" class="form-control" placeholder="{{ $info->department }}" value="{{ $info->department }}">
+												</div>
+											</div>
+											<div class="row top30">
+												<div class="col-md-4">
+													<label>Position</label>
+														<input type="text" class="form-control" name="positionEdit" placeholder="{{ $info->position->position_name }}" value="{{ $info->position->position_name }}">
+												</div>
+												<div class="col-md-4">
+													<label>Start Date</label>
+														<input type="text" class="form-control" name="startEdit" placeholder="{{ $info->start }}"  value="{{ $info->start }}">
+												</div>
+												<div class="col-md-4">
+													<label>Employee Number</label>
+														<input type="text" class="form-control" name="empnumEdit" placeholder="{{ $info->employee_number }}" value="{{ $info->employee_number }}">
+												</div>
+											</div>
 
-												<div class="row top30">
-													<div class="col-md-4 col-md-offset-5">
-														<button type="submit" name="submitEdit" class="btn btn-success">Commit Changes</button>
-													</div>
+											<div class="row top30">
+												<div class="col-md-4 col-md-offset-5">
+													<button type="submit" name="submitEdit" class="btn btn-success">Commit Changes</button>
 												</div>
-											</form>
-										@endforeach
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>

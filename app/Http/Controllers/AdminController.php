@@ -19,6 +19,7 @@ use App\Birthday;
 use App\Claim;
 use App\Claim_application;
 use DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -180,41 +181,59 @@ class AdminController extends Controller
 
     public function newStaff()
     {
+
+        $today   = Carbon::now()->format('Y-m-d');
         $user    = User::where('id', '=', Auth()->user()->id )->first();
 
-        $staff = New Staff;
+        if ($user->remember_token) {
+            return redirect('/admin/leave');
+        }
+        else{
+            $staff = New Staff;
 
-        $staff->user_id = $user->id;
-        $staff->full_name = $user->name;
-        $staff->email = $user->email;
-        $staff->password = $user->password;
-        $staff->position_id = $user->position;
+            $position    = Position::where('position_name', '=', $user->position)->first();
+            $position_id = $position->id;
 
-        $staff->save();
+            $staff->user_id = $user->id;
+            $staff->full_name = $user->name;
+            $staff->email = $user->email;
+            $staff->password = $user->password;
+            $staff->dob = $today;
+            $staff->branch_id = 1;
+            $staff->position_id = $position_id;
 
-        $employment = New Employment;
+            $staff->save();
 
-        $employment->email   = $user->email;
-        $employment->user_id = $user->id;
-        $employment->position_id = $user->position;
+            $employment = New Employment;
 
-        $employment->save();
+            $position    = Position::where('position_name', '=', $user->position)->first();
+            $position_id = $position->id;
 
-        $compensation = New Compensation;
+            $employment->email   = $user->email;
+            $employment->user_id = $user->id;
+            $employment->position_id = $position_id;
+            $employment->branch_id = 1;
+            $employment->start = $today;
+            $employment->report = 1;
 
-        $compensation->email = $user->email;
-        $compensation->user_id = $user->id;
+            $employment->save();
 
-        $compensation->save();
+            $compensation = New Compensation;
 
-        $birthday = New Birthday;
+            $compensation->email = $user->email;
+            $compensation->user_id = $user->id;
 
-        $birthday->email = $user->email;
-        $birthday->user_id = $user->id;
-        $birthday->title   = $user->name;
+            $compensation->save();
 
-        $birthday->save();
+            $birthday = New Birthday;
 
-        return redirect('admin/leave');
+            $birthday->email = $user->email;
+            $birthday->user_id = $user->id;
+            $birthday->title   = $user->name;
+
+            $birthday->save();
+
+            return redirect('admin/leave');
+        }
     }
 }

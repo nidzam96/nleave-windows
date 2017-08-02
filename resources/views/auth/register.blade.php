@@ -71,7 +71,7 @@
 
                             <div class="col-md-6">
                                 <select name="position" class="form-control">                                   
-                                    <option value="7">HR</option>
+                                    <option value="HR">HR</option>
                                 </select>
 
                                 @if ($errors->has('position'))

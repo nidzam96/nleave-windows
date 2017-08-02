@@ -15,8 +15,9 @@ class CreateBirthdaysTable extends Migration
         Schema::create('birthdays', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->text('user_name');
-            $table->date('bdate');
+            $table->string('email');
+            $table->text('title')->nullable();
+            $table->date('start')->nullable();
             $table->timestamps();
         });
     }

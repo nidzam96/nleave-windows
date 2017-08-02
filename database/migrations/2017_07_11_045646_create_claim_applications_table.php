@@ -16,7 +16,7 @@ class CreateClaimApplicationsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('claim_id');
-            $table->date('month');
+            $table->string('month');
             $table->date('date');
             $table->text('particular');
             $table->text('brn');

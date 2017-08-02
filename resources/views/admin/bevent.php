@@ -13,7 +13,7 @@
  }
  // Execute the query
  $resultat = $bdd->query($requete) or die(print_r($bdd->errorInfo()));
-
+ 
  // sending the encoded result to success page
  echo json_encode($resultat->fetchAll(PDO::FETCH_ASSOC));
 

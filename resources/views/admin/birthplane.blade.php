@@ -93,22 +93,11 @@
 
         events: "{{ url('/admin/birthday') }}",
 
-        eventRender: function (event, element, view){
-
-        },
-
         eventClick: function(calEvent, jsEvent, view){
 
           alert("Happy Birthday and Good Year");
-          // popup(""+calEvent.reason);
         }
       });
-
-      var tyear = 2018;
-      // console.log(tyear);
-      if (tyear != moment().format('YYYY')) {
-        
-      }
     });
 
   </script> 

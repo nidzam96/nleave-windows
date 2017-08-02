@@ -14,10 +14,12 @@ class CreateCompensationTable extends Migration
     {
         Schema::create('compensation', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type', 50);
-            $table->integer('salary');
-            $table->string('pay_method', 50);
-            $table->string('bank', 100);
+            $table->string('email');
+            $table->integer('user_id');
+            $table->string('type', 50)->nullable();
+            $table->integer('salary')->nullable();
+            $table->string('pay_method', 50)->nullable();
+            $table->string('bank', 100)->nullable();
             $table->timestamps();
         });
     }

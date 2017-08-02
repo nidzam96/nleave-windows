@@ -15,6 +15,7 @@ class CreateClaimsTable extends Migration
         Schema::create('claims', function (Blueprint $table) {
             $table->increments('id');
             $table->text('claim_name');
+            $table->text('claim_desc')->nullable();
             $table->timestamps();
         });
     }

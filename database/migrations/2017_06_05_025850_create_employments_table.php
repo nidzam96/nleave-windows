@@ -14,11 +14,14 @@ class CreateEmploymentsTable extends Migration
     {
         Schema::create('employments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('email');
             $table->integer('user_id');
-            $table->integer('dept_id');
+            $table->string('department')->nullable();
             $table->integer('position_id');
-            $table->date('start');
-            $table->integer('employee_number');
+            $table->integer('branch_id')->nullable();
+            $table->date('start')->nullable();
+            $table->integer('employee_number')->nullable();
+            $table->integer('report')->nullable();
             $table->timestamps();
         });
     }

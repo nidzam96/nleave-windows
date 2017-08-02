@@ -22,9 +22,13 @@ class CreateLeavesTable extends Migration
             $table->foreign('ltype_id')->references('id')->on('leavetypes');
             $table->integer('ltime_id')->unsigned();
             $table->foreign('ltime_id')->references('id')->on('leavetimes');
-            $table->date('sdate');
-            $table->date('edate');
+            $table->string('title');
             $table->text('reason', 100);
+            $table->float('days');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->string('status');
+            $table->string('file');
             $table->timestamps();
         });
     }

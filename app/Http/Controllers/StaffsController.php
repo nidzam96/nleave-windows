@@ -192,6 +192,7 @@ class StaffsController extends Controller
         $ltype        = Leavetype::all();
         $ltime        = Leavetime::all();
         $position     = Position::all();
+        $staffAll     = Staff::all();
         $staff        = Staff::where('user_id', '=', $id)->get();
         $employment   = Employment::where('user_id', '=', $id)->get();
         $compensation = Compensation::where('user_id', '=', $id)->get();
@@ -199,9 +200,9 @@ class StaffsController extends Controller
         $uInfo = Employment::where('user_id', '=', $id )->first();
         $uRepo = $uInfo->report;
 
-        $rep_name = User::where('id', '=', $uRepo)->pluck('name');
+        $rep_name = User::where('id', '=', $uRepo)->pluck('name', 'id');
 
-        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation)->with('sv_name', $rep_name);
+        return view('admin.profile')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position)->with('employment', $employment)->with('compensation', $compensation)->with('sv_name', $rep_name)->with('all_staff', $staffAll);
     }
 
     public function editStaffInfo(Request $request, $id)
@@ -236,6 +237,7 @@ class StaffsController extends Controller
         //update record in table Staff
         $staffEdit = Staff::where('user_id', $id)->update(array ('full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
+        //update record in table Birthday
         $dobEdit   = Birthday::where('user_id', $id)->update(array ('start' => $dob));
 
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
