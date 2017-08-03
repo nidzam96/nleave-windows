@@ -238,7 +238,11 @@ class StaffsController extends Controller
         $staffEdit = Staff::where('user_id', $id)->update(array ('full_name' => $fname,'preffered_name' => $prefername,'address' => $address,'number' => $number,'gender' => $gender,'dob' => $dob,'nationality' => $nationality,'status' => $status));
 
         //update record in table Birthday
-        $dobEdit   = Birthday::where('user_id', $id)->update(array ('start' => $dob));
+        $current_year  = Carbon::now()->format('Y');
+        $request_month = Carbon::createFromFormat('Y-m-d', $dob)->month;
+        $request_day   = Carbon::createFromFormat('Y-m-d', $dob)->day;
+        $dob_new       = Carbon::parse($request->input('dob'))->format(''.$current_year.'-'.$request_month.'-'.$request_day);
+        $dobEdit       = Birthday::where('user_id', $id)->update(array ('start' => $dob_new));
 
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
@@ -258,9 +262,9 @@ class StaffsController extends Controller
 
         //validate the edit information
         $validator = Validator::make($request->all(), [
-            'reportEdit' => 'required|regex:/^[\pL\s\-]+$/u',
-            'branchEdit' => 'required|alpha',
-            'departmentEdit' => 'required|alpha',
+            'reportEdit' => 'required',
+            'branchEdit' => 'required|regex:/^[\pL\s\-]+$/u',
+            'departmentEdit' => 'required|regex:/^[\pL\s\-]+$/u',
             'positionEdit' => 'required',
             'startEdit' => 'required',
             'empnumEdit' => 'required',

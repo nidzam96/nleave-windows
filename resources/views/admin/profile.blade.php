@@ -312,14 +312,16 @@
 											<div class="row">
 												<div class="col-md-4">
 													<label>Report To</label>
-														<!-- <input type="text" name="reportEdit" class="form-control" placeholder="{{ $info->report }}" value="{{ $info->report }}"> -->
 														<select name="reportEdit" class="form-control">
 															@foreach ($sv_name as $sv)
 																<option value="{{ $sv }}">{{ $sv }}</option>
 															@endforeach
-															@foreach ($all_staff as $all)
-																<option value="{{ $all->id }}">{{ $all->full_name }}</option>
-															@endforeach
+															
+															@role('admin')
+																@foreach ($all_staff as $all)
+																	<option value="{{ $all->user_id }}">{{ $all->full_name }}</option>
+																@endforeach
+															@endrole
 														</select>
 												</div>
 												<div class="col-md-4">

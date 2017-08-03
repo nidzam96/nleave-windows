@@ -18,6 +18,7 @@ use App\User;
 use App\Birthday;
 use App\Claim;
 use App\Claim_application;
+use App\Role;
 use DB;
 use Carbon\Carbon;
 
@@ -174,9 +175,14 @@ class AdminController extends Controller
         return redirect('/admin/leave');
     }
 
-    public function leaveSetting()
+    public function Setting()
     {
-        return view('admin.leave-settings');
+        $leave    = Leavetype::all();
+        $branch   = Branch::all();
+        $position = Position::all();
+        $role     = Role::all();
+
+        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position)->with('role', $role);
     }
 
     public function newStaff()
@@ -184,6 +190,19 @@ class AdminController extends Controller
 
         $today   = Carbon::now()->format('Y-m-d');
         $user    = User::where('id', '=', Auth()->user()->id )->first();
+        $user_id = Birthday::where('user_id', '=', Auth()->user()->id )->first();
+        $user_b  = $user_id->start;
+
+        $c_year  = 2017;
+        $year    = Carbon::createFromFormat('Y-m-d', $today)->year;
+        $month   = Carbon::createFromFormat('Y-m-d', $user_b)->month;
+        $day     = Carbon::createFromFormat('Y-m-d', $user_b)->day;
+
+        if ($year != $c_year) {
+            $birthday_latest = Carbon::parse($user_b)->format(''.$year.'-'.$month.'-'.$day);
+            $birthday_update = Birthday::where('user_id', '=', Auth()->user()->id)
+                                ->update(array ('start' => $birthday_latest));
+        }
 
         if ($user->remember_token) {
             return redirect('/admin/leave');

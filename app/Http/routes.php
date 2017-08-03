@@ -44,7 +44,7 @@ Route::get('/admin/create/staff', 'AdminController@newStaff');
 
 Route::get('user/setUserRole', 'AdminController@setUserRole');
 
-Route::get('admin/leave-setting', ['as' => 'admin.leaveSet', 'uses' => 'AdminController@leaveSetting']);
+Route::get('admin/setting', ['as' => 'admin.setting', 'uses' => 'AdminController@Setting']);
 
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
