@@ -44,8 +44,6 @@ Route::get('/admin/create/staff', 'AdminController@newStaff');
 
 Route::get('user/setUserRole', 'AdminController@setUserRole');
 
-Route::get('admin/setting', ['as' => 'admin.setting', 'uses' => 'AdminController@Setting']);
-
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 
@@ -91,3 +89,7 @@ Route::get('/admin/claim_data', 'ClaimController@claimChart');
 Route::get('/admin/claim/{id}{user_id}', ['as' => 'claim.approve', 'uses' => 'ClaimController@approveClaim']);
 
 Route::post('/admin/claim/reject', ['as' => 'claim.reject', 'uses' => 'ClaimController@rejectClaim']);
+
+//Route for SettingController
+Route::get('admin/setting', ['as' => 'admin.setting', 'uses' => 'SettingController@index']);
+

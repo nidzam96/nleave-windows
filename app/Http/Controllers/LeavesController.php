@@ -237,8 +237,8 @@ class LeavesController extends Controller
 
         }
         else{
-            $sick_taken = $getstaff->sick_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('sick_taken' => $sick_taken+$days_requested));
+            $free_taken = $getstaff->free_taken;
+            $staff      = Staff::where('user_id', $user_id)->update(array ('time_taken' => $free_taken+$days_requested));
         }
         
         $userId = $user_id;
@@ -321,7 +321,7 @@ class LeavesController extends Controller
             return $getuser;
         }
         else{
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('annual_taken', 'user_id');
+            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('time_taken', 'user_id');
             return $getuser;
         }
     }

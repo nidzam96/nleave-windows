@@ -175,16 +175,6 @@ class AdminController extends Controller
         return redirect('/admin/leave');
     }
 
-    public function Setting()
-    {
-        $leave    = Leavetype::all();
-        $branch   = Branch::all();
-        $position = Position::all();
-        $role     = Role::all();
-
-        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position)->with('role', $role);
-    }
-
     public function newStaff()
     {
 
