@@ -336,7 +336,13 @@
 											<div class="row top30">
 												<div class="col-md-4">
 													<label>Position</label>
-														<input type="text" class="form-control" name="positionEdit" placeholder="{{ $info->position->position_name }}" value="{{ $info->position->position_name }}">
+														<select name="positionEdit" class="form-control">
+															<option value="{{ $info->position_id }}">{{ $info->position->position_name }}</option>
+
+															@foreach ($position as $posit)
+																<option value="{{ $posit->id }}">{{ $posit->position_name }}</option>
+															@endforeach
+														</select>
 												</div>
 												<div class="col-md-4">
 													<label>Start Date</label>

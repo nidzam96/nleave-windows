@@ -199,7 +199,12 @@ class LeavesController extends Controller
     public function approve($id, $user_id, $ltype_id)
     {
         // dd($id, $user_id, $ltype_id);
-     
+        $getLeave  = Leavetype::where('id', $ltype_id)->first();
+        $leaveName = $getLeave->leave_name;
+        $staff     = Staff::where('user_id', $user_id)->first();
+        $name      = ''.$leaveName.'_taken';
+        $getDay    = $staff->$name;
+
         //find the approve application
         $leave    = Leave::where('id', $id)->update(array ('status' => 'Approve'));
         $leave2   = Leave::where('id', $id)->first();
@@ -211,35 +216,8 @@ class LeavesController extends Controller
 
         $staff    = Staff::where('user_id', $user_id)->update(array ('leave_taken' => $ltaken+$days_requested));
 
-        if ($ltype_id == 1) {
-            $annual_taken = $getstaff->annual_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('annual_taken' => $annual_taken+$days_requested));
+        $l_type   = Staff::where('user_id', $user_id)->update(array ($name => $getDay+$days_requested));
 
-        }
-        elseif ($ltype_id == 2) {
-            $marriage_taken = $getstaff->marriage_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('marriage_taken' => $marriage_taken+$days_requested));
-
-        }
-        elseif ($ltype_id == 3) {
-            $maternity_taken = $getstaff->maternity_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('maternity_taken' => $maternity_+$days_requested));
-
-        }
-        elseif ($ltype_id == 4) {
-            $paternity_taken = $getstaff->paternity_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('paternity_taken' => $paternity_taken+$days_requested));
-
-        }
-        elseif ($ltype_id == 5) {
-            $sick_taken = $getstaff->sick_taken;
-            $staff    = Staff::where('user_id', $user_id)->update(array ('sick_taken' => $sick_taken+$days_requested));
-
-        }
-        else{
-            $free_taken = $getstaff->free_taken;
-            $staff      = Staff::where('user_id', $user_id)->update(array ('time_taken' => $free_taken+$days_requested));
-        }
         
         $userId = $user_id;
 

@@ -257,6 +257,7 @@ class StaffsController extends Controller
 
     public function editEmployment(Request $request)
     {
+        // dd($request);
         //user id
         $id         = $request->input('id');
 
@@ -284,15 +285,11 @@ class StaffsController extends Controller
         $branch_id  = $getbranch->id;
 
         $department = $request->input('departmentEdit');
-
         $position   = $request->input('positionEdit');
-        $getposition = Position::where('position_name', '=', $position)->first();
-        $position_id = $getposition->id;
-
         $start      = $request->input('startEdit');
         $empNum     = $request->input('empnumEdit');
 
-        $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report' => $report,'branch_id' => $branch_id,'department' => $department,'position_id' => $position_id,'start' => $start,'employee_number' => $empNum) );
+        $employmentEdit = Employment::where('user_id', '=', $id)->update(array ('report' => $report,'branch_id' => $branch_id,'department' => $department,'position_id' => $position,'start' => $start,'employee_number' => $empNum) );
 
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
