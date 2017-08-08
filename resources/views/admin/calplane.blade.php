@@ -220,7 +220,7 @@
         var ajax_url = '/leaves/days/' + leave_type_id;
 
         $.get(ajax_url, function( data ) {
-
+          console.log(data)
           $.each(data, function(leave_type_id, leave_day){
 
             checkUserLeaveRemain(leave_type_id, leave_day);
@@ -230,26 +230,29 @@
 
       function checkUserLeaveRemain(leave_type_id, leave_day){
 
-        //send specify leave day to controller to compare with how many day have user take
+        //send leavetype id to get for remaining days left
         var ajax_url = '/leaves/checkRemain/' + leave_type_id;
 
         $.get(ajax_url, function( data ){
-          console.log(data)
-          $.each(data, function(user_id, leave_taken){
 
-            var remainDays = leave_day - leave_taken;
-            
-            $('#avails-day').append(remainDays+' remaining days');
+          //keep the pluck data from controller
+          var leave_taken = data;
 
-            if (remainDays < 1) {
-              $('#submitApply').attr('disabled','disabled');
-            }
-            else
-            {
-              $('#submitApply').removeAttr('disabled');
-            }
+          //get the remaining days available for user
+          var remainDays = leave_day - leave_taken;
 
-          })
+          //change text on button apply
+          $('#avails-day').append(remainDays+' remaining days');
+
+          if (remainDays < 1) {
+            //disable the apply button if the user had use all the specify days
+            $('#submitApply').attr('disabled','disabled');
+          }
+          else
+          {
+            //remove disable attribute when user change leavetype
+            $('#submitApply').removeAttr('disabled');
+          }
         })
       }
 

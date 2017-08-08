@@ -209,7 +209,7 @@
                                                         <br>
                                                         
                                                         @if ($leave->status == 'Pending')
-                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id, $leave->ltype_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
+                                                            <a href="{{ route('leave.approve', [$leave->id, $leave->user_id]) }}" type="button" id="btn-approve" class="btn btn-primary">Approve</a>
                                                             <button type="button" id="btn-reject" class="btn btn-danger">Reject</button>
                                                           
                                                             <div id="myModal" class="modal">
@@ -252,8 +252,5 @@
                 </section><!-- /.section-secondary -->
             </div>
         </div>
-
     </div>
-
-
 @endsection

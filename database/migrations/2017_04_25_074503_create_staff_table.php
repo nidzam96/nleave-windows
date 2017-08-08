@@ -28,11 +28,11 @@ class CreateStaffTable extends Migration
             $table->integer('branch_id')->nullable();
             $table->integer('position_id');
             $table->float('leave_taken');
-            $table->float('annual_taken');
-            $table->float('marriage_taken');
-            $table->float('maternity_taken');
-            $table->float('paternity_taken');
-            $table->float('sick_taken');
+            $table->float('Annual_taken');
+            $table->float('Marriage_taken');
+            $table->float('Maternity_taken');
+            $table->float('Paternity_taken');
+            $table->float('Sick_taken');
             $table->timestamps();
         });
     }

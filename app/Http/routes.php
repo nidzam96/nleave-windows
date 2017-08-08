@@ -49,7 +49,7 @@ Route::get('admin/events', 'LeavesController@index');
 
 Route::get('admin/birthday', 'LeavesController@birthday');
 
-Route::get('leave/approve/{id}{user_id}{ltype_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
+Route::get('leave/approve/{id}{user_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
 
 Route::post('leave/reject', ['as' => 'leave.reject', 'uses' => 'LeavesController@reject']);
 
@@ -93,3 +93,10 @@ Route::post('/admin/claim/reject', ['as' => 'claim.reject', 'uses' => 'ClaimCont
 //Route for SettingController
 Route::get('admin/setting', ['as' => 'admin.setting', 'uses' => 'SettingController@index']);
 
+Route::post('admin/setting/leave', ['as' => 'setting.leave', 'uses' => 'SettingController@leave']);
+
+Route::post('admin/setting/branch', ['as' => 'setting.branch', 'uses' => 'SettingController@branch']);
+
+Route::post('admin/setting/position', ['as' => 'setting.position', 'uses' => 'SettingController@position']);
+
+Route::post('admin/setting/role', ['as' => 'setting.role', 'uses' => 'SettingController@role']);

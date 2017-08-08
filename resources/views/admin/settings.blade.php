@@ -45,9 +45,31 @@
 								<!-- the popup to edit leave information -->
 								<div id="leaveModal" class="modal" style="overflow-y: auto">
 
-							    	<div class="modal-content" style="width: 100%; height: 800px;">
+							    	<div class="modal-content" style="width: 50%; height: 500px;">
 							   			<span class="close">&times;</span>
+										
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<span class="fa fa-plus"></span>
+												New Leave Type
+											</div>
+											<div class="panel-body">
+												<form method="POST" action="{{ route('setting.leave') }}">
+													{{ csrf_field() }}
+													
+													<label>Leave Name</label>
+													<input type="text" name="leavename" placeholder="Please enter leave name" class="form-control" required="required">
 
+													<label>Days Provided</label>
+													<input type="number" name="days_provided" class="form-control" required="required" placeholder="Please enter days to provide">
+
+													<div class="btn-group top20">
+														<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="reset" class="btn btn-default">Reset</button>
+													</div>
+												</form>
+											</div>
+										</div>
 							  		</div>
 								</div>
 
@@ -69,7 +91,7 @@
 												<td>{{ $leave->leave_name }}</td>
 												<td>{{ $leave->leave_day }}</td>
 												<td>
-													<a href="#" class="btn btn-warning">
+													<a href="#" id="editLeave" class="btn btn-warning">
 														<span class="fa fa-edit"></span>
 														Edit
 													</a>
@@ -77,6 +99,38 @@
 														Delete
 														<span class="fa fa-trash-o"></span>
 													</a>
+
+													<!-- the popup to edit leave information -->
+													<div id="editLeaveModal" class="modal" style="overflow-y: auto">
+
+												    	<div class="modal-content" style="width: 50%; height: 500px;">
+												   			<span class="close">&times;</span>
+															
+															<div class="panel panel-primary">
+																<div class="panel-heading">
+																	<span class="fa fa-pencil"></span>
+																	Edit Leave Type
+																</div>
+																<div class="panel-body">
+																	<form method="POST" action="#">
+																		{{ csrf_field() }}
+																		
+																		<input type="hidden" name="leaveId" value="{{ $leave->id }}">
+																		<label>Name</label>
+																		<input type="text" name="editName" class="form-control" placeholder="{{ $leave->leave_name }}">
+
+																		<label>Day Provided</label>
+																		<input type="text" name="editDays" class="form-control" placeholder="{{ $leave->leave_day }}">
+
+																		<div class="btn-group top20">
+																			<button type="submit" class="btn btn-primary">Submit</button>
+																			<button type="reset" class="btn btn-default">Reset</button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+												  		</div>
+													</div>
 												</td>
 											</tr>
 										</tbody>
@@ -292,6 +346,28 @@
 		    
 		  if (event.target == leavemodal) {
 		        leavemodal.style.display = "none";
+		    }
+		})
+
+		// The popup for editing leave 
+		var editleavemodal = document.getElementById('editLeaveModal');
+		var editleavebtn = document.getElementById("editLeave");
+		var editleavespan = document.getElementsByClassName("close")[0];
+
+		$(editleavebtn).on('click', function() {
+		  
+		    editleavemodal.style.display = "block";
+		})
+
+		$(editleavespan).on('click', function() {
+		    
+		  	editleavemodal.style.display = "none";
+		})
+
+		$(window).on('click', function() {
+		    
+		  if (event.target == editleavemodal) {
+		        editleavemodal.style.display = "none";
 		    }
 		})
 

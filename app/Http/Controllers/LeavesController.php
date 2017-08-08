@@ -172,8 +172,7 @@ class LeavesController extends Controller
         //get the user information for email 
         $user_id = Auth()->user()->id;
         $branch_id = $request->input('branch');
-        $ltype_id = $request->input('leaveType');
-        
+        $ltype_id = $request->input('leaveType');       
         $sdate = $request->input('sdate');
         $edate = $request->input('edate');
         $reason= $request->input('reason');
@@ -196,36 +195,43 @@ class LeavesController extends Controller
         return redirect() ->route('admin.leaves');
     }
 
-    public function approve($id, $user_id, $ltype_id)
+    public function approve($id, $user_id)
     {
-        // dd($id, $user_id, $ltype_id);
+        //get leavetype id from table leave
+        $ltype    = Leave::where('id', $id)->first();
+        $ltype_id = $ltype->ltype_id;
+
+        //get the leavetype name from table leavetype
         $getLeave  = Leavetype::where('id', $ltype_id)->first();
         $leaveName = $getLeave->leave_name;
+
+        //get day taken from the specific leavetype
         $staff     = Staff::where('user_id', $user_id)->first();
         $name      = ''.$leaveName.'_taken';
         $getDay    = $staff->$name;
 
-        //find the approve application
+        //find the approve application and change to approve
         $leave    = Leave::where('id', $id)->update(array ('status' => 'Approve'));
-        $leave2   = Leave::where('id', $id)->first();
 
+        //get how many days user request for leave
+        $leave2         = Leave::where('id', $id)->first();
         $days_requested = $leave2->days;
 
+        //get total days taken by user from all leavetype
         $getstaff = Staff::where('user_id', '=', $user_id)->first();
         $ltaken   = $getstaff->leave_taken;
 
+        //update days taken by adding total with newly requested days
         $staff    = Staff::where('user_id', $user_id)->update(array ('leave_taken' => $ltaken+$days_requested));
 
+        //update day taken in specific leavetype
         $l_type   = Staff::where('user_id', $user_id)->update(array ($name => $getDay+$days_requested));
 
-        
-        $userId = $user_id;
-
         //send approve mail to user
-        Mail::send('emails.approve', [$userId] , function ($message) use($userId)
+        Mail::send('emails.approve', [] , function ($message) use($user_id)
         {
 
-            $userEmail = User::where('id', '=', $userId)->first();
+            $userEmail = User::where('id', '=', $user_id)->first();
 
             $message->from(Auth()->user()->email, Auth()->user()->name);
 
@@ -234,7 +240,6 @@ class LeavesController extends Controller
         });
 
         return redirect()-> route('admin.leaves');
-
     }
 
     public function reject(Request $request){
@@ -273,35 +278,15 @@ class LeavesController extends Controller
 
     public function checkLeaveDayRemain($leave_type_id)
     {
-        if ($leave_type_id == 1) {
-            # code...
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('annual_taken', 'user_id');
-            return $getuser;
-        }
-        elseif ($leave_type_id == '2') {
-            # code...
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('marriage_taken', 'user_id');
-            return $getuser;
-        }
-        elseif ($leave_type_id == '3') {
-            # code...
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('maternity_taken', 'user_id');
-            return $getuser;
-        }
-        elseif ($leave_type_id == '4') {
-            # code...
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('paternity_taken', 'user_id');
-            return $getuser;
-        }
-        elseif ($leave_type_id == '5') {
-            # code...
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('sick_taken', 'user_id');
-            return $getuser;
-        }
-        else{
-            $getuser = Staff::where('user_id', '=', Auth()->user()->id)->pluck('time_taken', 'user_id');
-            return $getuser;
-        }
+        //get leavetype name
+        $getLeave  = Leavetype::where('id', $leave_type_id)->first();
+        $leaveName = $getLeave->leave_name;
+
+        $staff     = Staff::where('user_id', Auth()->user()->id)->first();
+        $name      = ''.$leaveName.'_taken';
+
+        $getuser   = Staff::where('user_id', '=', Auth()->user()->id)->pluck($name);
+        return $getuser;
     }
 
     public function getUserId()
