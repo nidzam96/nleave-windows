@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('pagetitle','Leave Setting')
+@section('pagetitle','Setting')
 
 @section('section')
     <div class="section-2">
@@ -42,7 +42,7 @@
 							<div class="panel-body">
 								<a href="#" type="button" id="leaveAdd" class="btn btn-success">Add leave type</a>
 
-								<!-- the popup to edit leave information -->
+								<!-- the popup to add new leave type -->
 								<div id="leaveModal" class="modal" style="overflow-y: auto">
 
 							    	<div class="modal-content" style="width: 50%; height: 500px;">
@@ -91,7 +91,7 @@
 												<td>{{ $leave->leave_name }}</td>
 												<td>{{ $leave->leave_day }}</td>
 												<td>
-													<a href="#" id="editLeave" class="btn btn-warning">
+													<a href="{{ route('setting.leave.edit', $leave->id ) }}" class="btn btn-warning">
 														<span class="fa fa-edit"></span>
 														Edit
 													</a>
@@ -99,38 +99,6 @@
 														Delete
 														<span class="fa fa-trash-o"></span>
 													</a>
-
-													<!-- the popup to edit leave information -->
-													<div id="editLeaveModal" class="modal" style="overflow-y: auto">
-
-												    	<div class="modal-content" style="width: 50%; height: 500px;">
-												   			<span class="close">&times;</span>
-															
-															<div class="panel panel-primary">
-																<div class="panel-heading">
-																	<span class="fa fa-pencil"></span>
-																	Edit Leave Type
-																</div>
-																<div class="panel-body">
-																	<form method="POST" action="#">
-																		{{ csrf_field() }}
-																		
-																		<input type="hidden" name="leaveId" value="{{ $leave->id }}">
-																		<label>Name</label>
-																		<input type="text" name="editName" class="form-control" placeholder="{{ $leave->leave_name }}">
-
-																		<label>Day Provided</label>
-																		<input type="text" name="editDays" class="form-control" placeholder="{{ $leave->leave_day }}">
-
-																		<div class="btn-group top20">
-																			<button type="submit" class="btn btn-primary">Submit</button>
-																			<button type="reset" class="btn btn-default">Reset</button>
-																		</div>
-																	</form>
-																</div>
-															</div>
-												  		</div>
-													</div>
 												</td>
 											</tr>
 										</tbody>
@@ -155,12 +123,34 @@
 							<div class="panel-body">
 								<a href="#" type="button" id="branchAdd" class="btn btn-success">Add branch</a>
 								
-								<!-- the popup to edit branch information -->
+								<!-- the popup to add new branch -->
 								<div id="branchModal" class="modal" style="overflow-y: auto">
 
-							    	<div class="modal-content" style="width: 100%; height: 800px;">
+							    	<div class="modal-content" style="width: 50%; height: 500px;">
 							   			<span class="close">&times;</span>
+										
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<span class="fa fa-plus"></span>
+												New Branch
+											</div>
+											<div class="panel-body">
+												<form method="POST" action="{{ route('setting.branch') }}">
+													{{ csrf_field() }}
+													
+													<label>Branch Name</label>
+													<input type="text" name="branchname" placeholder="Please enter branch name" class="form-control" required="required">
 
+													<label>Description</label>
+													<input type="text" name="branch_desc" class="form-control" placeholder="Please enter branch description">
+
+													<div class="btn-group top20">
+														<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="reset" class="btn btn-default">Reset</button>
+													</div>
+												</form>
+											</div>
+										</div>
 							  		</div>
 								</div>
 
@@ -182,7 +172,7 @@
 												<td>{{ $branch->branch_name }}</td>
 												<td>{{ $branch->branch_desc }}</td>
 												<td>
-													<a href="#" class="btn btn-warning">
+													<a href="{{ route('setting.branch.edit', $branch->id) }}" class="btn btn-warning">
 														<span class="fa fa-edit"></span>
 														Edit
 													</a>
@@ -214,12 +204,34 @@
 							<div class="panel-body">
 								<a href="#" type="button" id="positionAdd" class="btn btn-success">Add position</a>
 								
-								<!-- the popup to edit position information -->
+								<!-- the popup to add new position -->
 								<div id="positionModal" class="modal" style="overflow-y: auto">
 
-							    	<div class="modal-content" style="width: 100%; height: 800px;">
+							    	<div class="modal-content" style="width: 50%; height: 500px;">
 							   			<span class="close">&times;</span>
+										
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<span class="fa fa-plus"></span>
+												New Position
+											</div>
+											<div class="panel-body">
+												<form method="POST" action="{{ route('setting.position') }}">
+													{{ csrf_field() }}
+													
+													<label>Position Name</label>
+													<input type="text" name="position_name" placeholder="Please enter position name" class="form-control" required="required">
 
+													<label>Description</label>
+													<input type="text" name="position_desc" class="form-control" placeholder="Please enter position description">
+
+													<div class="btn-group top20">
+														<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="reset" class="btn btn-default">Reset</button>
+													</div>
+												</form>
+											</div>
+										</div>
 							  		</div>
 								</div>
 
@@ -241,7 +253,7 @@
 												<td>{{ $position->position_name }}</td>
 												<td>{{ $position->position_desc }}</td>
 												<td>
-													<a href="#" class="btn btn-warning">
+													<a href="{{ route('setting.position.edit', $position->id) }}" class="btn btn-warning">
 														<span class="fa fa-edit"></span>
 														Edit
 													</a>
@@ -273,12 +285,37 @@
 							<div class="panel-body">
 								<a href="#" type="button" id="roleAdd" class="btn btn-success">Add role</a>
 								
-								<!-- the popup to edit leave information -->
+								<!-- the popup to add new role -->
 								<div id="roleModal" class="modal" style="overflow-y: auto">
 
-							    	<div class="modal-content" style="width: 100%; height: 800px;">
+							    	<div class="modal-content" style="width: 50%; height: 500px;">
 							   			<span class="close">&times;</span>
+										
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<span class="fa fa-plus"></span>
+												New Role
+											</div>
+											<div class="panel-body">
+												<form method="POST" action="{{ route('setting.role') }}">
+													{{ csrf_field() }}
+													
+													<label>Role Name</label>
+													<input type="text" name="rolename" placeholder="Please enter role name" class="form-control" required="required">
 
+													<label>Display Name</label>
+													<input type="text" name="display_name" class="form-control" required="required" placeholder="Please enter display name">
+
+													<label>Description</label>
+													<input type="text" name="role_desc" class="form-control" placeholder="Please enter role description">
+
+													<div class="btn-group top20">
+														<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="reset" class="btn btn-default">Reset</button>
+													</div>
+												</form>
+											</div>
+										</div>
 							  		</div>
 								</div>
 
@@ -302,7 +339,7 @@
 												<td>{{ $role->display_name }}</td>
 												<td>{{ $role->description }}</td>
 												<td>
-													<a href="#" class="btn btn-warning">
+													<a href="{{ route('setting.role.edit', $role->id) }}" class="btn btn-warning">
 														<span class="fa fa-edit"></span>
 														Edit
 													</a>
@@ -346,28 +383,6 @@
 		    
 		  if (event.target == leavemodal) {
 		        leavemodal.style.display = "none";
-		    }
-		})
-
-		// The popup for editing leave 
-		var editleavemodal = document.getElementById('editLeaveModal');
-		var editleavebtn = document.getElementById("editLeave");
-		var editleavespan = document.getElementsByClassName("close")[0];
-
-		$(editleavebtn).on('click', function() {
-		  
-		    editleavemodal.style.display = "block";
-		})
-
-		$(editleavespan).on('click', function() {
-		    
-		  	editleavemodal.style.display = "none";
-		})
-
-		$(window).on('click', function() {
-		    
-		  if (event.target == editleavemodal) {
-		        editleavemodal.style.display = "none";
 		    }
 		})
 

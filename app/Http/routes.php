@@ -95,8 +95,24 @@ Route::get('admin/setting', ['as' => 'admin.setting', 'uses' => 'SettingControll
 
 Route::post('admin/setting/leave', ['as' => 'setting.leave', 'uses' => 'SettingController@leave']);
 
+Route::get('admin/setting/leave/edit/{id}', ['as' => 'setting.leave.edit', 'uses' => 'SettingController@editleave']);
+
+Route::post('admin/setting/leave/update', ['as' => 'setting.leave.update', 'uses' => 'SettingController@updateleave']);
+
 Route::post('admin/setting/branch', ['as' => 'setting.branch', 'uses' => 'SettingController@branch']);
+
+Route::get('admin/setting/branch/edit/{id}', ['as' => 'setting.branch.edit', 'uses' => 'SettingController@editbranch']);
+
+Route::post('admin/setting/branch/update', ['as' => 'setting.branch.update', 'uses' => 'SettingController@updatebranch']);
 
 Route::post('admin/setting/position', ['as' => 'setting.position', 'uses' => 'SettingController@position']);
 
+Route::get('admin/setting/position/edit/{id}', ['as' => 'setting.position.edit', 'uses' => 'SettingController@editposition']);
+
+Route::post('admin/setting/position/update', ['as' => 'setting.position.update', 'uses' => 'SettingController@updateposition']);
+
 Route::post('admin/setting/role', ['as' => 'setting.role', 'uses' => 'SettingController@role']);
+
+Route::get('admin/setting/role/edit/{id}', ['as' => 'setting.role.edit', 'uses' => 'SettingController@editrole']);
+
+Route::post('admin/setting/role/update', ['as' => 'setting.role.update', 'uses' => 'SettingController@updaterole']);
