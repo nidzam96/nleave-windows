@@ -299,7 +299,7 @@ class StaffsController extends Controller
     public function editCompensation(Request $request)
     {
         //user id
-        $id         = $request->input('id');
+        $id = $request->input('id');
 
         //validate the edit information
         $validator = Validator::make($request->all(), [
@@ -330,7 +330,7 @@ class StaffsController extends Controller
 
     public function getUserId($id)
     {
-        $user    = User::where('id', '=', $id)->pluck('name','id');
+        $user = User::where('id', '=', $id)->pluck('name','id');
 
         return $user;
     }

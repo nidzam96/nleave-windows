@@ -151,27 +151,55 @@ class AdminController extends Controller
     }
 
     public function first_login(){
-
-        return view('first_registeration');
+        $error = '';
+        return view('first_registeration')->with('error', $error);
     }
 
     public function setpassword(Request $request){
 
+        //keep data from front end
         $email    = $request->input('email');
         $password = bcrypt($request->input('password'));
+        $cpasword = bcrypt($request->input('confirm'));
+
+        //check pasword and confirm password
+        if ($password != $cpasword) {
+            $error = "Password Mismatch";
+            return redirect('/first_login')->with('error', $error);
+        }
+
+        //update user password in table user
         $user = User::where('email', '=', $email)->update(array ('password' => $password ));
 
-        $user_id        = User::where('email', '=', $email)->first();
-        $member_role_id = 2;
-        $user_id->attachRole($member_role_id);
+        //get user information
+        $user_id  = User::where('email', '=', $email)->first();
 
+        //check if user HR or Staff
+        if ($user_id->position != 'Staff') {
+            $member_role_id = 1;
+            $user_id->attachRole($member_role_id);
+        }
+        else{
+            $member_role_id = 2;
+            $user_id->attachRole($member_role_id);
+        }
+
+        //get user id
         $get_id  = $user_id->id;
 
+        //update email information in table staff
         $staff        = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
+
+        //update email information in table compensation
         $compensation = Compensation::where('email', '=', $email)->update(array ('user_id' => $get_id));
+
+        //update email information in table employment
         $employment   = Employment::where('email', '=', $email)->update(array ('user_id' => $get_id));
+
+        //update email information in table birthday
         $birthday     = Birthday::where('email', '=', $email)->update(array ('user_id' => $get_id));
 
+        //redirect user to landing page
         return redirect('/admin/leave');
     }
 

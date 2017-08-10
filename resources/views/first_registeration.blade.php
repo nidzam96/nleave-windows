@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HR Login</title>
+	<title>Login</title>
 
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,24 +17,33 @@
 
 <bod>
 	<div class="container">
-		<h1>First Login</h1>
+		<h1>Set Password</h1>
 
 		<form action="{{ route('user.setpassword') }}" method="post">
 			{{ csrf_field() }}
+
 			<fieldset>
 				<label>Email</label><br>
 				<input class="form-control" type="email" name="email" placeholder="Your Email">
 			</fieldset>
+
 			<fieldset>
 				<label>Password</label><br>
-				<input class="form-control" type="password" name="password" placeholder="Your Password">
+				<input id="pwd" class="form-control" type="password" name="password" placeholder="Your Password">
 			</fieldset>
 
-			<button name="submit" type="submit" class="btn btn-primary btn-block">
-				Submit
-			</button>
+			<fieldset>
+				<label>Confirm Password</label><br>
+				<input id="cpwd" class="form-control" type="password" name="confirm" placeholder="Reenter Password">
+			</fieldset>
+			
+			<div class="btn-group" style="padding-top: 20px">
+				<button name="submit" type="submit" class="btn btn-primary">
+					Submit
+				</button>
 
-			<a href="index.php" type="button" class="btn btn-warning btn-block">Back</a>
+				<a href="/" type="button" class="btn btn-warning">Cancel</a>
+			</div>
 		</form>
 	</div>
 </body>
