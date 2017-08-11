@@ -20,17 +20,17 @@
                                                 <div class="row">
                                                         <div class="col-md-3">
                                                                 <label>Leave Name</label>
-                                                                <input type="text" name="updateName" class="form-control" placeholder="{{ $leave->leave_name }}">
+                                                                <input type="text" name="updateName" class="form-control" placeholder="{{ $leave->leave_name }}" value="{{ $leave->leave_name }}">
                                                         </div>
 
                                                         <div class="col-md-3">
                                                                 <label>Days Provided</label>
-                                                                <input type="number" name="updateDays" class="form-control" placeholder="{{ $leave->leave_day }}">
+                                                                <input type="number" name="updateDays" class="form-control" placeholder="{{ $leave->leave_day }}" value="{{ $leave->leave_day }}">
                                                         </div>
 
                                                         <div class="col-md-3">
                                                                 <label>Description</label>
-                                                                <input type="text" name="updateDesc" class="form-control" placeholder="{{ $leave->leave_desc }}">
+                                                                <input type="text" name="updateDesc" class="form-control" placeholder="{{ $leave->leave_desc }}" value="{{ $leave->leave_desc }}">
                                                         </div>
                                                 </div>
 

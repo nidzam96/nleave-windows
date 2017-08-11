@@ -119,11 +119,11 @@ class SettingController extends Controller
     {
     	//keep the data from front end
     	$id   = $request->input('id');
-    	$name = $request->input('udpateName');
+    	$name = $request->input('updateName');
     	$desc = $request->input('updateDesc');
 
         //update branch
-        $leave = Branch::where('id', $id)->update(array ('branch_name' => $name, 'branch_desc' => $desc));
+        $leave = Branch::where('id', '=', $id)->update(array ('branch_name' => $name, 'branch_desc' => $desc));
 
         //sweetalert popup for success
         alert()->success('Branch successfully updated.', 'Good Work!')->autoclose(3000);
@@ -163,7 +163,6 @@ class SettingController extends Controller
 
     public function updateposition(Request $request)
     {
-        dd($request);
     	//keep the data from front end
     	$id   = $request->input('id');
     	$name = $request->input('updateName');
@@ -212,10 +211,9 @@ class SettingController extends Controller
 
     public function updaterole(Request $request)
     {
-    	dd($request);
     	//keep the data from front end
     	$id    = $request->input('id');
-    	$name  = $request->input('udpateName');
+    	$name  = $request->input('updateName');
     	$dname = $request->input('updateDisplay');
     	$desc  = $request->input('updateDesc');
 

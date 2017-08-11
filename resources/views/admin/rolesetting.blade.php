@@ -16,18 +16,19 @@
 						{{ csrf_field() }}
 
 						<input type="hidden" name="id" value="{{ $role->id }}">
+
 						<div class="row">
 							<div class="col-md-3">
 								<label>Role Name</label>
-								<input type="text" name="updateName" class="form-control" placeholder="{{ $role->name }}">
+								<input type="text" name="updateName" class="form-control" placeholder="{{ $role->name }}" value="{{ $role->name }}" disabled="disabled">
 							</div>
 							<div class="col-md-3">
 								<label>Display Name</label>
-								<input type="text" name="updateDisplay" class="form-control" placeholder="{{ $role->display_name }}">
+								<input type="text" name="updateDisplay" class="form-control" placeholder="{{ $role->display_name }}" value="{{ $role->display_name }}">
 							</div>
 							<div class="col-md-3">
 								<label>Description</label>
-								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $role->description }}">
+								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $role->description }}" value="{{ $role->description }}">
 							</div>
 						</div>
 

@@ -30,14 +30,14 @@
                         <div>Your Profile</div>
                     </li>
                 @endif                   
-                <!-- @if (Auth::user()->position == 'HR')
+                @if (Auth::user()->position == 'HR')
                     <li class="icon-container">
                         <a href="{{ url('admin/setting') }}">
                             <i class="icon fa fa-cogs" aria-hidden="true"></i>
                         </a>
                         <div>Settings</div>
                     </li>
-                @endif -->
+                @endif
                     <li class="icon-container">
                         <a href="{{ url('/admin/leave') }}">
                             <i class="icon fa fa-pencil-square-o" aria-hidden="true"></i>

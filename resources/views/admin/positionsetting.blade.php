@@ -19,12 +19,12 @@
 						<div class="row">
 							<div class="col-md-3">
 								<label>Position Name</label>
-								<input type="text" name="updateName" class="form-control" placeholder="{{ $position->position_name }}">
+								<input type="text" name="updateName" class="form-control" placeholder="{{ $position->position_name }}" value="{{ $position->position_name }}">
 							</div>
 
 							<div class="col-md-3">
 								<label>Description</label>
-								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $position->position_desc }}">
+								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $position->position_desc }}" value="{{ $position->position_desc }}">
 							</div>
 						</div>
 

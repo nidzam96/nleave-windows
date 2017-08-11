@@ -16,15 +16,16 @@
         				{{ csrf_field() }}
 
         				<input type="hidden" name="id" value="{{ $branch->id }}">
+
         				<div class="row">
         					<div class="col-md-3">
         						<label>Branch Name</label>
-        						<input type="text" name="updateName" class="form-control" placeholder="{{ $branch->branch_name }}">
+        						<input type="text" name="updateName" class="form-control" placeholder="{{ $branch->branch_name }}" value="{{ $branch->branch_name }}">
         					</div>
 
         					<div class="col-md-3">
         						<label>Description</label>
-        						<input type="text" name="updateDesc" class="form-control" placeholder="{{ $branch->branch_desc }}">
+        						<input type="text" name="updateDesc" class="form-control" placeholder="{{ $branch->branch_desc }}" value="{{ $branch->branch_desc }}">
         					</div>
         				</div>
 
