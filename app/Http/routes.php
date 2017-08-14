@@ -11,8 +11,12 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('home');
+// });
+
 Route::get('/', function () {
-    return view('home');
+    return view('login_page');
 });
 
 Route::auth();
