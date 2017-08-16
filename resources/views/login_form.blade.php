@@ -23,12 +23,11 @@
 <body>
 	<div class="login">
 		<h1>Login</h1>
-	    <form method="POST" action="{{ route('user.setpassword') }}">
+	    <form method="POST" action="{{ url('/login') }}">
 	    	{{ csrf_field() }}
 
 	    	<input type="email" name="email" placeholder="E-mail Address" required="required" />
 	        <input type="password" name="password" placeholder="Password" required="required" />
-	        <input type="password" name="confirm" placeholder="Retype Password" required="required" />
 	        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
 	    </form>
 	</div>

@@ -10,7 +10,6 @@ use App\Http\Requests;
 use App\Leavetype;
 use App\Branch;
 use App\Position;
-use App\Role;
 
 class SettingController extends Controller
 {
@@ -25,9 +24,8 @@ class SettingController extends Controller
         $leave    = Leavetype::all();
         $branch   = Branch::all();
         $position = Position::all();
-        $role     = Role::all();
 
-        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position)->with('role', $role);
+        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position);
     }
 
     public function leave(Request $request)
@@ -173,55 +171,6 @@ class SettingController extends Controller
 
         //sweetalert popup for success
         alert()->success('Position successfully updated.', 'Good Work!')->autoclose(3000);
-
-        //redirect user to setting page
-        return redirect()->route('admin.setting');
-    }
-
-    public function role(Request $request)
-    {
-    	dd($request);
-    	//get data from front page
-    	$role_name  = $request->input('rolename');
-    	$role_dname = $request->input('display_name');
-    	$role_desc  = $request->input('role_desc');
-
-    	//create new role
-    	$role = New role;
-
-    	$role->name = $rolename;
-    	$role->display_name = $role_dname;
-    	$role->description = $role_desc;
-
-    	$role->save();
-
-    	//sweetalert popup for success
-    	alert()->success('New role successfully created.', 'Good Work!')->autoclose(3000);
-
-    	//redirect to setting page
-    	return redirect()->route('admin.setting');
-    }
-
-    public function editrole($id)
-    {
-    	$role = Role::where('id', $id)->first();
-
-    	return view('admin.rolesetting')->with('role', $role);
-    }
-
-    public function updaterole(Request $request)
-    {
-    	//keep the data from front end
-    	$id    = $request->input('id');
-    	$name  = $request->input('updateName');
-    	$dname = $request->input('updateDisplay');
-    	$desc  = $request->input('updateDesc');
-
-        //update role
-        $leave = Role::where('id', $id)->update(array ('name' => $name, 'display_name' => $dname, 'description' => $desc));
-
-        //sweetalert popup for success
-        alert()->success('Role successfully updated.', 'Good Work!')->autoclose(3000);
 
         //redirect user to setting page
         return redirect()->route('admin.setting');

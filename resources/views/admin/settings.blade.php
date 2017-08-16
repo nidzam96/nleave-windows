@@ -21,11 +21,6 @@
                         Position Setting
                     </a>
                 </li>
-                <li role="presentation" style="margin-left: -2px;">
-                    <a href="#role" role="tab" data-toggle="tab" aria-controls="role" id="tabRole">
-                        Role Setting
-                    </a>
-                </li>
             </ul>
         </div>
 
@@ -272,92 +267,6 @@
 					</div>
         		</section>
         	</div>
-
-        	<div role="tabpanel" class="tab-pane" id="role">
-        		<section class="section-secondary section-role">
-					<div class="row">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<span class="fa fa-pencil"></span>
-								Edit role
-							</div>
-
-							<div class="panel-body">
-								<a href="#" type="button" id="roleAdd" class="btn btn-success">Add role</a>
-								
-								<!-- the popup to add new role -->
-								<div id="roleModal" class="modal" style="overflow-y: auto">
-
-							    	<div class="modal-content" style="width: 50%; height: 500px;">
-							   			<span class="close">&times;</span>
-										
-										<div class="panel panel-primary">
-											<div class="panel-heading">
-												<span class="fa fa-plus"></span>
-												New Role
-											</div>
-											<div class="panel-body">
-												<form method="POST" action="{{ route('setting.role') }}">
-													{{ csrf_field() }}
-													
-													<label>Role Name</label>
-													<input type="text" name="rolename" placeholder="Please enter role name" class="form-control" required="required">
-
-													<label>Display Name</label>
-													<input type="text" name="display_name" class="form-control" required="required" placeholder="Please enter display name">
-
-													<label>Description</label>
-													<input type="text" name="role_desc" class="form-control" placeholder="Please enter role description">
-
-													<div class="btn-group top20">
-														<button type="submit" class="btn btn-primary">Submit</button>
-														<button type="reset" class="btn btn-default">Reset</button>
-													</div>
-												</form>
-											</div>
-										</div>
-							  		</div>
-								</div>
-
-								<div class="col-md-12 table-responsive top20">
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Id</th>
-												<th>Name</th>
-												<th>Display Name</th>
-												<th>Description</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										
-										@foreach($role as $role)
-										<tbody>
-											<tr>
-												<td>{{ $role->id }}</td>
-												<td>{{ $role->name }}</td>
-												<td>{{ $role->display_name }}</td>
-												<td>{{ $role->description }}</td>
-												<td>
-													<a href="{{ route('setting.role.edit', $role->id) }}" class="btn btn-warning">
-														<span class="fa fa-edit"></span>
-														Edit
-													</a>
-													<a href="#" class="btn btn-danger">
-														Delete
-														<span class="fa fa-trash-o"></span>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-										@endforeach
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-        		</section>
-        	</div>
         </div>
     </div>
 @endsection
@@ -427,28 +336,6 @@
 		    
 		  if (event.target == positionmodal) {
 		        positionmodal.style.display = "none";
-		    }
-		})
-
-		// The popup for creating new role 
-		var rolemodal = document.getElementById('roleModal');
-		var rolebtn = document.getElementById("roleAdd");
-		var rolespan = document.getElementsByClassName("close")[0];
-
-		$(rolebtn).on('click', function() {
-		  
-		    rolemodal.style.display = "block";
-		})
-
-		$(rolespan).on('click', function() {
-		    
-		  	rolemodal.style.display = "none";
-		})
-
-		$(window).on('click', function() {
-		    
-		  if (event.target == rolemodal) {
-		        rolemodal.style.display = "none";
 		    }
 		})
 	</script>

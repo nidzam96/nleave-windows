@@ -16,7 +16,7 @@
 // });
 
 Route::get('/', function () {
-    return view('login_page');
+    return view('login_form');
 });
 
 Route::auth();
