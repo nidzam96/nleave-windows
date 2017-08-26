@@ -56,8 +56,8 @@ class StaffsController extends Controller
     {
         //vaidate the new staff information
         $this->validate($request, [
-                'fullname' => 'required|alpha|max:255',
-                'prefername' => 'required|alpha',
+                'fullname' => 'required',
+                'prefername' => 'required',
                 'gender' => 'required',
                 'email' => 'required',
                 'number' => 'required|numeric',
@@ -247,7 +247,7 @@ class StaffsController extends Controller
         alert()->success('Information successfully updated.', 'Good Work!')->autoclose(3000);
 
         //redirect user to specific page after update process
-        if (Auth()->user()->position == 'HR') {
+        if (Auth()->user()->role == 1) {
             # code...
             return redirect('admin/users');
         }

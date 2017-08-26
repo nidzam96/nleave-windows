@@ -32,6 +32,8 @@ class CreateClaimApplicationsTable extends Migration
             $table->decimal('allowance',7,2)->nullable();
             $table->float('total_travel')->nullable();
             $table->decimal('total_amount');
+            $table->string('file')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

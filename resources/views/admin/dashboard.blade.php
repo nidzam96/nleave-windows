@@ -15,7 +15,7 @@
                         <div>Company Settings</div>
                     </li>
                 @endif -->
-                @if (Auth::user()->position == 'HR')
+                @if (Auth::user()->role == 1)
                     <li class="icon-container">
                         <a href="{{ url('/admin/users') }}">
                             <i class="icon fa fa-group" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
                         <div>Your Profile</div>
                     </li>
                 @endif                   
-                @if (Auth::user()->position == 'HR')
+                @if (Auth::user()->role == 1)
                     <li class="icon-container">
                         <a href="{{ url('admin/setting') }}">
                             <i class="icon fa fa-cogs" aria-hidden="true"></i>

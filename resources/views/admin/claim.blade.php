@@ -223,7 +223,7 @@
                             <table class="table table-bordered" id="claimTable">
                                 <thead>
                                     <tr>
-                                        @if (Auth::user()->position == 'HR')
+                                        @if (Auth::user()->role == 1)
                                             <th>Employee</th>
                                             <th>Position</th>
                                         @endif
@@ -239,7 +239,7 @@
                                 @foreach ($claim_app as $claim)
                                     <tbody>
                                         <tr>
-                                            @if (Auth::user()->position == 'HR')
+                                            @if (Auth::user()->role == 1)
                                                 <td>{{ $claim->user->name }}</td>
                                                 <td>{{ $claim->user->position }}</td>
                                             @endif
@@ -253,7 +253,7 @@
                                                     @endif
                                                 </td>
 
-                                            @if (Auth()->user()->position == 'HR')
+                                            @if (Auth()->user()->role == 1)
                                                     <td>
                                                         <h2 class="btn btn-info">{{ $claim->status }}</h2>
                                                         

@@ -32,7 +32,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('first_login', 'setpassword');
+        $this->middleware('auth')->except('first_login', 'setpassword','registerform');
     }
 
     // Shows dashboard page
@@ -56,6 +56,12 @@ class AdminController extends Controller
         $position = Position::all();
 
         return view('admin.users')->with('branchview', $branch)->with('ltview', $ltype)->with('ltiview', $ltime)->with('staff', $staff)->with('position', $position);
+    }
+
+    public function registerform()
+    {
+
+        return view('register_form');
     }
 
     //Shows leave page with pagination
@@ -88,7 +94,7 @@ class AdminController extends Controller
     {
         $claim = Claim::all();
 
-        if (Auth()->user()->position == 'HR') {
+        if (Auth()->user()->role == 1) {
             # code...
             $claim_app = Claim_application::paginate(5);
         }
@@ -163,7 +169,7 @@ class AdminController extends Controller
         $cpasword = bcrypt($request->input('confirm'));
 
         //check pasword and confirm password
-        if ($password != $cpasword) {
+        if ($request->input('password') != $request->input('confirm')) {
             $error = "Password Mismatch";
             return redirect('/first_login')->with('error', $error);
         }
@@ -178,10 +184,12 @@ class AdminController extends Controller
         if ($user_id->position != 'Staff') {
             $member_role_id = 1;
             $user_id->attachRole($member_role_id);
+            $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
         }
         else{
             $member_role_id = 2;
             $user_id->attachRole($member_role_id);
+            $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
         }
 
         //get user id
@@ -207,22 +215,23 @@ class AdminController extends Controller
     {
 
         $today   = Carbon::now()->format('Y-m-d');
-        $user    = User::where('id', '=', Auth()->user()->id )->first();
-        $user_id = Birthday::where('user_id', '=', Auth()->user()->id )->first();
-        $user_b  = $user_id->start;
-
-        $c_year  = 2017;
-        $year    = Carbon::createFromFormat('Y-m-d', $today)->year;
-        $month   = Carbon::createFromFormat('Y-m-d', $user_b)->month;
-        $day     = Carbon::createFromFormat('Y-m-d', $user_b)->day;
-
-        if ($year != $c_year) {
-            $birthday_latest = Carbon::parse($user_b)->format(''.$year.'-'.$month.'-'.$day);
-            $birthday_update = Birthday::where('user_id', '=', Auth()->user()->id)
-                                ->update(array ('start' => $birthday_latest));
-        }
+        $user    = User::where('email', '=', Auth()->user()->email )->first();
 
         if ($user->remember_token) {
+            $user_id = Birthday::where('user_id', '=', Auth()->user()->id )->first();
+            $user_b  = $user_id->start;
+
+            $c_year  = 2017;
+            $year    = Carbon::createFromFormat('Y-m-d', $today)->year;
+            $month   = Carbon::createFromFormat('Y-m-d', $user_b)->month;
+            $day     = Carbon::createFromFormat('Y-m-d', $user_b)->day;
+
+            if ($year != $c_year) {
+                $birthday_latest = Carbon::parse($user_b)->format(''.$year.'-'.$month.'-'.$day);
+                $birthday_update = Birthday::where('user_id', '=', Auth()->user()->id)
+                                    ->update(array ('start' => $birthday_latest));
+            }
+
             return redirect('/admin/leave');
         }
         else{

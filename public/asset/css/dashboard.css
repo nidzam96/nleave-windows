@@ -287,3 +287,19 @@ text-transform: none;
     vertical-align: middle;
   }
 }
+.leave-box{
+  width: 25%;
+  height: 120px;
+}
+.panel-body.panel-card{
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-bottom: 0px;
+}
+.panel-icon{
+  width: 46px;
+  height: 46px;
+}
+.bg-icon{
+  padding: 6px;
+}

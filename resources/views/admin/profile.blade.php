@@ -3,10 +3,48 @@
 @section('pagetitle','Profile')
 
 @section('section')
-    <div class="section-2">    
+	<!-- <div class="section-2">
+		<div class="tab-content">
+			<div class="row">
+				<div class="col-md-12">
+					Leave Balance
+				</div>
+			</div>
 
+			<div class="row top20">
+				<div class="col-md-12">
+					<div class="col-md-4 leave-box">
+						<div class="panel panel-default">
+							<div class="panel-body panel-card">
+								<table>
+									<tbody>
+										<tr valign="top">
+											<td rowspan="2">
+												<div class="panel panel-default panel-icon">
+													<div class="panel-body bg-icon">
+														<span></span>
+													</div>
+												</div>
+											</td>
+											<td colspan="2" style="padding-left: 15px">
+												Annual
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+    <div class="section-2">
         <div class="tab-content">
-        	
         	<div class="row">
         		<div class="col-md-12">
 					
@@ -211,7 +249,7 @@
 							<p>Employment Info</p>
 						</div>
 						<div class="col-md-3 col-md-offset-2">
-						@if (Auth::user()->position == 'HR')	
+						@if (Auth::user()->role == 1)	
 							<a href="#" type="button" id="employment_edits">Edit</a>
 						@endif
 						</div>
@@ -376,7 +414,7 @@
         					<p>Compensation</p>
         				</div>
         				<div class="col-md-3 col-md-offset-2">
-        				@if (Auth::user()->position == 'HR')	
+        				@if (Auth::user()->role == 1)	
         					<a href="#" type="button" id="compensation_edits">Edit</a>
         				@endif
         				</div>
@@ -486,18 +524,5 @@
         		</div>
         	</div>
         </div>
-
     </div>
-@endsection
-
-@section('extrascripts')
-	<!-- <script type="text/javascript">
-		var id = $('#ur_id').val();
-
-		var ajax_url = '/user/getName/' + id;
-
-		$.get(ajax_url, function( data ){
-			console.log(data)
-		})
-	</script> -->
 @endsection

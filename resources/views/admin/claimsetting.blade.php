@@ -12,23 +12,19 @@
 				</div>
 
 				<div class="panel-body">
-					<form method="POST" action="{{ route('setting.role.update') }}">
+					<form method="POST" action="{{ route('setting.claim.update') }}">
 						{{ csrf_field() }}
 
-						<input type="hidden" name="id" value="{{ $role->id }}">
-
+						<input type="hidden" name="id" value="{{ $claim->id }}">
 						<div class="row">
 							<div class="col-md-3">
-								<label>Role Name</label>
-								<input type="text" name="updateName" class="form-control" placeholder="{{ $role->name }}" value="{{ $role->name }}" disabled="disabled">
+								<label>Claim Name</label>
+								<input type="text" name="updateName" class="form-control" placeholder="{{ $claim->claim_name }}" value="{{ $claim->claim_name }}">
 							</div>
-							<div class="col-md-3">
-								<label>Display Name</label>
-								<input type="text" name="updateDisplay" class="form-control" placeholder="{{ $role->display_name }}" value="{{ $role->display_name }}">
-							</div>
+
 							<div class="col-md-3">
 								<label>Description</label>
-								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $role->description }}" value="{{ $role->description }}">
+								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $claim->claim_desc }}" value="{{ $claim->position_desc }}">
 							</div>
 						</div>
 

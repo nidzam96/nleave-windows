@@ -29,8 +29,10 @@
 	    	<input type="email" name="email" placeholder="E-mail Address" required="required" />
 	        <input type="password" name="password" placeholder="Password" required="required" />
 	        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+	        <a href="{{ url('/register_form') }}" class="btn btn-primary btn-block btn-large">Register here.</a>
 	    </form>
 	</div>
+
 </body>
 
 	<!-- Javascript -->

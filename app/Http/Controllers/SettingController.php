@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Leavetype;
 use App\Branch;
 use App\Position;
+use App\Claim;
 
 class SettingController extends Controller
 {
@@ -24,13 +25,13 @@ class SettingController extends Controller
         $leave    = Leavetype::all();
         $branch   = Branch::all();
         $position = Position::all();
+        $claim    = Claim::all();
 
-        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position);
+        return view('admin.settings')->with('leave', $leave)->with('branch', $branch)->with('position', $position)->with('claim',$claim);
     }
 
     public function leave(Request $request)
     {
-    	dd($request);
     	//get data from front page
     	$leavename = $request->input('leavename');
     	$days      = $request->input('days_provided');
@@ -86,7 +87,6 @@ class SettingController extends Controller
 
     public function branch(Request $request)
     {
-    	dd($request);
     	//get data from front page
     	$branchname  = $request->input('branchname');
     	$branch_desc = $request->input('branch_desc');
@@ -132,13 +132,12 @@ class SettingController extends Controller
 
     public function position(Request $request)
     {
-    	dd($request);
     	//get data from front page
     	$position_name  = $request->input('position_name');
     	$position_desc = $request->input('position_desc');
 
     	//create new position
-    	$position = New position;
+    	$position = New Position;
 
     	$position->position_name = $position_name;
     	$position->position_desc = $position_desc;
@@ -171,6 +170,51 @@ class SettingController extends Controller
 
         //sweetalert popup for success
         alert()->success('Position successfully updated.', 'Good Work!')->autoclose(3000);
+
+        //redirect user to setting page
+        return redirect()->route('admin.setting');
+    }
+
+    public function claim(Request $request)
+    {
+        //get data from front page
+        $claim_name  = $request->input('claim_name');
+        $claim_desc = $request->input('claim_desc');
+
+        //create new claim
+        $claim = New Claim;
+
+        $claim->claim_name = $claim_name;
+        $claim->claim_desc = $claim_desc;
+
+        $claim->save();
+
+        //sweetalert popup for success
+        alert()->success('New claim successfully created.', 'Good Work!')->autoclose(3000);
+
+        //redirect to setting page
+        return redirect()->route('admin.setting');
+    }
+
+    public function editclaim($id)
+    {
+        $claim = Claim::where('id', $id)->first();
+
+        return view('admin.claimsetting')->with('claim', $claim);
+    }
+
+    public function updateclaim(Request $request)
+    {
+        //keep the data from front end
+        $id   = $request->input('id');
+        $name = $request->input('udpateName');
+        $desc = $request->input('updateDesc');
+
+        //update leavetype
+        $claim = Claim::where('id', $id)->update(array ('claim_name' => $name, 'claim_desc' => $desc));
+
+        //sweetalert popup for success
+        alert()->success('Claim successfully updated.', 'Good Work!')->autoclose(3000);
 
         //redirect user to setting page
         return redirect()->route('admin.setting');

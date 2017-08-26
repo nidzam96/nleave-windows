@@ -91,7 +91,9 @@
           right: 'month,agendaWeek,agendaDay',
         },
 
-        events: "{{ url('/admin/events') }}",
+        eventSources: [
+                  "{{ url('/admin/events') }}",
+                ],
 
         eventClick: function(calEvent, jsEvent, view){
 
@@ -153,8 +155,22 @@
         }
       })
 
+      // function getHolidayDay(hehe){
+      //   var ajax_url = '/admin/holidayDay' + hehe;
+
+      //   $.get(ajax_url, function( data ){
+      //     console.log(data)
+      //   })
+      // }
+
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
-        
+        // var ajax_url = '/admin/holiday';
+
+        // $.get(ajax_url, function( data ){
+        //     console.log(day)
+        //     // getHolidayDay();
+        // })
+
         var iWeeks, iDateDiff, iAdjust = 0;
 
         if (dDate2 < dDate1) return -1; // error code if dates transposed

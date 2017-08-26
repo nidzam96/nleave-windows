@@ -48,10 +48,16 @@ Route::get('/admin/create/staff', 'AdminController@newStaff');
 
 Route::get('user/setUserRole', 'AdminController@setUserRole');
 
+Route::get('/register_form', 'AdminController@registerform');
+
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 
 Route::get('admin/birthday', 'LeavesController@birthday');
+
+Route::get('admin/holiday', 'LeavesController@holiday');
+
+Route::get('admin/holidayDay/{data}', 'LeavesController@holidayDay');
 
 Route::get('leave/approve/{id}{user_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);
 
@@ -115,8 +121,8 @@ Route::get('admin/setting/position/edit/{id}', ['as' => 'setting.position.edit',
 
 Route::post('admin/setting/position/update', ['as' => 'setting.position.update', 'uses' => 'SettingController@updateposition']);
 
-Route::post('admin/setting/role', ['as' => 'setting.role', 'uses' => 'SettingController@role']);
+Route::post('admin/setting/claim', ['as' => 'setting.claim', 'uses' => 'SettingController@claim']);
 
-Route::get('admin/setting/role/edit/{id}', ['as' => 'setting.role.edit', 'uses' => 'SettingController@editrole']);
+Route::get('admin/setting/claim/edit/{id}', ['as' => 'setting.claim.edit', 'uses' => 'SettingController@editclaim']);
 
-Route::post('admin/setting/role/update', ['as' => 'setting.role.update', 'uses' => 'SettingController@updaterole']);
+Route::post('admin/setting/claim/update', ['as' => 'setting.claim.update', 'uses' => 'SettingController@updateclaim']);

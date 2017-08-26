@@ -15,6 +15,7 @@ use App\leaveType;
 use App\Staff;
 use App\Department;
 use App\Employment;
+use App\Holiday;
 
 class LeavesController extends Controller
 {
@@ -37,6 +38,20 @@ class LeavesController extends Controller
 
     }
 
+    public function holiday()
+    {
+        //get the application into fullcalendar
+        return view('admin.holidays');
+
+    }
+
+    public function holidayDay($data)
+    {
+        $id = $data->id;
+        // $holiday = Holiday::where();
+
+        return $id;
+    }
     /**
      * Show the form for creating a new resource.
      *
