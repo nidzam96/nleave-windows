@@ -242,56 +242,65 @@ class AdminController extends Controller
                                     ->update(array ('start' => $birthday_latest));
             }
 
+            return redirect('/admin/leave');
         }
+        else{
+            // $check = Staff::where('email','=',Auth()->user()->email)->first();
+            $res=DB::table('staff')
+                        ->select('user_id','email')
+                        ->distinct() 
+                        ->where([['user_id','=',Auth()->user()->id],['email','=',Auth()->user()->email]])           
+                        ->get();
+            if ($res) {
+                return redirect('/admin/leave');
+            }
+            else{
+                $staff = New Staff;
 
-        return redirect('/admin/leave');
+                $position    = Position::where('position_name', '=', $user->position)->first();
+                $position_id = $position->id;
 
-        // else{
-        //     $staff = New Staff;
+                $staff->user_id = $user->id;
+                $staff->full_name = $user->name;
+                $staff->email = $user->email;
+                $staff->password = $user->password;
+                $staff->dob = $today;
+                $staff->branch_id = 1;
+                $staff->position_id = $position_id;
 
-        //     $position    = Position::where('position_name', '=', $user->position)->first();
-        //     $position_id = $position->id;
+                $staff->save();
 
-        //     $staff->user_id = $user->id;
-        //     $staff->full_name = $user->name;
-        //     $staff->email = $user->email;
-        //     $staff->password = $user->password;
-        //     $staff->dob = $today;
-        //     $staff->branch_id = 1;
-        //     $staff->position_id = $position_id;
+                $employment = New Employment;
 
-        //     $staff->save();
+                $position    = Position::where('position_name', '=', $user->position)->first();
+                $position_id = $position->id;
 
-        //     $employment = New Employment;
+                $employment->email   = $user->email;
+                $employment->user_id = $user->id;
+                $employment->position_id = $position_id;
+                $employment->branch_id = 1;
+                $employment->start = $today;
+                $employment->report = 1;
 
-        //     $position    = Position::where('position_name', '=', $user->position)->first();
-        //     $position_id = $position->id;
+                $employment->save();
 
-        //     $employment->email   = $user->email;
-        //     $employment->user_id = $user->id;
-        //     $employment->position_id = $position_id;
-        //     $employment->branch_id = 1;
-        //     $employment->start = $today;
-        //     $employment->report = 1;
+                $compensation = New Compensation;
 
-        //     $employment->save();
+                $compensation->email = $user->email;
+                $compensation->user_id = $user->id;
 
-        //     $compensation = New Compensation;
+                $compensation->save();
 
-        //     $compensation->email = $user->email;
-        //     $compensation->user_id = $user->id;
+                $birthday = New Birthday;
 
-        //     $compensation->save();
+                $birthday->email = $user->email;
+                $birthday->user_id = $user->id;
+                $birthday->title   = $user->name;
 
-        //     $birthday = New Birthday;
+                $birthday->save();
 
-        //     $birthday->email = $user->email;
-        //     $birthday->user_id = $user->id;
-        //     $birthday->title   = $user->name;
-
-        //     $birthday->save();
-
-        //     return redirect('admin/leave');
-        // }
+                return redirect('admin/leave');
+            }
+        }
     }
 }
