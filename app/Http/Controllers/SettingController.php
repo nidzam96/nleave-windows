@@ -207,7 +207,7 @@ class SettingController extends Controller
     {
         //keep the data from front end
         $id   = $request->input('id');
-        $name = $request->input('udpateName');
+        $name = $request->input('updateName');
         $desc = $request->input('updateDesc');
 
         //update leavetype

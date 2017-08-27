@@ -29,7 +29,7 @@
 					<th>GST No.</th>
 					<th>Amount</th>
 
-				@elseif (@eamount)
+				@elseif ($eamount)
 
 					<th>Particular</th>
 					<th>Bus. Reg. No.</th>
@@ -67,7 +67,7 @@
 					<td> {{ $gstno }} </td>
 					<td> {{ $namount }} </td>
 
-				@elseif (@eamount)
+				@elseif ($eamount)
 
 					<td> {{ $particular }} </td>
 					<td> {{ $brn }} </td>
@@ -83,7 +83,7 @@
 					<td> {{ $destination }} </td>
 					<td> {{ $toll }} </td>
 					<td> {{ $parking }} </td>
-					<td> {{ $accommodation }} </td>
+					<td> {{ $accomodation }} </td>
 					<td> {{ $allowance }} </td>
 					<td> {{ $mileage }} </td>
 					<td> {{ $tramount }} </td>

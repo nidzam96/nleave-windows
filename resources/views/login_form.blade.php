@@ -25,9 +25,37 @@
 		<h1>Login</h1>
 	    <form method="POST" action="{{ url('/login') }}">
 	    	{{ csrf_field() }}
+			
+	    	<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+	    	    <!-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> -->
 
-	    	<input type="email" name="email" placeholder="E-mail Address" required="required" />
-	        <input type="password" name="password" placeholder="Password" required="required" />
+	    	    <!-- <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"> -->
+	    		<input id="email" type="email" name="email" placeholder="E-mail Address" required="required" />
+
+    	        @if ($errors->has('email'))
+    	            <span class="help-block">
+    	                <strong>{{ $errors->first('email') }}</strong>
+    	            </span>
+    	        @endif
+
+	    	</div>
+
+	    	<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+	    	    <!-- <label for="password" class="col-md-4 control-label">Password</label> -->
+
+    	        <!-- <input id="password" type="password" class="form-control" name="password"> -->
+	        	<input id="password" type="password" name="password" placeholder="Password" required="required" />
+
+
+    	        @if ($errors->has('password'))
+    	            <span class="help-block">
+    	                <strong>{{ $errors->first('password') }}</strong>
+    	            </span>
+    	        @endif
+	    	</div>
+	    	
+	    	<!-- <input type="email" name="email" placeholder="E-mail Address" required="required" />
+	        <input type="password" name="password" placeholder="Password" required="required" /> -->
 	        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
 	        <a href="{{ url('/register_form') }}" class="btn btn-primary btn-block btn-large">Register here.</a>
 	    </form>

@@ -26,9 +26,51 @@
 	    <form method="POST" action="{{ route('user.setpassword') }}">
 	    	{{ csrf_field() }}
 
-	    	<input type="email" name="email" placeholder="E-mail Address" required="required" />
+	    	<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+	    	    <!-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> -->
+
+	    	    <!-- <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"> -->
+	    		<input id="email" type="email" name="email" placeholder="E-mail Address" required="required" />
+
+    	        @if ($errors->has('email'))
+    	            <span class="help-block">
+    	                <strong>{{ $errors->first('email') }}</strong>
+    	            </span>
+    	        @endif
+
+	    	</div>
+
+	    	<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+	    	    <!-- <label for="password" class="col-md-4 control-label">Password</label> -->
+
+    	        <!-- <input id="password" type="password" class="form-control" name="password"> -->
+	        	<input id="password" type="password" name="password" placeholder="Password" required="required" />
+
+
+    	        @if ($errors->has('password'))
+    	            <span class="help-block">
+    	                <strong>{{ $errors->first('password') }}</strong>
+    	            </span>
+    	        @endif
+	    	</div>
+
+	    	<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+	    	    <!-- <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label> -->
+
+    	        <!-- <input id="password-confirm" type="password" class="form-control" name="password_confirmation"> -->
+	        	<input id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm password" required="required" />
+
+
+    	        @if ($errors->has('password_confirmation'))
+    	            <span class="help-block">
+    	                <strong>{{ $errors->first('password_confirmation') }}</strong>
+    	            </span>
+    	        @endif
+	    	</div>
+
+	    	<!-- <input type="email" name="email" placeholder="E-mail Address" required="required" />
 	        <input type="password" name="password" placeholder="Password" required="required" />
-	        <input type="password" name="confirm" placeholder="Retype Password" required="required" />
+	        <input type="password" name="confirm" placeholder="Retype Password" required="required" /> -->
 	        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
 	    </form>
 	</div>

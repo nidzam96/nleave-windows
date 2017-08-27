@@ -94,7 +94,8 @@
     	        @endif
 	    	</div>
 
-	        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+	        <button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+	        <a href="{{ url('/') }}" class="btn btn-primary btn-block btn-large">Back</a>
 	    </form>
 	</div>
 

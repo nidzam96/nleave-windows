@@ -163,16 +163,22 @@ class AdminController extends Controller
 
     public function setpassword(Request $request){
 
+        //validate the register application
+        $this->validate($request, [
+                'email' => 'required|email',
+                'password' => 'required|min:6|confirmed',
+            ]);
+
         //keep data from front end
         $email    = $request->input('email');
         $password = bcrypt($request->input('password'));
-        $cpasword = bcrypt($request->input('confirm'));
+        // $cpasword = bcrypt($request->input('confirm'));
 
-        //check pasword and confirm password
-        if ($request->input('password') != $request->input('confirm')) {
-            $error = "Password Mismatch";
-            return redirect('/first_login')->with('error', $error);
-        }
+        // //check pasword and confirm password
+        // if ($request->input('password') != $request->input('confirm')) {
+        //     $error = "Password Mismatch";
+        //     return redirect('/first_login')->with('error', $error);
+        // }
 
         //update user password in table user
         $user = User::where('email', '=', $email)->update(array ('password' => $password ));
@@ -185,7 +191,7 @@ class AdminController extends Controller
         $position_id = Position::where('position_name','=',$position)->first();
 
         //check if user HR or Staff
-        if ($position_id == 1) {
+        if ($position_id->id == 1) {
             $member_role_id = 1;
             $user_id->attachRole($member_role_id);
             $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
@@ -200,7 +206,7 @@ class AdminController extends Controller
         $get_id  = $user_id->id;
 
         //update email information in table staff
-        $staff        = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id));
+        $staff = Staff::where('email', '=', $email)->update(array ('user_id' => $get_id, 'password' => $user_id->password));
 
         //update email information in table compensation
         $compensation = Compensation::where('email', '=', $email)->update(array ('user_id' => $get_id));
@@ -236,54 +242,56 @@ class AdminController extends Controller
                                     ->update(array ('start' => $birthday_latest));
             }
 
-            return redirect('/admin/leave');
         }
-        else{
-            $staff = New Staff;
 
-            $position    = Position::where('position_name', '=', $user->position)->first();
-            $position_id = $position->id;
+        return redirect('/admin/leave');
 
-            $staff->user_id = $user->id;
-            $staff->full_name = $user->name;
-            $staff->email = $user->email;
-            $staff->password = $user->password;
-            $staff->dob = $today;
-            $staff->branch_id = 1;
-            $staff->position_id = $position_id;
+        // else{
+        //     $staff = New Staff;
 
-            $staff->save();
+        //     $position    = Position::where('position_name', '=', $user->position)->first();
+        //     $position_id = $position->id;
 
-            $employment = New Employment;
+        //     $staff->user_id = $user->id;
+        //     $staff->full_name = $user->name;
+        //     $staff->email = $user->email;
+        //     $staff->password = $user->password;
+        //     $staff->dob = $today;
+        //     $staff->branch_id = 1;
+        //     $staff->position_id = $position_id;
 
-            $position    = Position::where('position_name', '=', $user->position)->first();
-            $position_id = $position->id;
+        //     $staff->save();
 
-            $employment->email   = $user->email;
-            $employment->user_id = $user->id;
-            $employment->position_id = $position_id;
-            $employment->branch_id = 1;
-            $employment->start = $today;
-            $employment->report = 1;
+        //     $employment = New Employment;
 
-            $employment->save();
+        //     $position    = Position::where('position_name', '=', $user->position)->first();
+        //     $position_id = $position->id;
 
-            $compensation = New Compensation;
+        //     $employment->email   = $user->email;
+        //     $employment->user_id = $user->id;
+        //     $employment->position_id = $position_id;
+        //     $employment->branch_id = 1;
+        //     $employment->start = $today;
+        //     $employment->report = 1;
 
-            $compensation->email = $user->email;
-            $compensation->user_id = $user->id;
+        //     $employment->save();
 
-            $compensation->save();
+        //     $compensation = New Compensation;
 
-            $birthday = New Birthday;
+        //     $compensation->email = $user->email;
+        //     $compensation->user_id = $user->id;
 
-            $birthday->email = $user->email;
-            $birthday->user_id = $user->id;
-            $birthday->title   = $user->name;
+        //     $compensation->save();
 
-            $birthday->save();
+        //     $birthday = New Birthday;
 
-            return redirect('admin/leave');
-        }
+        //     $birthday->email = $user->email;
+        //     $birthday->user_id = $user->id;
+        //     $birthday->title   = $user->name;
+
+        //     $birthday->save();
+
+        //     return redirect('admin/leave');
+        // }
     }
 }

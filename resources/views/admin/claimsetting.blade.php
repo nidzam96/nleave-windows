@@ -24,7 +24,7 @@
 
 							<div class="col-md-3">
 								<label>Description</label>
-								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $claim->claim_desc }}" value="{{ $claim->position_desc }}">
+								<input type="text" name="updateDesc" class="form-control" placeholder="{{ $claim->claim_desc }}" value="{{ $claim->claim_desc }}">
 							</div>
 						</div>
 

@@ -87,7 +87,7 @@ class ClaimController extends Controller
 
     	$claim->save();
 
-        $type_n = Claim::where('id', '=', $type)->first();
+        $type_n    = Claim::where('id', '=', $type)->first();
         $type_name = $type_n->claim_name;
 
         //send reminder email to admin
