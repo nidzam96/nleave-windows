@@ -7,7 +7,7 @@
 
  // connection to the database
  try {
- $bdd = new PDO('mysql:host=localhost;dbname=kakitangan', 'root', '');
+ $bdd = new PDO('mysql:host=localhost;dbname=nazroltech', 'root', '');
  } catch(Exception $e) {
   exit('Unable to connect to database.');
  }

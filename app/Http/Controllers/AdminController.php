@@ -182,7 +182,7 @@ class AdminController extends Controller
 
         //get position id
         $position    = $user_id->position;
-        $position_id = Position::where('position_name','='$position,)->first();
+        $position_id = Position::where('position_name','=',$position)->first();
 
         //check if user HR or Staff
         if ($position_id == 1) {
