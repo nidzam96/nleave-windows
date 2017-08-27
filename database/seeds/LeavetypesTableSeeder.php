@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class LeavetypesTableSeeder extends Seeder
 {
@@ -13,13 +12,13 @@ class LeavetypesTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('leavetypes')->insert(
-        			['leave_name' => string('Annual'),'leave_day' => integer(15)],
-        			['leave_name' => string('Marriage'),'leave_day' => integer(3)],
-        			['leave_name' => string('Maternity'),'leave_day' => integer(30)],
-        			['leave_name' => string('Paternity'),'leave_day' => integer(7)],
-        			['leave_name' => string('Sick'),'leave_day' => integer(15)],
-        			['leave_name' => string('Compassionate'),'leave_day' => integer(2)]
-                );
+        $now = date('Y-m-d H:i:s', strtotime('now'));
+        DB::table('leavetypes')->insert([
+        			['leave_name' => 'Annual','leave_day' => 15, 'created_at' => $now, 'updated_at' => $now],
+        			['leave_name' => 'Marriage','leave_day' => 3, 'created_at' => $now, 'updated_at' => $now],
+        			['leave_name' => 'Maternity','leave_day' => 30, 'created_at' => $now, 'updated_at' => $now],
+        			['leave_name' => 'Paternity','leave_day' => 7, 'created_at' => $now, 'updated_at' => $now],
+        			['leave_name' => 'Sick','leave_day' => 15, 'created_at' => $now, 'updated_at' => $now],
+                ]);
     }
 }

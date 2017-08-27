@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class PositionsTableSeeder extends Seeder
 {
@@ -13,9 +12,10 @@ class PositionsTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('positions')->insert(
-        			['position_name' => string('HR')],
-        			['position_name' => string('Staff')]
-                );
+        $now = date('Y-m-d H:i:s', strtotime('now'));
+        DB::table('positions')->insert([
+        			['position_name' => 'HR', 'created_at' => $now, 'updated_at' => $now],
+        			['position_name' => 'Staff', 'created_at' => $now, 'updated_at' => $now]
+                ]);
     }
 }

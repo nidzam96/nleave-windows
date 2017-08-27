@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class BranchesTableSeeder extends Seeder
 {
@@ -13,9 +12,10 @@ class BranchesTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('branches')->insert(
-        			['branch_name' => string('Kota Bharu')],
-        			['branch_name' => string('Damansara')]
-                );
+        $now = date('Y-m-d H:i:s', strtotime('now'));
+        DB::table('branches')->insert([
+        			['branch_name' => 'Kota Bharu', 'created_at' => $now, 'updated_at' => $now],
+        			['branch_name' => 'Damansara', 'created_at' => $now, 'updated_at' => $now]
+                ]);
     }
 }

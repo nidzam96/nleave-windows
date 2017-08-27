@@ -33,7 +33,6 @@ class CreateStaffTable extends Migration
             $table->float('Maternity_taken');
             $table->float('Paternity_taken');
             $table->float('Sick_taken');
-            $table->float('Hospitalization_taken');
             $table->timestamps();
         });
     }

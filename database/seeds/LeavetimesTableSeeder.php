@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class LeavetimesTableSeeder extends Seeder
 {
@@ -13,10 +12,11 @@ class LeavetimesTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('leavetimes')->insert(
-        			['times_name' => string('FULL')],
-        			['times_name' => string('AM')],
-        			['times_name' => string('PM')]
-                );
+        $now = date('Y-m-d H:i:s', strtotime('now'));
+        DB::table('leavetimes')->insert([
+        			['times_name' => 'FULL', 'created_at' => $now, 'updated_at' => $now],
+        			['times_name' => 'AM', 'created_at' => $now, 'updated_at' => $now],
+        			['times_name' => 'PM', 'created_at' => $now, 'updated_at' => $now]
+                ]);
     }
 }
