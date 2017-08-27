@@ -180,8 +180,12 @@ class AdminController extends Controller
         //get user information
         $user_id  = User::where('email', '=', $email)->first();
 
+        //get position id
+        $position    = $user_id->position;
+        $position_id = Position::where('position_name','='$position,)->first();
+
         //check if user HR or Staff
-        if ($user_id->position != 'Staff') {
+        if ($position_id == 1) {
             $member_role_id = 1;
             $user_id->attachRole($member_role_id);
             $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
