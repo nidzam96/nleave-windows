@@ -93,6 +93,7 @@
 
         eventSources: [
                   "{{ url('/admin/events') }}",
+                  "{{ url('/admin/holiday') }}"
                 ],
 
         eventClick: function(calEvent, jsEvent, view){
@@ -155,14 +156,6 @@
         }
       })
 
-      // function getHolidayDay(hehe){
-      //   var ajax_url = '/admin/holidayDay' + hehe;
-
-      //   $.get(ajax_url, function( data ){
-      //     console.log(data)
-      //   })
-      // }
-
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
         // var ajax_url = '/admin/holiday';
 
@@ -186,7 +179,7 @@
         iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
         iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
 
-        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+        // calculate difference in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
         iWeeks = Math.floor((dDate2.hour() - dDate1.hour()) / 604800000)
 
         if (iWeekday1 < iWeekday2) {
