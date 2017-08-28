@@ -92,8 +92,7 @@
         },
 
         eventSources: [
-                  "{{ url('/admin/events') }}",
-                  "{{ url('/admin/holiday') }}"
+                  "{{ url('/admin/events') }}"
                 ],
 
         eventClick: function(calEvent, jsEvent, view){
