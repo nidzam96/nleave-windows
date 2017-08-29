@@ -57,6 +57,8 @@ Route::get('admin/birthday', 'LeavesController@birthday');
 
 Route::get('admin/holiday', 'LeavesController@holiday');
 
+Route::get('admin/holiday/date/{dtStart}{dtEnd}', ['as' => 'admin.holiday.date', 'uses' => 'LeavesController@holidayDate']);
+
 Route::get('admin/holidayDay/{data}', 'LeavesController@holidayDay');
 
 Route::get('leave/approve/{id}{user_id}', ['as' => 'leave.approve', 'uses' => 'LeavesController@approve']);

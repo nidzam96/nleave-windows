@@ -2,19 +2,18 @@
 // List of events
  $json = array();
 
- $host     = getenv('DB_HOST');
- $dbname   = getenv('DB_DATABASE');
- $username = getenv('DB_USERNAME');
- $password = getenv('DB_PASSWORD');
+ $host     = config('app.host');
+ $dbname   = config('app.database');
+ $username = config('app.username');
+ $password = config('app.password');
 
  // Query that retrieves events
- $requete = "SELECT * FROM leaves WHERE (status = 'Approve')";
+ $requete = "SELECT * FROM leaves WHERE status = 'Approve'";
 
  // connection to the database
  try {
  $bdd = new PDO('mysql:host='.$host.';dbname='.$dbname.'', $username, $password);
  // $bdd = new PDO('mysql:host=localhost;dbname=nazrolhr', 'root', '');
- // $bdd = new PDO({{ DB_HOST }};{{ DB_DATABASE }}, {{ DB_USERNAME }}, {{ DB_PASSWORD }});
  } catch(Exception $e) {
   exit('Unable to connect to database.');
  }

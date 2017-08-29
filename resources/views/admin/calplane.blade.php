@@ -92,7 +92,8 @@
         },
 
         eventSources: [
-                  "{{ url('/admin/events') }}"
+                  "{{ url('/admin/events') }}",
+                  // "{{ url('/admin/holiday') }}"
                 ],
 
         eventClick: function(calEvent, jsEvent, view){
@@ -156,11 +157,12 @@
       })
 
       function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
-        // var ajax_url = '/admin/holiday';
+        // var ajax_url = '/admin/holiday/date/' + dDate1 + dDate2;
 
         // $.get(ajax_url, function( data ){
-        //     console.log(day)
-        //     // getHolidayDay();
+        //     $.each(data, function(start, end){
+        //       console.log(start,end)
+        //     })
         // })
 
         var iWeeks, iDateDiff, iAdjust = 0;

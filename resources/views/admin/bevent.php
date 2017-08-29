@@ -2,10 +2,10 @@
 // List of events
  $json = array();
 
- $host     = getenv('DB_HOST');
- $dbname   = getenv('DB_DATABASE');
- $username = getenv('DB_USERNAME');
- $password = getenv('DB_PASSWORD');
+ $host     = config('app.host');
+ $dbname   = config('app.database');
+ $username = config('app.username');
+ $password = config('app.password');
 
  // Query that retrieves events
  $requete  = "SELECT * FROM birthdays";

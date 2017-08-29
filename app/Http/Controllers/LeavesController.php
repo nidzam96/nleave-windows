@@ -45,12 +45,11 @@ class LeavesController extends Controller
 
     }
 
-    public function holidayDay($data)
+    public function holidayDate($dtStart, $dtEnd)
     {
-        $id = $data->id;
-        // $holiday = Holiday::where();
+        $holiday = Holiday::pluck('start','end');
 
-        return $id;
+        return $holiday;
     }
     /**
      * Show the form for creating a new resource.
