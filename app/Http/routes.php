@@ -128,3 +128,6 @@ Route::post('admin/setting/claim', ['as' => 'setting.claim', 'uses' => 'SettingC
 Route::get('admin/setting/claim/edit/{id}', ['as' => 'setting.claim.edit', 'uses' => 'SettingController@editclaim']);
 
 Route::post('admin/setting/claim/update', ['as' => 'setting.claim.update', 'uses' => 'SettingController@updateclaim']);
+
+//routes for SuperController
+Route::get('admin/add', ['as' => 'admin.add', 'uses' => 'SuperController@add']);

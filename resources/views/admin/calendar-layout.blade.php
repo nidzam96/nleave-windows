@@ -22,7 +22,7 @@
 								Dashboard
 							</a>
 						</li>
-						@if (Auth::user()->role == 1)
+						@if (Auth::user()->role == 1 || Auth::user()->role == 2)
 							<li>
 								<a href="{{ url('/admin/users') }}">
 									<span class="fa fa-users fa-fw"></span>

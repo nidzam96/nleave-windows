@@ -25,6 +25,9 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('admin.add_user') }}">Add a single employee</a>
+                                            @if (Auth::user()->role == 1)
+                                                <a href="{{ route('admin.add') }}">Add new HR</a>
+                                            @endif
                                             <!-- <a href="#">Batch add employee</a> -->
                                         </li>
                                     </ul>

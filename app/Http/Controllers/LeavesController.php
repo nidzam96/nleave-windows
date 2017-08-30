@@ -206,6 +206,8 @@ class LeavesController extends Controller
 
         });
 
+        alert()->success('Leave successfully apply.', 'Good Work!')->autoclose(3000);
+
         return redirect() ->route('admin.leaves');
     }
 
@@ -253,6 +255,8 @@ class LeavesController extends Controller
 
         });
 
+        alert()->success('Leave successfully approve.', 'Good Work!')->autoclose(3000);
+
         return redirect()-> route('admin.leaves');
     }
 
@@ -279,6 +283,7 @@ class LeavesController extends Controller
             $message->to($userEmail->email, $userEmail->name);
 
         });
+        alert()->success('Leave successfully rejected.', 'Good Work!')->autoclose(3000);
 
         return redirect()-> route('admin.leaves');
     }

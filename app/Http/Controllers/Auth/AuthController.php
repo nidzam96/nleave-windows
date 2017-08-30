@@ -54,7 +54,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'position' => 'required|max:20',
+            // 'position' => 'required|max:20',
         ]);
     }
 
@@ -70,11 +70,11 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'position' => $data['position'],
-            'role' => 1,
+            'role' => 2,
+            'position' => 'Staff',
         ]);
 
-        $member_role_id = 1;
+        $member_role_id = 2;
         $user->attachRole($member_role_id);
         return $user;
     }

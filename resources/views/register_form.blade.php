@@ -82,20 +82,6 @@
     	        @endif
 	    	</div>
 
-	    	<div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
-	    	    <!-- <label for="position" class="col-md-4 control-label">Position</label> -->
-
-    	        <select name="position" class="form-control">                                   
-    	            <option value="HR">HR</option>
-    	        </select>
-
-    	        @if ($errors->has('position'))
-    	            <span class="help-block">
-    	                <strong>{{ $errors->first('position') }}</strong>
-    	            </span>
-    	        @endif
-	    	</div>
-
 	        <button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
 	        <a href="{{ url('/') }}" class="btn btn-primary btn-block btn-large">Back</a>
 	    </form>

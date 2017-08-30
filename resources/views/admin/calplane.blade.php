@@ -62,11 +62,13 @@
     {{ Html::style('asset/css/form.css') }}
     {{ Html::style('asset/css/bootstrap-datepicker.min.css') }}
     {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }}
+    {{ Html::style('asset/css/sweetalert.css') }}
 
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
     {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
     {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
     {{ Html::script('asset/js/bootstrap-datepicker.min.js') }}  
+    {{ Html::script('asset/js/sweetalert.min.js') }}  
 
     {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
     {{ Html::script('asset/bower_components/fullcalendar/dist/fullcalendar.js') }}
@@ -161,7 +163,10 @@
 
         $.get(ajax_url, function( data ){
             $.each(data, function(start, end){
-              console.log(start,end)
+              var start = moment(start, 'YYYY-MM-DD H:m:s');
+              var end = moment(end, 'YYYY-MM-DD H:m:s');
+              
+              
             })
         })
 
@@ -305,6 +310,7 @@
 
   @yield('body')
 
+  @include('sweet::alert')
 
   <!-- START JSCRIPT -->
 	<!-- jQuery -->
