@@ -50,6 +50,10 @@ Route::get('user/setUserRole', 'AdminController@setUserRole');
 
 Route::get('/register_form', 'AdminController@registerform');
 
+Route::get('/changepwd', 'AdminController@changepwd');
+
+Route::post('/updatepwd', 'AdminController@updatepwd');
+
 //Route for leave
 Route::get('admin/events', 'LeavesController@index');
 

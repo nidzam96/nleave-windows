@@ -72,7 +72,7 @@ class AdminController extends Controller
         $ltime = Leavetime::all();
         $staff = Staff::all();
 
-        if (Auth()->user()->position == 'HR') {
+        if (Auth()->user()->position == 'Admin' || Auth()->user()->position == 'HR') {
             $leave = Leave::paginate(5);
         }
         else{
@@ -94,7 +94,7 @@ class AdminController extends Controller
     {
         $claim = Claim::all();
 
-        if (Auth()->user()->role == 1) {
+        if (Auth()->user()->role == 1 || Auth()->user()->role == 2) {
             # code...
             $claim_app = Claim_application::paginate(5);
         }
@@ -320,5 +320,31 @@ class AdminController extends Controller
                 }
             }
         }
+    }
+
+    public function changepwd()
+    {
+        $user = User::where('id','=',Auth()->user()->id)->first();
+
+        return view('changepwd')->with('user', $user);
+    }
+
+    public function updatepwd(Request $request)
+    {
+        //validate the password
+        $this->validate($request, [
+                // 'email' => 'required|email',
+                'password' => 'required|min:6|confirmed',
+            ]);
+
+        //hold the data
+        $chgnpwd = bcrypt($request->input('password'));
+
+        //update user information
+        $user = User::where('id','=',Auth()->user()->id)->update(array ('password' => $chgnpwd));
+
+        alert()->success('Password Updated.', 'Good Work!');
+
+        return redirect('admin/leave');
     }
 }

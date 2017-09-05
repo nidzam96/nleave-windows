@@ -66,12 +66,12 @@
 							</a>
 
 							<ul class="dropdown-menu dropdown-messages">
-								<!-- <li>
-									<a href="#">
+								<li>
+									<a href="/changepwd">
 									<i class="fa fa-lock fa-fw"></i>
 									Change Password
 									</a>
-								</li> -->
+								</li>
 								<li>
 									<a href="/logout">
 									<i class="fa fa-sign-out fa-fw"></i>
