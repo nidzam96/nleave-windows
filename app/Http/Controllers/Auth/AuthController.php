@@ -70,11 +70,11 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 2,
+            'role' => 3,
             'position' => 'Staff',
         ]);
 
-        $member_role_id = 2;
+        $member_role_id = 3;
         $user->attachRole($member_role_id);
         return $user;
     }

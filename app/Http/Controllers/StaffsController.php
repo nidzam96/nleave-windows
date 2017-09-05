@@ -24,7 +24,7 @@ class StaffsController extends Controller
     public function __construct(){
         $this->middleware('auth');
 
-        $this->middleware('check_user_role:admin')->except('editStaffInfo');
+        $this->middleware('check_user_role:hr')->except('editStaffInfo');        
     }
     /**
      * Display a listing of the resource.

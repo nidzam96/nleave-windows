@@ -131,3 +131,5 @@ Route::post('admin/setting/claim/update', ['as' => 'setting.claim.update', 'uses
 
 //routes for SuperController
 Route::get('admin/add', ['as' => 'admin.add', 'uses' => 'SuperController@add']);
+
+Route::post('admin/add/hr', ['as' => 'admin.add.hr', 'uses' => 'SuperController@create']);

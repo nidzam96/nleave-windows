@@ -249,7 +249,7 @@
 							<p>Employment Info</p>
 						</div>
 						<div class="col-md-3 col-md-offset-2">
-						@if (Auth::user()->role == 1)	
+						@if (Auth::user()->role == 1 || Auth::user()->role == 2)	
 							<a href="#" type="button" id="employment_edits">Edit</a>
 						@endif
 						</div>
@@ -414,7 +414,7 @@
         					<p>Compensation</p>
         				</div>
         				<div class="col-md-3 col-md-offset-2">
-        				@if (Auth::user()->role == 1)	
+        				@if (Auth::user()->role == 1 || Auth::user()->role == 2)	
         					<a href="#" type="button" id="compensation_edits">Edit</a>
         				@endif
         				</div>

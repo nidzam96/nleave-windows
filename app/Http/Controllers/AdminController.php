@@ -147,9 +147,9 @@ class AdminController extends Controller
     public function add_user(){    
 
         
-        $branch = Branch::all();
-        $ltype = Leavetype::all();
-        $ltime = Leavetime::all();
+        $branch   = Branch::all();
+        $ltype    = Leavetype::all();
+        $ltime    = Leavetime::all();
         $position = Position::all();
         $staff    = Staff::all();
 
@@ -192,12 +192,12 @@ class AdminController extends Controller
 
         //check if user HR or Staff
         if ($position_id->id == 1) {
-            $member_role_id = 1;
+            $member_role_id = 2;
             $user_id->attachRole($member_role_id);
             $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
         }
         else{
-            $member_role_id = 2;
+            $member_role_id = 3;
             $user_id->attachRole($member_role_id);
             $user = User::where('email','=',$email)->update(array ('role' => $member_role_id));
         }
@@ -228,21 +228,26 @@ class AdminController extends Controller
         $user    = User::where('email', '=', Auth()->user()->email )->first();
 
         if ($user->remember_token) {
-            $user_id = Birthday::where('user_id', '=', Auth()->user()->id )->first();
-            $user_b  = $user_id->start;
-
-            $c_year  = 2017;
-            $year    = Carbon::createFromFormat('Y-m-d', $today)->year;
-            $month   = Carbon::createFromFormat('Y-m-d', $user_b)->month;
-            $day     = Carbon::createFromFormat('Y-m-d', $user_b)->day;
-
-            if ($year != $c_year) {
-                $birthday_latest = Carbon::parse($user_b)->format(''.$year.'-'.$month.'-'.$day);
-                $birthday_update = Birthday::where('user_id', '=', Auth()->user()->id)
-                                    ->update(array ('start' => $birthday_latest));
+            if ($user->position == 'Admin') {
+                return redirect('admin/leave');
             }
+            else{
+                $user_id = Birthday::where('user_id', '=', Auth()->user()->id )->first();
+                $user_b  = $user_id->start;
 
-            return redirect('/admin/leave');
+                $c_year  = 2017;
+                $year    = Carbon::createFromFormat('Y-m-d', $today)->year;
+                $month   = Carbon::createFromFormat('Y-m-d', $user_b)->month;
+                $day     = Carbon::createFromFormat('Y-m-d', $user_b)->day;
+
+                if ($year != $c_year) {
+                    $birthday_latest = Carbon::parse($user_b)->format(''.$year.'-'.$month.'-'.$day);
+                    $birthday_update = Birthday::where('user_id', '=', Auth()->user()->id)
+                                        ->update(array ('start' => $birthday_latest));
+                }
+
+                return redirect('/admin/leave');
+            }
         }
         else{
             // $check = Staff::where('email','=',Auth()->user()->email)->first();
@@ -255,51 +260,64 @@ class AdminController extends Controller
                 return redirect('/admin/leave');
             }
             else{
-                $staff = New Staff;
+                if ($user->position == 'Admin') {
 
-                $position    = Position::where('position_name', '=', $user->position)->first();
-                $position_id = $position->id;
+                    $user_id = User::where('email','=',Auth()->user()->email)->first();
 
-                $staff->user_id = $user->id;
-                $staff->full_name = $user->name;
-                $staff->email = $user->email;
-                $staff->password = $user->password;
-                $staff->dob = $today;
-                $staff->branch_id = 1;
-                $staff->position_id = $position_id;
+                    $member_role_id = 1;
+                    $user_id->attachRole($member_role_id);
 
-                $staff->save();
+                    return redirect('admin/leave');
+                }
+                else{
 
-                $employment = New Employment;
+                    $staff = New Staff;
 
-                $position    = Position::where('position_name', '=', $user->position)->first();
-                $position_id = $position->id;
+                    $position    = Position::where('position_name', '=', $user->position)->first();
+                    $position_id = $position->id;
 
-                $employment->email   = $user->email;
-                $employment->user_id = $user->id;
-                $employment->position_id = $position_id;
-                $employment->branch_id = 1;
-                $employment->start = $today;
-                $employment->report = 1;
+                    $staff->user_id = $user->id;
+                    $staff->full_name = $user->name;
+                    $staff->email = $user->email;
+                    $staff->password = $user->password;
+                    $staff->dob = $today;
+                    $staff->branch_id = 1;
+                    $staff->position_id = $position_id;
 
-                $employment->save();
+                    $staff->save();
 
-                $compensation = New Compensation;
+                    $employment = New Employment;
 
-                $compensation->email = $user->email;
-                $compensation->user_id = $user->id;
+                    $position    = Position::where('position_name', '=', $user->position)->first();
+                    $position_id = $position->id;
 
-                $compensation->save();
+                    $employment->email   = $user->email;
+                    $employment->user_id = $user->id;
+                    $employment->position_id = $position_id;
+                    $employment->branch_id = 1;
+                    $employment->start = $today;
+                    $employment->report = 2;
 
-                $birthday = New Birthday;
+                    $employment->save();
 
-                $birthday->email = $user->email;
-                $birthday->user_id = $user->id;
-                $birthday->title   = $user->name;
+                    $compensation = New Compensation;
 
-                $birthday->save();
+                    $compensation->email = $user->email;
+                    $compensation->user_id = $user->id;
 
-                return redirect('admin/leave');
+                    $compensation->save();
+
+                    $birthday = New Birthday;
+
+                    $birthday->email = $user->email;
+                    $birthday->user_id = $user->id;
+                    $birthday->title   = $user->name;
+                    $birthday->start   = $today;
+
+                    $birthday->save();
+
+                    return redirect('admin/leave');
+                }
             }
         }
     }

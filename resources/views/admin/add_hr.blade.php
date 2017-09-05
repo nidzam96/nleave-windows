@@ -25,30 +25,30 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span class="fa fa-plus fa-fw"></span>
-                            New Staff
+                            New HR
                         </div>
 
                         <div class="panel-body">
 
                             <a href="{{ url('admin/users') }}" type="button" class="btn btn-success">Back</a>
 
-                            <form action="#" method="post">
+                            <form action="{{ route('admin.add.hr') }}" method="post">
                                 {{ csrf_field() }}
-                                
+
                                 <h2>Personal Details</h2>
-                                
+
                                 <div class="row">
-                                    <div class="col-md-4 {{ $errors->has('fullname') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Full Name</label>
                                         <input type="text" name="fullname" class="form-control" required="required">
                                     </div>
                                     
-                                    <div class="col-md-4 {{ $errors->has('prefername') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Preferred Name</label>
                                         <input type="text" name="prefername" class="form-control" required="required">
                                     </div>
 
-                                    <div class="col-md-4 {{ $errors->has('gender') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Gender</label>
                                         <select name="gender" class="form-control" required="required">
                                             <option value="">Please select</option>
@@ -60,17 +60,17 @@
 
                                 <div class="row top20">
 
-                                    <div class="col-md-4 {{ $errors->has('email') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Email</label>
                                         <input type="email" name="email" class="form-control" required="required">
                                     </div>
 
-                                    <div class="col-md-4 {{ $errors->has('number') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Phone Number</label>
                                         <input type="text" name="number" class="form-control">
                                     </div>
                                     
-                                    <div class="col-md-4 {{ $errors->has('dob') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Date Of Birth</label>
                                         <input type="date" name="dob" class="form-control">
                                     </div>
@@ -85,38 +85,24 @@
                                         <input type="text" name="empNum" class="form-control">
                                     </div>
 
-                                    <div class="col-md-4 {{ $errors->has('sdate') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Start Date</label>
                                         <input type="date" name="sdate" class="form-control">
                                     </div>
 
-                                    <div class="col-md-4 {{ $errors->has('report') ? 'has-error' : false }}">
-                                        <label>Reports to</label>
-                                        <select name="report" class="form-control">
-                                            <option value="">Please select</option>
-                                            @foreach ($staff as $sta)
-                                                <option value="{{ $sta->user_id }}">{{ $sta->full_name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-md-4">
+                                        <label>Password</label>
+                                        <input type="password" name="password" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row top20">
-                                    <div class="col-md-4 {{ $errors->has('position') ? 'has-error' : false }}">
-                                        <label>Position</label>
-                                        <select name="position" class="form-control">
-                                            <option value="">Please select</option>
-                                            @foreach ($position as $pos)
-                                                <option value="{{ $pos->id }}">{{ $pos->position_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
-                                    <div class="col-md-4 {{ $errors->has('location') ? 'has-error' : false }}">
+                                    <div class="col-md-4">
                                         <label>Location</label>
                                         <select name="location" class="form-control">
                                             <option value="">Please select</option>
-                                            @foreach ($branchview as $branch)
+                                            @foreach ($branch as $branch)
                                                 <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                                             @endforeach
                                         </select>
