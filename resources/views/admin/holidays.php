@@ -6,7 +6,6 @@
  $dbname   = config('app.database');
  $username = config('app.username');
  $password = config('app.password');
- print_r($host, $dbname);
 
  // Query that retrieves events
  $requete  = "SELECT * FROM holidays WHERE status = 1";

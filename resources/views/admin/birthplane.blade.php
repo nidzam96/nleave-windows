@@ -60,13 +60,11 @@
     {{ Html::style('asset/css/fa/css/font-awesome.css') }}
     {{ Html::style('asset/css/dashboard.css') }}
     {{ Html::style('asset/css/form.css') }}
-    {{ Html::style('asset/css/bootstrap-datepicker.min.css') }}
     {{ Html::style('asset/bower_components/fullcalendar/dist/fullcalendar.css') }}
 
     {{ Html::script('asset/css/jquery/dist/jquery.min.js') }}  
     {{ Html::script('asset/css/bootstrap/dist/js/bootstrap.min.js') }}  
     {{ Html::script('asset/bower_components/jquery-ui/jquery-ui.min.js') }}  
-    {{ Html::script('asset/js/bootstrap-datepicker.min.js') }}  
 
     {{ Html::script('asset/bower_components/moment/min/moment.min.js') }}
     {{ Html::script('asset/bower_components/fullcalendar/dist/fullcalendar.js') }}
